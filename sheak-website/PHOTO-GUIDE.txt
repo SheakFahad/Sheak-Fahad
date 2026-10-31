@@ -1,0 +1,34 @@
+PHOTO GUIDE  -  every photo on the website is a file in the "images" folder.
+To change a photo: put your picture in the same place with the SAME NAME (keep .jpg), then refresh the browser (Ctrl+F5).
+Every photo currently there is a DEMO picture with its file name written on it.
+
+FIXED PHOTOS
+  images/profile.jpg            your face photo (hero circle + small logo)       800x800
+  images/about.jpg              About section portrait                           900x1100
+  images/work/zensoft.jpg       company photos                                   800x600
+  images/work/goldenharvest.jpg
+  images/work/allsheba.jpg
+  images/edu/ssc.jpg            SSC / HSC                                        800x600
+  images/edu/hsc.jpg
+  images/projects/pos.jpg       project covers                                   1200x750
+  images/projects/salon.jpg  islamichub.jpg  healthcare.jpg  uninest.jpg
+  images/uni/1.jpg ... 12.jpg   University memory gallery                        1200x800
+
+TRAVEL (automatic by folder name)
+  Bangladesh : images/travel/bangladesh/<district>/<spot>/1.jpg ... 10.jpg
+  Countries  : images/travel/world/<country>/<spot>/1.jpg ... 10.jpg
+  Folder name = lowercase, spaces become "-"   (Cox's Bazar -> cox-s-bazar, Sajek Valley -> sajek-valley)
+
+HOW TO ADD A NEW DISTRICT / SPOT
+  1. Open data.js -> TRAVEL_BD (or TRAVEL_WORLD). Copy the commented example, remove the // marks, edit names.
+       { district:"Rangamati", spots:[
+           { name:"Sajek Valley", date:"2024-03", note:"Clouds below the hills", photos:10 },
+           { name:"Kaptai Lake",  date:"2024-03", note:"", photos:12 } ] },
+  2. Open the VS Code terminal and run:   node setup-photos.js
+     It creates all the folders and numbered placeholder files (1.jpg ... 10.jpg) for you.
+  3. Replace each placeholder with your real photo (same name). Done.
+  Want more than 10 photos? change  photos:10  to  photos:15  and run node setup-photos.js again.
+  When your real places are added, set  SHOW_DEMO = false  at the top of data.js (hides the demo district/country).
+
+QUICK TRICK: open the site as  index.html?edit  (or press Ctrl+Shift+E), click any photo, choose a file -
+it shows instantly and tells you which file name to save it as.

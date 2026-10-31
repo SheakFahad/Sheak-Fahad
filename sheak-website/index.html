@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sheak Fahad — UI/UX & Product Designer</title>
+<meta name="description" content="Personal website of Sheak Fahad: UI/UX and product design projects, research, education and journal.">
+<meta property="og:title" content="Sheak Fahad — UI/UX & Product Designer">
+<meta property="og:description" content="Projects, research, education and journal of Sheak Fahad.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="pre" aria-hidden="true"><span>SF</span></div>
+<a class="skip" href="#main">Skip to content</a><div id="prog"></div>
+
+<!-- ============ NAVBAR ============ -->
+<header class="nav">
+  <a class="logo" href="#home"><span class="av"><img src="images/profile.jpg" alt="" onerror="var e=['png','jpeg','webp'],i=+(this.dataset.i||0);if(i<e.length){this.dataset.i=i+1;this.src='images/profile.'+e[i]}else{this.parentNode.classList.add('noimg');this.remove()}"><b>SF</b></span>Sheak Fahad</a>
+  <button class="theme" aria-label="Toggle dark mode">◐</button><button class="menu" aria-label="Open menu" aria-expanded="false">☰</button>
+  <nav id="links">
+    <a href="#home">Home</a><a href="#about">About</a><a href="#career">Career</a><a href="#education">Education</a>
+    <a href="#projects">Projects</a><a href="#research">Research</a><a href="#skills">Skills</a>
+    <a href="#travel">Travel</a><a href="#memories">Memories</a><a href="#hobbies">Hobbies</a><a href="#message">Contact</a>
+  </nav>
+</header>
+
+<main id="main">
+
+<!-- ============ 1. HOME ============ -->
+<section id="home" class="hero">
+  <canvas id="net" aria-hidden="true"></canvas><span class="orb o1"></span><span class="orb o2"></span><span class="grid-bg"></span>
+  <div class="hero-grid">
+    <div class="hero-in">
+      <p class="eyebrow">UI/UX &amp; PRODUCT DESIGN</p>
+      <h1>Hi, I’m <span>Sheak Fahad</span></h1>
+      <p class="role-line">I am a <b id="typed"></b></p>
+      <p class="lead">I design clear, human-centred digital products — from first sketch to working interface.</p>
+      <div class="cta"><a class="btn gold" href="#projects">View my work</a><a class="btn ghost" href="#contact">Get in touch</a></div>
+    </div>
+    <div class="hero-pic">
+      <div class="photo"><img src="images/profile.jpg" alt="Portrait of Sheak Fahad" onerror="var e=['png','jpeg','webp'],i=+(this.dataset.i||0);if(i<e.length){this.dataset.i=i+1;this.src='images/profile.'+e[i]}else{this.parentNode.classList.add('noimg');this.remove()}"><span class="ini">SF</span></div>
+      <span class="fl f1">UI/UX Designer</span><span class="fl f2">Graphics Designer</span><span class="fl f3">Traveler</span><span class="fl f4">Data Artist</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. ABOUT ============ -->
+<section id="about"><h2>About Me</h2><p class="sub">Designer, researcher, explorer</p>
+<div class="about2"><div class="abph reveal" id="abph"></div><div><p class="intro" id="abt"></p><div class="love" id="love"></div><h3 class="gh">Where I have worked</h3><div class="co" id="cos"></div></div></div></section>
+
+<!-- ============ 3. CAREER ============ -->
+<section id="career"><h2>Career &amp; Experience</h2><p class="sub">Three companies, four roles</p><div class="skills" id="rolechips"></div><div class="exp" id="exp"></div></section>
+
+<!-- ============ 4. EDUCATION ============ -->
+<section id="education"><h2>Education &amp; University Life</h2><p class="sub">From school to university</p>
+<div class="schools" id="sch"></div><div id="edu"></div><h3 class="gh">University memory gallery</h3><div class="mosaic" id="umem"></div></section>
+
+<!-- ============ 5. PROJECTS ============ -->
+<section id="projects"><h2>Projects &amp; Case Studies</h2><p class="sub">What I built and the part I played</p><div class="pgrid" id="pg"></div><div class="pmore" id="pmore"></div></section>
+
+<!-- ============ 6. RESEARCH ============ -->
+<section id="research"><h2>Research &amp; Thesis</h2><p class="sub">Academic research</p><div id="res"></div></section>
+
+<!-- ============ 7. SKILLS ============ -->
+<section id="skills"><h2>Skills &amp; Achievements</h2><p class="sub">Tools, craft and milestones</p><div class="sk-grid" id="skg"></div><div class="marq"><div id="marq"></div></div><h3 class="gh">Achievements</h3><div class="grid" id="ach"></div></section>
+
+<!-- ============ 8. TRAVEL JOURNAL ============ -->
+<section id="travel"><h2>Travel Journal</h2><p class="sub">Bangladesh and the world — every place, every photo</p>
+<div class="thead"><div class="rtabs" id="rtabs" role="tablist" aria-label="Travel region"></div><div class="tvs" id="tvs"></div></div>
+<div class="tlay" id="tlay"><div class="tmain"><div class="gchips" id="gchips"></div><div id="tview"></div></div>
+<aside class="tside" id="tside"><div id="map" class="map small" role="region" aria-label="Map of visited places"></div></aside></div></section>
+
+<!-- ============ 9. LIFE & MEMORIES ============ -->
+<section id="memories">
+  <h2>Life &amp; Memories</h2>
+  <p class="sub">Moments that matter</p>
+  <div class="grid" id="mem"></div>
+</section>
+
+<!-- ============ 10. HOBBIES ============ -->
+<section id="hobbies"><h2>Hobbies &amp; Interests</h2><p class="sub">What makes me, me</p><div class="marq big"><div id="hw"></div></div><div class="bento" id="bento"></div></section>
+
+<section id="message"><h2>Get in Touch</h2><p class="sub">Have a project, an idea or just want to say hi?</p>
+<div class="cwrap"><div class="cside"><h3>Let’s build something together</h3><p>Tell me a little about what you need — I’ll reply as soon as I can.</p><div id="cquick"></div></div>
+<form id="cform" class="cform"><label>Your name<input name="name" required maxlength="100" placeholder="Your name"></label><label>Your email<input name="email" type="email" required placeholder="you@example.com"></label><label>Subject<input name="subject" maxlength="120" placeholder="What is it about?"></label><label>Message<textarea name="message" rows="5" required maxlength="2000" placeholder="Write your message…"></textarea></label>
+<div class="cbtn"><button class="btn gold" type="submit">Send message</button><button class="btn dark" type="button" id="cwa">Send on WhatsApp</button></div><p id="cst" role="status"></p></form></div></section>
+</main>
+
+<!-- ============ 11. CONTACT ============ -->
+<footer id="contact">
+  <div class="f-in">
+    <div class="f-top">
+      <div><h2>Let’s build something great together</h2><p>Open to design opportunities, collaborations and good conversations.</p><a class="btn gold" id="mailbtn" href="#contact" hidden>Email me</a></div>
+      <div class="f-cols">
+        <div><h4>Explore</h4><ul><li><a href="#about">About</a></li><li><a href="#projects">Projects</a></li><li><a href="#research">Research</a></li><li><a href="#travel">Travel</a></li></ul></div>
+        <div><h4>Contact</h4><ul id="fc"></ul></div>
+      </div>
+    </div>
+    <h4 class="fh">Find me online</h4>
+    <div class="soc" id="soc"></div>
+    <div class="f-bot"><span>© <span id="year"></span> Sheak Fahad. All rights reserved.</span><a href="#home">Back to top ↑</a></div>
+  </div>
+</footer>
+
+<dialog id="lb"><button class="x" aria-label="Close">✕</button><button class="pv" aria-label="Previous">‹</button><img alt=""><button class="nx" aria-label="Next">›</button><p></p></dialog>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="data.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
