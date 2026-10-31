@@ -19,6 +19,12 @@ window.imgErr=el=>{const b=el.dataset.base;if(b){const x=(+el.dataset.x||0)+1;if
  const d=document.createElement('div');d.className='slot';d.dataset.path=el.dataset.path||'';d.innerHTML=`<span>📷</span><small>${esc(el.dataset.sz||'Photo here')}</small>`;el.replaceWith(d)};
 const slot=(s,sz,a)=>s?`<img loading="lazy" data-path="${esc(s)}" data-base="${esc(s.replace(/\.\w+$/,''))}" data-sz="${esc(sz)}" src="${esc(s)}" alt="${esc(a)}" onerror="imgErr(this)">`:`<div class="slot"><span>📷</span><small>Photo here · ${esc(sz)}</small></div>`;
 const slotGrid=(dir,sz,n=12)=>Array.from({length:n},(_,i)=>slot(`${dir}/${i+1}.jpg`,sz,'Photo '+(i+1))).join('');
+// ===== hero (text + floating badges come from data.js -> HERO) =====
+(()=>{const H=Object.assign({eyebrow:'UI/UX & PRODUCT DESIGN',greeting:'Hi, I’m',name:'Sheak Fahad',lead:'',btn1:{text:'View my work',href:'#projects'},btn2:{text:'Get in touch',href:'#message'},badges:[]},typeof HERO!=='undefined'?HERO:{});
+ const q=x=>document.querySelector('#home '+x),safeHref=u=>/^(#|https?:\/\/|mailto:|\/)/.test(u||'')?u:'#';
+ q('.eyebrow').textContent=H.eyebrow;q('h1').innerHTML=`${esc(H.greeting)} <span>${esc(H.name)}</span>`;if(H.lead)q('.lead').textContent=H.lead;
+ const b1=q('.btn.gold'),b2=q('.btn.ghost');b1.textContent=H.btn1.text;b1.href=safeHref(H.btn1.href);b2.textContent=H.btn2.text;b2.href=safeHref(H.btn2.href);
+ $('#hbadges').innerHTML=(H.badges||[]).slice(0,6).map((b,i)=>`<span class="hb hb${i+1}" style="--i:${i}"><i>${esc(b.icon||'✦')}</i>${esc(b.text)}</span>`).join('')})();
 // typing role
 (()=>{const R=ROLES,el=$('#typed');let r=0,c=0,d=0;(function t(){const w=R[r];el.textContent=w.slice(0,d?--c:++c);if(!d&&c===w.length){d=1;return setTimeout(t,1500)}if(d&&!c){d=0;r=(r+1)%R.length}setTimeout(t,d?40:90)})()})();
 // particle network

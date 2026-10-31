@@ -66,7 +66,23 @@ const CONTACT = {
 
 // ================= PROFILE CONTENT (edit freely) =================
 // Photo size guide is written next to every photo path. Put files in the images/ folders.
-const ROLES = ["UI/UX Designer","Graphics Designer","Data Artist","Researcher"];
+const ROLES = ["UI/UX Designer","Graphics Designer","Data Artist","Researcher"];   // the typing animation under your name
+
+// ---- HOME / HERO: change any text here and the home page updates. badges = the floating labels around your photo (add / remove / reorder freely, up to 6).
+const HERO = {
+  eyebrow:"UI/UX & PRODUCT DESIGN",
+  greeting:"Hi, I’m",
+  name:"Sheak Fahad",
+  lead:"I design clear, human-centred digital products — from first sketch to working interface.",
+  btn1:{ text:"View my work", href:"#projects" },
+  btn2:{ text:"Get in touch", href:"#message" },
+  badges:[
+    { icon:"🎨", text:"UI/UX Designer" },
+    { icon:"🖌️", text:"Graphics Designer" },
+    { icon:"✈️", text:"Traveler" },
+    { icon:"📊", text:"Data Artist" }
+  ]
+};
 
 const ABOUT = {
   intro:"I’m a designer and researcher with a B.Sc. in Computer Science & Engineering from Green University of Bangladesh. I have worked across three companies — shaping clear interfaces, strong visuals and meaningful data stories — and I’m happiest when I’m exploring somewhere new.",
