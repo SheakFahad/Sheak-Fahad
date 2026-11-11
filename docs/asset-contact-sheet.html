@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Asset Contact Sheet</title>
+<style>
+:root{--bg:#08090D;--card:#101A35;--tx:#F5F7FF;--mut:#9aa3c7;--cy:#51E5FF;--vi:#A678FF}
+body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.5 system-ui,sans-serif;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:15px;color:var(--cy);margin:28px 0 10px;letter-spacing:.08em;text-transform:uppercase}
+p{color:var(--mut);margin:0 0 8px}
+.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+figure{margin:0;background:var(--card);border-radius:12px;overflow:hidden;border:1px solid #ffffff14}
+img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block;background:#000}
+figcaption{padding:8px 10px;font-size:12px}figcaption b{display:block;color:var(--tx)}figcaption span{color:var(--mut)}
+.t{display:inline-block;font-size:10px;padding:1px 7px;border-radius:99px;margin-top:4px;background:#4263FF33;color:#b9c6ff}
+.t.ai{background:#A678FF33;color:#d7c4ff}.t.logo{background:#51E5FF22;color:var(--cy)}
+</style></head><body>
+<h1>Sheak Fahad — Asset Contact Sheet</h1>
+<p>Generated 2026-11-11. Images load from their original location (<code>../sheak-website/images/</code>); nothing was copied. Demo placeholders are omitted.</p>
+<script>
+const B='../sheak-website/images/';
+const G=[
+ ['Personal portraits (ORIGINAL — never alter the face)',[
+  ['profile.jpg','Hero portrait','orig'],['about.jpg','With thesis','orig'],['uni/2.jpg','Standing, campus','orig'],['uni/3.jpg','Sitting on lawn','orig'],
+  ['uni/9.jpg','Arms crossed','orig'],['uni/11.jpg','Casual, lanyard','orig'],['uni/6.jpg','Thesis, thumbs up','orig']]],
+ ['Friends & university life',[['uni/5.jpg','Selfie, 2 friends','orig'],['uni/8.jpg','Group of 8','orig'],['uni/10.jpg','Graduation Day CSE 221','orig']]],
+ ['Campus / environment',[['uni/1.jpg','GUB main building (rights?)','env'],['uni/4.jpg','Sunset silhouette','env'],['uni/7.jpg','Thesis cover','env'],['uni/12.jpg','Brick corridor','env'],['edu/ssc.jpg','School field (SSC)','env'],['edu/hsc.jpg','HSC college (AI-looking)','ai']]],
+ ['Company logos',[['work/zensoft.jpg','Zensoft Lab','logo'],['work/goldenharvest.jpg','Golden Harvest Infotech','logo'],['work/allsheba.jpg','All Sheba Limited','logo']]],
+ ['Project covers (AI-looking mock-ups, not screenshots)',[['projects/pos.jpg','POS Dashboard','ai'],['projects/salon.jpg','Hair Salon Booking','ai'],['projects/islamichub.jpg','Islamic Hub','ai'],['projects/healthcare.jpg','Healthcare Web App','ai'],['projects/uninest.jpg','UniNest','ai']]],
+ ['Planning reference (do not publish)',[['../../kkkkk.png','Storyboard (AI-drawn face)','ai']]]
+];
+const tag={orig:['ORIGINAL',''],env:['ORIG-ENV',''],ai:['AI? / mock-up','ai'],logo:['LOGO','logo']};
+document.write(G.map(([h,items])=>`<h2>${h}</h2><div class="g">${items.map(([f,c,t])=>`<figure><img loading="lazy" src="${f.startsWith('../')?f.replace('../../','../'):B+f}" alt="${c}"><figcaption><b>${c}</b><span>${f}</span><br><i class="t ${tag[t][1]}">${tag[t][0]}</i></figcaption></figure>`).join('')}</div>`).join(''));
+</script>
+</body></html>
