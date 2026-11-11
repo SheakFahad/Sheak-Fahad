@@ -17,8 +17,17 @@
 | `notification_logs`, `rate_limits` | ✗ | ✗ | read only (writes by server/RPC) |
 Every table has `ENABLE ROW LEVEL SECURITY` and `FORCE ROW LEVEL SECURITY`. A migration test asserts that no table lacks RLS.
 
+## Private-by-default content & media
+- Every new content row starts `status='draft'`. Every new media asset starts `status='draft'`, `visibility='private'`.
+- Private files live only in `media-private` (no public policy at all). A file reaches `media-public` **only** through the admin "Publish" server action, and "Unpublish" deletes the public copy. A leaked or guessed URL to a private asset therefore returns 403/404.
+- The public `media_assets_public` view exposes only published rows and safe columns (no private_path, original filename, uploader or tags marked internal).
+- Publishing content that references unpublished media is blocked server-side (and shown in the UI).
+- Disabled sections (`site_sections.enabled=false`) are excluded by RLS-safe queries, the sitemap, search and the AI context, and their routes return 404.
+- Draft preview uses `preview_tokens` (hashed, 30-minute expiry, admin-created). The preview route renders drafts with a server-side admin check and sends `noindex` + `Cache-Control: private, no-store`.
+
 ## Storage policies
-- Public buckets: `select` for everyone; `insert/update/delete` only `is_admin()`.
+- `media-private`, `story-uploads`: no `select` for anon/authenticated non-admins; admin read via signed URLs; admin insert/update/delete.
+- `media-public`: `select` for everyone; insert/update/delete only `is_admin()` (in practice only the publish action writes here).
 - `story-uploads`: no public select. Insert happens only from `/api/stories` after server-side validation (magic-byte check, ≤ 5 MB, jpeg/png/webp, re-encoded with `sharp` to strip EXIF/GPS). The server uses the service role for this single write into a random path. Admin reads via 60-second signed URLs.
 
 ## Forms & abuse
@@ -34,7 +43,7 @@ Every table has `ENABLE ROW LEVEL SECURITY` and `FORCE ROW LEVEL SECURITY`. A mi
 - Supabase Auth: email + password with a strong password, optional TOTP MFA (recommended), session cookies via `@supabase/ssr`, middleware refreshes them.
 - Server actions verify `is_admin()` again server-side before any mutation (defence in depth).
 
-## AI assistant safety
+## AI assistant safety (optional feature, **off by default**)
 Context = published public content only. The system prompt forbids inventing personal facts. The visitor's text is treated as a question, never as instructions that change the rules. No tool use and no browsing. Rate limited.
 
 ## Privacy rules for content

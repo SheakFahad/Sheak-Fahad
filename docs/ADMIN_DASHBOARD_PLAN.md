@@ -14,7 +14,7 @@ Same identity (dark glass, Unbounded/Manrope) but calmer: no 3D, no Lenis, no cu
 | Story Submissions | pending first | detail with photo (signed URL) | approve (choose to publish photo or not), reject (reason), delete |
 | Projects + Case Studies | sortable (drag reorder), featured toggle | tabs: Basics · Case study · Media · SEO · বাংলা | publish/unpublish, preview, duplicate |
 | Career (experience) | ordered list | form with date pickers, "current" toggle | reorder, publish |
-| Education | ordered | form + "show result publicly" toggle | |
+| Education | ordered | form + **"Show GPA/CGPA publicly" toggle (off by default)** | |
 | Research | single/multi | rich sections + architecture JSON editor with live diagram preview | upload documents |
 | Skills | grouped by category | form + evidence picker (link projects/videos) | reorder |
 | Achievements | list | form + certificate upload (PDF/image) | |
@@ -22,9 +22,12 @@ Same identity (dark glass, Unbounded/Manrope) but calmer: no 3D, no Lenis, no cu
 | Travel | table + map preview | form with map click-to-pick (lat/lng optional), gallery upload | `is_demo` rows cannot be published |
 | Memories | timeline | form + multi-photo upload | |
 | Hobbies | bento preview | form | span toggle |
-| Media Library | grid, filter by bucket/type, unused detector | alt (EN/BN), caption, focal point picker, "original photo" flag | replace file, delete (blocked if referenced) |
+| **Media Library / File Manager** | folder tree (create, rename, move, delete empty) · grid/list · filters: type, folder, category, tag, status, visibility, date · search · unused detector · storage usage meter | title, description, tags, date, category, alt + caption (EN/BN), focal point, "original photo" flag, status + visibility, version history | multi-file drag-and-drop upload with progress (resumable > 6 MB), bulk move/tag/publish/private/delete, **replace file (same ID)**, **"Use in…"** assign to any section/item, usage panel, private preview (signed URL), copy public link (published only), external video URL + poster |
+| **Sections & Pages** | all `site_sections` with toggles: enabled, in nav, status, visibility; drag reorder | title, nav label, intro, hero media, SEO, EN/BN | **add a new section/page**, block builder (rich text, media, gallery, video, cards, timeline, quote, CTA, stats, embed), preview, hide/unpublish section |
 | Social Links | list | platform, URL (validated), placement toggles | reorder |
-| Website Settings | — | title, tagline, SEO description, OG image, default theme, feature toggles (assistant, explore mode, sound), maintenance mode | export JSON backup |
+| Website Settings | — | title, tagline, SEO description, OG image, default theme, feature toggles (AI assistant — off by default, explore mode, sound), AI provider/model display (keys stay in env), maintenance mode | export JSON backup |
+
+**Admin route additions:** `/admin/media` (library), `/admin/sections` (sections, custom pages, block builder), `/admin/preview/[token]`.
 
 ## Editor UX
 zod validation inline · autosave drafts every 10s (local) + explicit Save · unsaved-changes warning · upload progress · toasts · Markdown editor with preview for long text · EN | বাংলা tabs (Bangla optional per field) · status pill (Draft/Published/Archived) + visibility select · "Preview" opens the public page with a signed draft token (server-verified, admin only) · every save triggers `revalidateTag`.

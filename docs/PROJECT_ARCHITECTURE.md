@@ -15,7 +15,7 @@
 | i18n | **next-intl** (`en` default, `bn` at `/bn/...`) | 4.15.x | |
 | Command palette | **cmdk** | 1.1.x | Ctrl/⌘+K |
 | Email | **Resend** (optional) | 6.38.x | |
-| AI | **@anthropic-ai/sdk**, model `claude-opus-5-5` (default; see §6) | 1.8.x | Optional |
+| AI | Provider-agnostic interface; SDK added only when the owner enables it (see §6) | — | Optional, off by default |
 | Maps (2D fallback) | Leaflet + react-leaflet + OSM/CARTO tiles | 1.9.4 / 5.0 | Used where WebGL is off |
 | Images | next/image (+ `sharp` at build) | 0.35.x | |
 | Hosting | **Vercel** + GitHub | — | |
@@ -78,13 +78,20 @@ Admin ──► /admin/login (Supabase Auth) ──► RLS is_admin() ──► 
 ## 5. Page transitions
 GSAP curtain (two-panel wipe in brand gradient) + camera move in the persistent canvas. Implemented with a `TransitionLink` that runs the exit timeline, then `router.push`, and the next page's entrance timeline runs on mount. Under reduced motion it becomes an instant cross-fade.
 
-## 6. AI Portfolio Assistant
-- **Route:** `app/api/assistant/route.ts` (Node runtime), streams text to the client.
-- **Model:** `claude-opus-5-5` (current default). A cheaper option is `claude-haiku-5-5` ($0.10/$0.50 per MTok vs $4/$20). **The owner decides** (see MISSING_INFORMATION J). Model ID lives in `ASSISTANT_MODEL` env.
+## 6. AI Portfolio Assistant (optional — disabled by default)
+- **Owner decision (2026-11-11):** no paid model is a dependency. `site_settings.features.assistant = false` by default. The site, search and admin panel work fully without AI.
+- **Provider-agnostic interface** `lib/ai/provider.ts` (`answer(question, context): AsyncIterable<string>`). No AI SDK is installed until the owner picks a model. A cost-effective option for later is `claude-haiku-5-5` ($0.10/$0.50 per MTok), configured by `AI_PROVIDER` + `AI_MODEL` + key env vars and toggled in Admin → Settings.
+- **Route:** `app/api/assistant/route.ts` (Node runtime) streams text, and returns `404` when the feature is off or no key is set.
 - **Knowledge:** a deterministic text snapshot of **published, public** rows only (profile, experiences, education, projects + case studies, videos, research, skills, achievements, hobbies, social links). Built server-side, sorted by stable keys, cached 10 minutes, and placed in the `system` prompt with `cache_control` (prompt caching makes repeated questions ~90% cheaper on that prefix). No visitor stories, messages or private data are ever included.
 - **Guardrails:** the system prompt says to answer only from the snapshot, say "I don't have that information — you can ask Sheak directly via the contact page" otherwise, never guess personal details, and keep answers short. Refusals: `betas: ["server-side-fallback-2026-07-01"]`, `fallbacks: "default"`, and `stop_reason` checked before reading content.
 - **Abuse limits:** 20 questions/IP/hour (Postgres rate-limit table), max 500 characters per question, last 6 turns kept, `max_tokens` ~1,024 for chat answers.
 - **Graceful degradation:** with no `ANTHROPIC_API_KEY`, the widget switches to "Smart search" mode, answering with matching content cards from `/api/search` plus contact links. The UI labels which mode is active.
+
+## 6b. CMS & Media Library (owner requirement 2026-11-11)
+- **Every public section is data-driven:** `site_sections` controls existence, order, nav, titles, SEO and visibility. Section pages render DB rows plus optional `page_blocks`. New sections and pages are created from the admin panel (`pages` + `page_blocks`, generic route `app/[locale]/[section]`).
+- **Media Library** (`/admin/media`): folder tree, multi-file drag-and-drop upload (images, videos, PDFs, CV, certificates, docs), metadata (title, description, tags, date, category, alt EN/BN), grid/list views, filters (type, folder, status, tag, date), bulk actions (move, tag, publish, make private, delete), replace file, "Use in…" assignment, a usage panel, and a private preview with signed URLs.
+- **Workflow:** Draft → Preview (token link) → Publish, with Private/Unlisted options and Unpublish/Archive at any time. A whole section can be hidden with one toggle.
+- **Content layer:** `lib/content/*` repository functions are the only way pages get data. They read Supabase when configured and `content/fallback.json` otherwise, so components never import literals.
 
 ## 7. Search (Ctrl/⌘+K)
 Postgres `tsvector` generated columns on searchable tables, unioned in a `search_content(q, locale)` SQL function (SECURITY INVOKER, so RLS applies). Static routes and actions (toggle theme, language, Explore Mode, copy email) come from the client. Results are grouped by type.
@@ -104,8 +111,9 @@ SUPABASE_SERVICE_ROLE_KEY=          # server-only, never NEXT_PUBLIC_
 RESEND_API_KEY=                     # optional
 NOTIFY_EMAIL_TO=fahadsheak222@gmail.com
 NOTIFY_EMAIL_FROM=                  # e.g. "Portfolio <noreply@yourdomain>"
-ANTHROPIC_API_KEY=                  # optional
-ASSISTANT_MODEL=claude-opus-5-5
+AI_PROVIDER=                        # optional, empty = assistant disabled
+AI_MODEL=                           # e.g. claude-haiku-5-5 (cost-effective)
+AI_API_KEY=                         # optional
 NEXT_PUBLIC_TURNSTILE_SITE_KEY=     # optional
 TURNSTILE_SECRET_KEY=               # optional
 IP_HASH_SALT=                       # random 32+ chars

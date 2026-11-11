@@ -2,6 +2,13 @@
 
 Everything below stays an **editable placeholder** in the CMS. Placeholders are never shown publicly as fact.
 
+## ✅ Resolved by owner (2026-11-11)
+- WhatsApp: **01794506663** → link `https://wa.me/8801794506663`.
+- UniNest = **Student Housing & Roommate Finder**. The current cover art (which shows a university-life app) is flagged "replace" in the admin panel.
+- Downloads: only the owner's own CV, relevant certificates and portfolio videos may be used. **Nothing is copied now.** The owner uploads selected files later via the Media Library. All Sheba company videos stay **private** until permission is confirmed. Other people's documents are never used.
+- AI assistant: optional, **off by default**, no paid model required; a cost-effective model is configured later.
+- GPA/CGPA: **hidden by default**, with a per-row "show publicly" toggle in the admin panel.
+
 ## A. Conflicts to resolve (high priority)
 1. **WhatsApp number:** the brief says `0179450663` (10 digits). The CV and wa.me link say `01794506663`. → Using **01794506663** unless told otherwise.
 2. **UniNest:** cover art says "University Life app" (classes, study groups, events). The brief says "Student Housing & Roommate Finder". Which is correct?

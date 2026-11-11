@@ -34,8 +34,22 @@ Migrations: `supabase/migrations/` (timestamped, version-controlled). Seed: `sup
 | 18 | `site_settings` | singleton, site_title, tagline, seo_description, og_media_id, theme_default, features jsonb (assistant/explore/sound toggles), maintenance bool | |
 | 19 | `admin_profiles` | user_id PK FK auth.users, role admin_role, display_name, created_at | Membership = admin |
 | 20 | `notification_logs` | kind, ref_id, channel ('email'), recipient, status, provider_id, error, created_at | Server-only writes |
-| S1 | `media_assets` | bucket, path, mime, size_bytes, width, height, alt, alt_bn, caption, focal_x, focal_y, is_original_photo bool, blurhash, uploaded_by | Admin-only write |
+| S1 | `media_assets` | folder_id FK, kind ('image','video','pdf','document','audio','other'), title, description, tags text[], category, taken_on date, original_filename, mime, size_bytes, width, height, duration_s, alt, caption, translations jsonb, focal_x, focal_y, blurhash, is_original_photo bool, **status** (draft/published/archived, default draft), **visibility** (default **private**), private_path (always), public_path (only while published), external_url (YouTube/Vimeo/large files), version int, replaced_at, uploaded_by | **Private by default.** Admin-only read/write on the table; the public sees a safe view only |
 | S2 | `rate_limits` | key (ip_hash+action), window_start, count | Used by RPCs; not readable by anon |
+| S3 | `media_folders` | parent_id FK self (nullable), name, slug, path (materialised, e.g. `/travel/2026/sajek`), description, sort_order | Folder tree for the Media Library (admin only) |
+| S4 | `site_sections` | key (unique: 'home','about','career','education','projects','video_studio','research','skills','travel','memories','hobbies','contact', or custom), kind ('builtin','custom'), route_slug, title, nav_label, intro, hero_media_id, **enabled** bool, **show_in_nav** bool, status, visibility, sort_order, seo_title, seo_description, translations | Controls every section: hide/unpublish, rename, reorder nav. A disabled section returns 404 and is removed from nav, sitemap, search and AI context |
+| S5 | `pages` | section_id FK (nullable), slug unique, title, excerpt, cover_media_id, status, visibility, published_at, seo fields, translations | **Admin-created custom pages / new sections** (rendered by the generic page route) |
+| S6 | `page_blocks` | page_id FK cascade (or section_id FK for extra blocks on built-in sections), type ('rich_text','media','gallery','video','cards','timeline','quote','cta','stats','embed','divider'), data jsonb (zod-validated per type), status, visibility, sort_order, translations | Block builder: add content to any page without code |
+| S7 | `preview_tokens` | token_hash, entity_type, entity_id, expires_at, created_by | Short-lived (30 min) draft preview links, admin-only |
+
+### Media Library rules
+- Upload target is **always** the private bucket (`media-private/<uuid>/<filename>`). Multi-file upload runs in parallel (max 4 concurrent), with progress and resumable uploads (TUS) for files over 6 MB.
+- **Publish** (server action, admin only): copies the object to `media-public/<uuid>/<filename>`, sets `public_path`, `status='published'`, `visibility='public'`. **Unpublish/private**: deletes the public copy and clears `public_path`. The public bucket therefore only ever contains files explicitly published.
+- Content can be published only if every media it references is published. The admin UI offers "publish attached media too" (explicit checkbox), never silently.
+- **Replace file** keeps the same `media_assets.id` (so every assignment keeps working): uploads the new version, bumps `version`, re-publishes the public copy if it was published, and removes the old object.
+- **Assign to section:** from the asset detail ("Use in…"), pick a target (project gallery, travel place, memory, certificate, video, page block, section hero…). This writes the existing FK/join rows. The view `media_usage` (union of all FK references) shows where an asset is used and blocks deleting assets that are still in use.
+- Large videos (> 50 MB on the free plan) → `external_url` (YouTube/Vimeo unlisted) with an uploaded poster image.
+- All Sheba company videos: `visibility='private'` until the owner confirms permission.
 
 ## Key functions
 - `is_admin() returns bool` — `SECURITY DEFINER`, `STABLE`, `search_path=''`: `exists(select 1 from public.admin_profiles where user_id = auth.uid())`.
@@ -47,15 +61,16 @@ Migrations: `supabase/migrations/` (timestamped, version-controlled). Seed: `sup
 ## Indexes
 `(status, visibility, sort_order)` on every content table; unique `slug`; GIN on `search`; `messages(status, created_at desc)`; `story_submissions(status, created_at desc)`; `travel_locations(region, visited_from)`; `memories(event_date desc, category)`; FK indexes on all child tables.
 
-## Storage buckets
+## Storage buckets (revised: privacy enforced at the storage layer)
 | Bucket | Public read | Write | Limits |
 |---|---|---|---|
-| `profile-photos` | ✅ | admin | image/*, 10 MB |
-| `project-images` | ✅ | admin | image/*, 10 MB |
-| `travel-photos` | ✅ | admin | image/*, 10 MB |
-| `memories` | ✅ | admin | image/*, 10 MB |
-| `certificates` | ✅ | admin | image/*, application/pdf, 10 MB |
-| `documents` | ✅ (CV, thesis PDF once approved) | admin | application/pdf, 20 MB |
-| `videos` | ✅ | admin | video/mp4, video/webm, 50 MB (free-plan cap) |
-| `story-uploads` | ❌ private (admin via signed URLs) | anon insert via server route only (validated) | image/jpeg, png, webp, 5 MB |
-Public buckets hold only content the admin chose to publish. Private-visibility media goes in a separate `private-media` bucket served by signed URLs.
+| `media-private` | ❌ (admin via signed URLs, 10 min) | admin | images, video/mp4|webm|quicktime, application/pdf, office docs; 50 MB (free plan) |
+| `media-public` | ✅ | **server action only** (publish/unpublish copies) | mirrors published assets |
+| `story-uploads` | ❌ (admin via signed URLs) | server route only, after validation | image/jpeg, png, webp, 5 MB |
+Categories (profile, projects, travel, memories, certificates, documents/CV, videos…) are **folders + `category` metadata**, not separate buckets, so files can be reorganised freely without moving storage objects.
+
+## Section & page model (everything CMS-driven)
+- Built-in sections are rows in `site_sections` (seeded). Their pages are coded layouts that render **only** DB data: lists from the section's tables, plus optional extra `page_blocks` appended by the admin.
+- **New sections** = `site_sections(kind='custom')` + a `pages` row + `page_blocks`. They are served by the generic route `app/[locale]/[section]/page.tsx` and appear in nav when `show_in_nav`.
+- Profile/hero texts, roles, socials, contact details, footer text, SEO and feature toggles live in `profiles`, `social_links` and `site_settings`. **No personal content is hard-coded in components.**
+- `education.show_result` defaults to **false**. The admin toggles GPA/CGPA visibility per row.

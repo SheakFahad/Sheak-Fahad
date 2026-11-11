@@ -8,7 +8,10 @@ description: Project rules for "Sheak Fahad — Digital Universe" (this repo) �
 Read first: `docs/PROJECT_ARCHITECTURE.md`, `docs/DESIGN_SYSTEM.md`, `docs/DATABASE_SCHEMA.md`, `docs/SECURITY.md`, `docs/IMPLEMENTATION_PLAN.md` (current phase). Load skills: **r3f-3d**, **gsap-motion**, **react-bits-ui**, **supabase-backend**, **web-quality**.
 
 ## Stack (do not swap without a documented reason in docs/)
-Next.js 16 App Router + TypeScript + Tailwind 4 · three 0.187 / @react-three/fiber 9 / drei 10 / @react-three/postprocessing / three-globe · gsap 3.15 (+ScrollTrigger, SplitText, Flip) + @gsap/react + lenis · motion (route/modal presence only) · Supabase (@supabase/ssr) · zod 4 · next-intl (en default, bn) · cmdk · Resend (optional) · @anthropic-ai/sdk (optional, model from `ASSISTANT_MODEL`, default `claude-opus-5-5`) · Vercel.
+Next.js 16 App Router + TypeScript + Tailwind 4 · three 0.187 / @react-three/fiber 9 / drei 10 / @react-three/postprocessing / three-globe · gsap 3.15 (+ScrollTrigger, SplitText, Flip) + @gsap/react + lenis · motion (route/modal presence only) · Supabase (@supabase/ssr) · zod 4 · next-intl (en default, bn) · cmdk · Resend (optional) · Vercel. AI assistant = provider-agnostic interface, **off by default, no AI SDK dependency** until the owner enables one.
+
+## CMS-first (owner requirement)
+Everything public comes from the DB via `lib/content/*`: sections (`site_sections`: enabled/show_in_nav/order/visibility), custom pages + `page_blocks`, profile, socials, settings. Media Library: uploads land in the private bucket; only the admin "Publish" action copies to `media-public`. New content/media default to draft/private. GPA/CGPA hidden unless `education.show_result`. All Sheba videos stay private until the owner confirms permission. Do not import files from `e:\Downloads` — the owner uploads through the admin panel.
 Legacy static site lives in `sheak-website/`. **Never delete or modify it**; copy assets out of it.
 
 ## Identity & content (non-negotiable)
