@@ -1,0 +1,50 @@
+{
+  "common": {
+    "skipToContent": "Skip to content",
+    "menu": "Menu",
+    "close": "Close",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "home": "Home",
+    "breadcrumb": "Breadcrumb",
+    "language": "Language",
+    "theme": "Theme",
+    "themeToDark": "Switch to dark theme",
+    "themeToLight": "Switch to light theme",
+    "backToTop": "Back to top",
+    "loading": "Loading…",
+    "previous": "Previous",
+    "next": "Next",
+    "notFoundTitle": "Lost in space",
+    "notFoundText": "This page drifted out of orbit. Let’s get you back.",
+    "goHome": "Back to home"
+  },
+  "nav": {
+    "primary": "Primary navigation",
+    "explore": "Explore",
+    "allSections": "All sections",
+    "contact": "Get in touch"
+  },
+  "home": {
+    "exploreWorld": "Explore My World",
+    "viewProjects": "View Projects",
+    "quickContact": "Quick contact",
+    "exploreTitle": "Explore the universe",
+    "exploreText": "Every part of my work and life, one click away.",
+    "scrollHint": "Scroll to explore"
+  },
+  "section": {
+    "preparingTitle": "Content is being prepared",
+    "preparingText": "This section will be filled with verified content soon. Meanwhile, feel free to explore other sections or get in touch."
+  },
+  "footer": {
+    "tagline": "Let’s build something meaningful together.",
+    "explore": "Explore",
+    "connect": "Connect",
+    "rights": "All rights reserved."
+  },
+  "contact": {
+    "email": "Email",
+    "whatsapp": "WhatsApp"
+  }
+}
