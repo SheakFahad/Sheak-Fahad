@@ -83,7 +83,8 @@
   }
   body {
     min-height: 100dvh;
-    background: var(--bg);
+    /* No body background: <html> paints the page colour so the fixed z:-1 universe layers stay visible. */
+    background: transparent;
     font-family: var(--font-sans);
     font-size: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
     line-height: 1.65;

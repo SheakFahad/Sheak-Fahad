@@ -3,9 +3,12 @@
 import Image from 'next/image'
 import { useRef, useState } from 'react'
 import { TransitionLink } from '@/components/motion/TransitionLink'
-import { Flip, gsap } from '@/lib/gsap'
+import { Flip } from 'gsap/Flip'
+import { gsap } from '@/lib/gsap'
 import { prefersReducedMotion } from '@/lib/motion/presets'
 import { cn } from '@/lib/utils/cn'
+
+gsap.registerPlugin(Flip)
 
 export interface ProjectCard {
   slug: string

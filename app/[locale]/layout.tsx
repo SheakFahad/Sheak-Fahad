@@ -5,6 +5,7 @@ import { hasLocale, NextIntlClientProvider } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Footer } from '@/components/layout/Footer'
 import { Header } from '@/components/layout/Header'
+import { Universe } from '@/components/3d/Universe'
 import { MotionRoot } from '@/components/motion/MotionRoot'
 import { PageTransitionProvider } from '@/components/motion/PageTransition'
 import { ScrollProgress } from '@/components/motion/ScrollProgress'
@@ -100,6 +101,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
                 }}
               />
               <MotionRoot />
+              <Universe />
             </PageTransitionProvider>
           </ToastProvider>
         </NextIntlClientProvider>
