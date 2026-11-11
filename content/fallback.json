@@ -5,7 +5,11 @@
     "tagline": "An Immersive Journey Through Creativity, Technology & Life.",
     "seo_description": "Sheak Fahad — UI/UX designer, graphics designer, data artist, researcher and motion creator from Bangladesh. Projects, research, video work, travel and life.",
     "theme_default": "dark",
-    "features": { "assistant": false, "explore_mode": true, "sound": false },
+    "features": {
+      "assistant": false,
+      "explore_mode": true,
+      "sound": false
+    },
     "footer_text": null,
     "translations": {
       "bn": {
@@ -44,37 +48,1173 @@
     }
   },
   "sections": [
-    { "key": "home", "kind": "builtin", "route_slug": "", "title": "Home", "nav_label": "Home", "eyebrow": null, "intro": null, "hero_media_id": null, "enabled": true, "show_in_nav": false, "status": "published", "visibility": "public", "sort_order": 0, "seo_title": null, "seo_description": null, "translations": { "bn": { "title": "হোম", "nav_label": "হোম" } } },
-    { "key": "about", "kind": "builtin", "route_slug": "about", "title": "About Me", "nav_label": "About", "eyebrow": "Story", "intro": "Designer, researcher and explorer — the person behind the work.", "hero_media_id": "m-uni-3", "enabled": true, "show_in_nav": true, "status": "published", "visibility": "public", "sort_order": 10, "seo_title": null, "seo_description": null, "translations": { "bn": { "title": "আমার সম্পর্কে", "nav_label": "সম্পর্কে", "eyebrow": "গল্প", "intro": "ডিজাইনার, গবেষক ও অভিযাত্রী — কাজের পেছনের মানুষটি।" } } },
-    { "key": "career", "kind": "builtin", "route_slug": "career", "title": "Career & Experience", "nav_label": "Career", "eyebrow": "Experience", "intro": "Three companies, four roles — design, data and visuals.", "hero_media_id": null, "enabled": true, "show_in_nav": true, "status": "published", "visibility": "public", "sort_order": 20, "seo_title": null, "seo_description": null, "translations": { "bn": { "title": "ক্যারিয়ার ও অভিজ্ঞতা", "nav_label": "ক্যারিয়ার", "eyebrow": "অভিজ্ঞতা", "intro": "তিনটি প্রতিষ্ঠান — ডিজাইন, ডেটা ও ভিজ্যুয়াল।" } } },
-    { "key": "education", "kind": "builtin", "route_slug": "education", "title": "Education & University Life", "nav_label": "Education", "eyebrow": "Academics", "intro": "From school in Gazipur to Computer Science & Engineering at Green University of Bangladesh.", "hero_media_id": "m-uni-1", "enabled": true, "show_in_nav": true, "status": "published", "visibility": "public", "sort_order": 30, "seo_title": null, "seo_description": null, "translations": { "bn": { "title": "শিক্ষা ও বিশ্ববিদ্যালয় জীবন", "nav_label": "শিক্ষা", "eyebrow": "একাডেমিক", "intro": "স্কুল থেকে গ্রিন ইউনিভার্সিটি অব বাংলাদেশে কম্পিউটার সায়েন্স অ্যান্ড ইঞ্জিনিয়ারিং।" } } },
-    { "key": "projects", "kind": "builtin", "route_slug": "projects", "title": "Projects & Case Studies", "nav_label": "Projects", "eyebrow": "Work", "intro": "Products I designed — the problem, the process and my part in it.", "hero_media_id": "m-proj-healthcare", "enabled": true, "show_in_nav": true, "status": "published", "visibility": "public", "sort_order": 40, "seo_title": null, "seo_description": null, "translations": { "bn": { "title": "প্রজেক্ট ও কেস স্টাডি", "nav_label": "প্রজেক্ট", "eyebrow": "কাজ", "intro": "যে প্রোডাক্টগুলো ডিজাইন করেছি — সমস্যা, প্রক্রিয়া ও আমার ভূমিকা।" } } },
-    { "key": "video_studio", "kind": "builtin", "route_slug": "video-studio", "title": "Video & Motion Studio", "nav_label": "Studio", "eyebrow": "Motion", "intro": "Video editing, motion graphics and animation work.", "hero_media_id": null, "enabled": true, "show_in_nav": true, "status": "published", "visibility": "public", "sort_order": 50, "seo_title": null, "seo_description": null, "translations": { "bn": { "title": "ভিডিও ও মোশন স্টুডিও", "nav_label": "স্টুডিও", "eyebrow": "মোশন", "intro": "ভিডিও এডিটিং, মোশন গ্রাফিক্স ও অ্যানিমেশনের কাজ।" } } },
-    { "key": "research", "kind": "builtin", "route_slug": "research", "title": "Research & Thesis", "nav_label": "Research", "eyebrow": "Thesis", "intro": "A Federated Digital Twin Framework with Multimodal Data Integration for Personalized Healthcare Monitoring.", "hero_media_id": "m-uni-7", "enabled": true, "show_in_nav": true, "status": "published", "visibility": "public", "sort_order": 60, "seo_title": null, "seo_description": null, "translations": { "bn": { "title": "গবেষণা ও থিসিস", "nav_label": "গবেষণা", "eyebrow": "থিসিস" } } },
-    { "key": "skills", "kind": "builtin", "route_slug": "skills", "title": "Skills & Achievements", "nav_label": "Skills", "eyebrow": "Craft", "intro": "Tools, craft and certificates — backed by real work.", "hero_media_id": null, "enabled": true, "show_in_nav": true, "status": "published", "visibility": "public", "sort_order": 70, "seo_title": null, "seo_description": null, "translations": { "bn": { "title": "দক্ষতা ও অর্জন", "nav_label": "দক্ষতা", "eyebrow": "দক্ষতা", "intro": "টুলস, দক্ষতা ও সার্টিফিকেট — বাস্তব কাজের প্রমাণসহ।" } } },
-    { "key": "travel", "kind": "builtin", "route_slug": "travel", "title": "Travel Journal", "nav_label": "Travel", "eyebrow": "Journeys", "intro": "Places I have explored across Bangladesh and the world.", "hero_media_id": null, "enabled": true, "show_in_nav": true, "status": "published", "visibility": "public", "sort_order": 80, "seo_title": null, "seo_description": null, "translations": { "bn": { "title": "ভ্রমণ জার্নাল", "nav_label": "ভ্রমণ", "eyebrow": "যাত্রা", "intro": "বাংলাদেশ ও বিশ্বের যেসব জায়গা ঘুরে দেখেছি।" } } },
-    { "key": "memories", "kind": "builtin", "route_slug": "memories", "title": "Life & Memories", "nav_label": "Memories", "eyebrow": "Archive", "intro": "Moments that matter — university, friends, village and more.", "hero_media_id": "m-uni-10", "enabled": true, "show_in_nav": true, "status": "published", "visibility": "public", "sort_order": 90, "seo_title": null, "seo_description": null, "translations": { "bn": { "title": "জীবন ও স্মৃতি", "nav_label": "স্মৃতি", "eyebrow": "আর্কাইভ", "intro": "গুরুত্বপূর্ণ মুহূর্তগুলো — বিশ্ববিদ্যালয়, বন্ধু, গ্রাম ও আরও অনেক কিছু।" } } },
-    { "key": "hobbies", "kind": "builtin", "route_slug": "hobbies", "title": "Hobbies & Interests", "nav_label": "Hobbies", "eyebrow": "Play", "intro": "Travel, village life, football, games, movies and Turkish series.", "hero_media_id": "m-uni-11", "enabled": true, "show_in_nav": true, "status": "published", "visibility": "public", "sort_order": 100, "seo_title": null, "seo_description": null, "translations": { "bn": { "title": "শখ ও আগ্রহ", "nav_label": "শখ", "eyebrow": "শখ", "intro": "ভ্রমণ, গ্রামীণ জীবন, ফুটবল, গেমস, মুভি ও তুর্কি সিরিজ।" } } },
-    { "key": "contact", "kind": "builtin", "route_slug": "contact", "title": "Get in Touch", "nav_label": "Contact", "eyebrow": "Say hello", "intro": "Have a project, an idea or a story to share? I’d love to hear from you.", "hero_media_id": null, "enabled": true, "show_in_nav": true, "status": "published", "visibility": "public", "sort_order": 110, "seo_title": null, "seo_description": null, "translations": { "bn": { "title": "যোগাযোগ", "nav_label": "যোগাযোগ", "eyebrow": "হ্যালো বলুন", "intro": "কোনো প্রজেক্ট, আইডিয়া বা গল্প আছে? শুনতে ভালো লাগবে।" } } }
+    {
+      "key": "home",
+      "kind": "builtin",
+      "route_slug": "",
+      "title": "Home",
+      "nav_label": "Home",
+      "eyebrow": null,
+      "intro": null,
+      "hero_media_id": null,
+      "enabled": true,
+      "show_in_nav": false,
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 0,
+      "seo_title": null,
+      "seo_description": null,
+      "translations": {
+        "bn": {
+          "title": "হোম",
+          "nav_label": "হোম"
+        }
+      },
+      "gallery_media_ids": []
+    },
+    {
+      "key": "about",
+      "kind": "builtin",
+      "route_slug": "about",
+      "title": "About Me",
+      "nav_label": "About",
+      "eyebrow": "Story",
+      "intro": "Designer, researcher and explorer — the person behind the work.",
+      "hero_media_id": "m-uni-3",
+      "enabled": true,
+      "show_in_nav": true,
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 10,
+      "seo_title": null,
+      "seo_description": null,
+      "translations": {
+        "bn": {
+          "title": "আমার সম্পর্কে",
+          "nav_label": "সম্পর্কে",
+          "eyebrow": "গল্প",
+          "intro": "ডিজাইনার, গবেষক ও অভিযাত্রী — কাজের পেছনের মানুষটি।"
+        }
+      },
+      "gallery_media_ids": [
+        "m-uni-2",
+        "m-uni-9",
+        "m-uni-11",
+        "m-uni-4"
+      ]
+    },
+    {
+      "key": "career",
+      "kind": "builtin",
+      "route_slug": "career",
+      "title": "Career & Experience",
+      "nav_label": "Career",
+      "eyebrow": "Experience",
+      "intro": "Three companies, four roles — design, data and visuals.",
+      "hero_media_id": "m-uni-9",
+      "enabled": true,
+      "show_in_nav": true,
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 20,
+      "seo_title": null,
+      "seo_description": null,
+      "translations": {
+        "bn": {
+          "title": "ক্যারিয়ার ও অভিজ্ঞতা",
+          "nav_label": "ক্যারিয়ার",
+          "eyebrow": "অভিজ্ঞতা",
+          "intro": "তিনটি প্রতিষ্ঠান — ডিজাইন, ডেটা ও ভিজ্যুয়াল।"
+        }
+      },
+      "gallery_media_ids": []
+    },
+    {
+      "key": "education",
+      "kind": "builtin",
+      "route_slug": "education",
+      "title": "Education & University Life",
+      "nav_label": "Education",
+      "eyebrow": "Academics",
+      "intro": "From school in Gazipur to Computer Science & Engineering at Green University of Bangladesh.",
+      "hero_media_id": "m-uni-1",
+      "enabled": true,
+      "show_in_nav": true,
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 30,
+      "seo_title": null,
+      "seo_description": null,
+      "translations": {
+        "bn": {
+          "title": "শিক্ষা ও বিশ্ববিদ্যালয় জীবন",
+          "nav_label": "শিক্ষা",
+          "eyebrow": "একাডেমিক",
+          "intro": "স্কুল থেকে গ্রিন ইউনিভার্সিটি অব বাংলাদেশে কম্পিউটার সায়েন্স অ্যান্ড ইঞ্জিনিয়ারিং।"
+        }
+      },
+      "gallery_media_ids": [
+        "m-uni-1",
+        "m-uni-4",
+        "m-uni-12",
+        "m-uni-5",
+        "m-uni-8",
+        "m-uni-10"
+      ]
+    },
+    {
+      "key": "projects",
+      "kind": "builtin",
+      "route_slug": "projects",
+      "title": "Projects & Case Studies",
+      "nav_label": "Projects",
+      "eyebrow": "Work",
+      "intro": "Products I designed — the problem, the process and my part in it.",
+      "hero_media_id": "m-proj-healthcare",
+      "enabled": true,
+      "show_in_nav": true,
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 40,
+      "seo_title": null,
+      "seo_description": null,
+      "translations": {
+        "bn": {
+          "title": "প্রজেক্ট ও কেস স্টাডি",
+          "nav_label": "প্রজেক্ট",
+          "eyebrow": "কাজ",
+          "intro": "যে প্রোডাক্টগুলো ডিজাইন করেছি — সমস্যা, প্রক্রিয়া ও আমার ভূমিকা।"
+        }
+      },
+      "gallery_media_ids": []
+    },
+    {
+      "key": "video_studio",
+      "kind": "builtin",
+      "route_slug": "video-studio",
+      "title": "Video & Motion Studio",
+      "nav_label": "Studio",
+      "eyebrow": "Motion",
+      "intro": "Video editing, motion graphics and animation work.",
+      "hero_media_id": null,
+      "enabled": true,
+      "show_in_nav": true,
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 50,
+      "seo_title": null,
+      "seo_description": null,
+      "translations": {
+        "bn": {
+          "title": "ভিডিও ও মোশন স্টুডিও",
+          "nav_label": "স্টুডিও",
+          "eyebrow": "মোশন",
+          "intro": "ভিডিও এডিটিং, মোশন গ্রাফিক্স ও অ্যানিমেশনের কাজ।"
+        }
+      },
+      "gallery_media_ids": []
+    },
+    {
+      "key": "research",
+      "kind": "builtin",
+      "route_slug": "research",
+      "title": "Research & Thesis",
+      "nav_label": "Research",
+      "eyebrow": "Thesis",
+      "intro": "A Federated Digital Twin Framework with Multimodal Data Integration for Personalized Healthcare Monitoring.",
+      "hero_media_id": "m-uni-7",
+      "enabled": true,
+      "show_in_nav": true,
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 60,
+      "seo_title": null,
+      "seo_description": null,
+      "translations": {
+        "bn": {
+          "title": "গবেষণা ও থিসিস",
+          "nav_label": "গবেষণা",
+          "eyebrow": "থিসিস"
+        }
+      },
+      "gallery_media_ids": []
+    },
+    {
+      "key": "skills",
+      "kind": "builtin",
+      "route_slug": "skills",
+      "title": "Skills & Achievements",
+      "nav_label": "Skills",
+      "eyebrow": "Craft",
+      "intro": "Tools, craft and certificates — backed by real work.",
+      "hero_media_id": "m-uni-2",
+      "enabled": true,
+      "show_in_nav": true,
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 70,
+      "seo_title": null,
+      "seo_description": null,
+      "translations": {
+        "bn": {
+          "title": "দক্ষতা ও অর্জন",
+          "nav_label": "দক্ষতা",
+          "eyebrow": "দক্ষতা",
+          "intro": "টুলস, দক্ষতা ও সার্টিফিকেট — বাস্তব কাজের প্রমাণসহ।"
+        }
+      },
+      "gallery_media_ids": []
+    },
+    {
+      "key": "travel",
+      "kind": "builtin",
+      "route_slug": "travel",
+      "title": "Travel Journal",
+      "nav_label": "Travel",
+      "eyebrow": "Journeys",
+      "intro": "Places I have explored across Bangladesh and the world.",
+      "hero_media_id": null,
+      "enabled": true,
+      "show_in_nav": true,
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 80,
+      "seo_title": null,
+      "seo_description": null,
+      "translations": {
+        "bn": {
+          "title": "ভ্রমণ জার্নাল",
+          "nav_label": "ভ্রমণ",
+          "eyebrow": "যাত্রা",
+          "intro": "বাংলাদেশ ও বিশ্বের যেসব জায়গা ঘুরে দেখেছি।"
+        }
+      },
+      "gallery_media_ids": []
+    },
+    {
+      "key": "memories",
+      "kind": "builtin",
+      "route_slug": "memories",
+      "title": "Life & Memories",
+      "nav_label": "Memories",
+      "eyebrow": "Archive",
+      "intro": "Moments that matter — university, friends, village and more.",
+      "hero_media_id": "m-uni-10",
+      "enabled": true,
+      "show_in_nav": true,
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 90,
+      "seo_title": null,
+      "seo_description": null,
+      "translations": {
+        "bn": {
+          "title": "জীবন ও স্মৃতি",
+          "nav_label": "স্মৃতি",
+          "eyebrow": "আর্কাইভ",
+          "intro": "গুরুত্বপূর্ণ মুহূর্তগুলো — বিশ্ববিদ্যালয়, বন্ধু, গ্রাম ও আরও অনেক কিছু।"
+        }
+      },
+      "gallery_media_ids": []
+    },
+    {
+      "key": "hobbies",
+      "kind": "builtin",
+      "route_slug": "hobbies",
+      "title": "Hobbies & Interests",
+      "nav_label": "Hobbies",
+      "eyebrow": "Play",
+      "intro": "Travel, village life, football, games, movies and Turkish series.",
+      "hero_media_id": "m-uni-11",
+      "enabled": true,
+      "show_in_nav": true,
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 100,
+      "seo_title": null,
+      "seo_description": null,
+      "translations": {
+        "bn": {
+          "title": "শখ ও আগ্রহ",
+          "nav_label": "শখ",
+          "eyebrow": "শখ",
+          "intro": "ভ্রমণ, গ্রামীণ জীবন, ফুটবল, গেমস, মুভি ও তুর্কি সিরিজ।"
+        }
+      },
+      "gallery_media_ids": []
+    },
+    {
+      "key": "contact",
+      "kind": "builtin",
+      "route_slug": "contact",
+      "title": "Get in Touch",
+      "nav_label": "Contact",
+      "eyebrow": "Say hello",
+      "intro": "Have a project, an idea or a story to share? I’d love to hear from you.",
+      "hero_media_id": null,
+      "enabled": true,
+      "show_in_nav": true,
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 110,
+      "seo_title": null,
+      "seo_description": null,
+      "translations": {
+        "bn": {
+          "title": "যোগাযোগ",
+          "nav_label": "যোগাযোগ",
+          "eyebrow": "হ্যালো বলুন",
+          "intro": "কোনো প্রজেক্ট, আইডিয়া বা গল্প আছে? শুনতে ভালো লাগবে।"
+        }
+      },
+      "gallery_media_ids": []
+    }
   ],
   "social_links": [
-    { "platform": "email", "label": "Email", "url": "mailto:fahadsheak222@gmail.com", "handle": "fahadsheak222@gmail.com", "show_in_footer": true, "show_on_contact": true, "status": "published", "visibility": "public", "sort_order": 0 },
-    { "platform": "whatsapp", "label": "WhatsApp", "url": "https://wa.me/8801794506663", "handle": "+880 1794 506663", "show_in_footer": true, "show_on_contact": true, "status": "published", "visibility": "public", "sort_order": 10 },
-    { "platform": "linkedin", "label": "LinkedIn", "url": "https://www.linkedin.com/in/sheakfahad/", "handle": "sheakfahad", "show_in_footer": true, "show_on_contact": true, "status": "published", "visibility": "public", "sort_order": 20 },
-    { "platform": "github", "label": "GitHub", "url": "https://github.com/SheakFahad", "handle": "SheakFahad", "show_in_footer": true, "show_on_contact": true, "status": "published", "visibility": "public", "sort_order": 30 },
-    { "platform": "behance", "label": "Behance", "url": "https://www.behance.net/sheakfahad", "handle": "sheakfahad", "show_in_footer": true, "show_on_contact": true, "status": "published", "visibility": "public", "sort_order": 40 },
-    { "platform": "facebook", "label": "Facebook", "url": "https://www.facebook.com/fahad.shak.397", "handle": "fahad.shak.397", "show_in_footer": true, "show_on_contact": true, "status": "published", "visibility": "public", "sort_order": 50 },
-    { "platform": "instagram", "label": "Instagram", "url": "https://www.instagram.com/fahad_sheak_/", "handle": "fahad_sheak_", "show_in_footer": true, "show_on_contact": true, "status": "published", "visibility": "public", "sort_order": 60 }
+    {
+      "platform": "email",
+      "label": "Email",
+      "url": "mailto:fahadsheak222@gmail.com",
+      "handle": "fahadsheak222@gmail.com",
+      "show_in_footer": true,
+      "show_on_contact": true,
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 0
+    },
+    {
+      "platform": "whatsapp",
+      "label": "WhatsApp",
+      "url": "https://wa.me/8801794506663",
+      "handle": "+880 1794 506663",
+      "show_in_footer": true,
+      "show_on_contact": true,
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 10
+    },
+    {
+      "platform": "linkedin",
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/sheakfahad/",
+      "handle": "sheakfahad",
+      "show_in_footer": true,
+      "show_on_contact": true,
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 20
+    },
+    {
+      "platform": "github",
+      "label": "GitHub",
+      "url": "https://github.com/SheakFahad",
+      "handle": "SheakFahad",
+      "show_in_footer": true,
+      "show_on_contact": true,
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 30
+    },
+    {
+      "platform": "behance",
+      "label": "Behance",
+      "url": "https://www.behance.net/sheakfahad",
+      "handle": "sheakfahad",
+      "show_in_footer": true,
+      "show_on_contact": true,
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 40
+    },
+    {
+      "platform": "facebook",
+      "label": "Facebook",
+      "url": "https://www.facebook.com/fahad.shak.397",
+      "handle": "fahad.shak.397",
+      "show_in_footer": true,
+      "show_on_contact": true,
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 50
+    },
+    {
+      "platform": "instagram",
+      "label": "Instagram",
+      "url": "https://www.instagram.com/fahad_sheak_/",
+      "handle": "fahad_sheak_",
+      "show_in_footer": true,
+      "show_on_contact": true,
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 60
+    }
   ],
   "media": [
-    { "id": "m-profile", "src": "/images/profile.jpg", "alt": "Portrait of Sheak Fahad in a navy blazer", "width": 1254, "height": 1254, "focal_x": 0.5, "focal_y": 0.35, "is_original_photo": true },
-    { "id": "m-about", "src": "/images/about.jpg", "alt": "Sheak Fahad holding his bound thesis on the Green University campus", "width": 900, "height": 1100, "focal_x": 0.5, "focal_y": 0.35, "is_original_photo": true },
-    { "id": "m-uni-1", "src": "/images/uni/1.jpg", "alt": "Green University of Bangladesh main building with students on the lawn", "width": 1200, "height": 800, "focal_x": 0.4, "focal_y": 0.5 },
-    { "id": "m-uni-3", "src": "/images/uni/3.jpg", "alt": "Sheak Fahad sitting on the lawn in front of the university building", "width": 1200, "height": 800, "focal_x": 0.5, "focal_y": 0.55, "is_original_photo": true },
-    { "id": "m-uni-7", "src": "/images/uni/7.jpg", "alt": "Bound thesis cover held up in front of the university building", "width": 1200, "height": 800, "focal_x": 0.5, "focal_y": 0.5 },
-    { "id": "m-uni-10", "src": "/images/uni/10.jpg", "alt": "Graduation Day with CSE 221 classmates", "width": 1200, "height": 800, "focal_x": 0.6, "focal_y": 0.45, "is_original_photo": true },
-    { "id": "m-uni-11", "src": "/images/uni/11.jpg", "alt": "Sheak Fahad in a casual striped shirt on campus", "width": 1200, "height": 800, "focal_x": 0.5, "focal_y": 0.4, "is_original_photo": true },
-    { "id": "m-proj-healthcare", "src": "/images/projects/healthcare.jpg", "alt": "Healthcare Web Application concept visual", "width": 1200, "height": 750, "focal_x": 0.6, "focal_y": 0.5 }
+    {
+      "id": "m-profile",
+      "src": "/images/profile.jpg",
+      "alt": "Portrait of Sheak Fahad in a navy blazer",
+      "width": 1254,
+      "height": 1254,
+      "focal_x": 0.5,
+      "focal_y": 0.35,
+      "is_original_photo": true
+    },
+    {
+      "id": "m-about",
+      "src": "/images/about.jpg",
+      "alt": "Sheak Fahad holding his bound thesis on the Green University campus",
+      "width": 900,
+      "height": 1100,
+      "focal_x": 0.5,
+      "focal_y": 0.35,
+      "is_original_photo": true,
+      "display_aspect": "9 / 11"
+    },
+    {
+      "id": "m-uni-1",
+      "src": "/images/uni/1.jpg",
+      "alt": "Green University of Bangladesh main building with students on the lawn",
+      "width": 1200,
+      "height": 800,
+      "focal_x": 0.4,
+      "focal_y": 0.5
+    },
+    {
+      "id": "m-uni-3",
+      "src": "/images/uni/3.jpg",
+      "alt": "Sheak Fahad sitting on the lawn in front of the university building",
+      "width": 1200,
+      "height": 800,
+      "focal_x": 0.5,
+      "focal_y": 0.55,
+      "is_original_photo": true,
+      "display_aspect": "3 / 4"
+    },
+    {
+      "id": "m-uni-7",
+      "src": "/images/uni/7.jpg",
+      "alt": "Bound thesis cover held up in front of the university building",
+      "width": 1200,
+      "height": 800,
+      "focal_x": 0.5,
+      "focal_y": 0.5,
+      "display_aspect": "3 / 4"
+    },
+    {
+      "id": "m-uni-10",
+      "src": "/images/uni/10.jpg",
+      "alt": "Graduation Day with CSE 221 classmates",
+      "width": 1200,
+      "height": 800,
+      "focal_x": 0.6,
+      "focal_y": 0.45,
+      "is_original_photo": true
+    },
+    {
+      "id": "m-uni-11",
+      "src": "/images/uni/11.jpg",
+      "alt": "Sheak Fahad in a casual striped shirt on campus",
+      "width": 1200,
+      "height": 800,
+      "focal_x": 0.5,
+      "focal_y": 0.4,
+      "is_original_photo": true,
+      "display_aspect": "3 / 4"
+    },
+    {
+      "id": "m-proj-healthcare",
+      "src": "/images/projects/healthcare.jpg",
+      "alt": "Healthcare Web Application concept visual",
+      "width": 1200,
+      "height": 750,
+      "focal_x": 0.6,
+      "focal_y": 0.5
+    },
+    {
+      "id": "m-uni-2",
+      "src": "/images/uni/2.jpg",
+      "alt": "Sheak Fahad standing in a navy blazer in the campus garden",
+      "width": 1200,
+      "height": 800,
+      "focal_x": 0.5,
+      "focal_y": 0.4,
+      "is_original_photo": true,
+      "display_aspect": "3 / 4"
+    },
+    {
+      "id": "m-uni-4",
+      "src": "/images/uni/4.jpg",
+      "alt": "Green University building silhouetted at sunset",
+      "width": 1200,
+      "height": 800,
+      "focal_x": 0.5,
+      "focal_y": 0.5,
+      "display_aspect": "3 / 4"
+    },
+    {
+      "id": "m-uni-5",
+      "src": "/images/uni/5.jpg",
+      "alt": "Campus selfie with two friends",
+      "width": 1200,
+      "height": 800,
+      "focal_x": 0.5,
+      "focal_y": 0.45,
+      "is_original_photo": true
+    },
+    {
+      "id": "m-uni-6",
+      "src": "/images/uni/6.jpg",
+      "alt": "Sheak Fahad holding the bound thesis with a thumbs up",
+      "width": 1200,
+      "height": 800,
+      "focal_x": 0.5,
+      "focal_y": 0.4,
+      "is_original_photo": true,
+      "display_aspect": "3 / 4"
+    },
+    {
+      "id": "m-uni-8",
+      "src": "/images/uni/8.jpg",
+      "alt": "Group selfie with classmates in formal wear",
+      "width": 1200,
+      "height": 800,
+      "focal_x": 0.5,
+      "focal_y": 0.45,
+      "is_original_photo": true
+    },
+    {
+      "id": "m-uni-9",
+      "src": "/images/uni/9.jpg",
+      "alt": "Sheak Fahad with arms crossed in front of a brick wall",
+      "width": 1200,
+      "height": 800,
+      "focal_x": 0.5,
+      "focal_y": 0.4,
+      "is_original_photo": true,
+      "display_aspect": "3 / 4"
+    },
+    {
+      "id": "m-uni-12",
+      "src": "/images/uni/12.jpg",
+      "alt": "Brick corridor of the Green University campus under a blue sky",
+      "width": 1200,
+      "height": 800,
+      "focal_x": 0.5,
+      "focal_y": 0.5,
+      "display_aspect": "3 / 4"
+    },
+    {
+      "id": "m-edu-ssc",
+      "src": "/images/edu/ssc.jpg",
+      "alt": "School field and main building",
+      "width": 800,
+      "height": 600,
+      "focal_x": 0.5,
+      "focal_y": 0.5
+    },
+    {
+      "id": "m-edu-hsc",
+      "src": "/images/edu/hsc.jpg",
+      "alt": "M. A. Majid Science College (illustrative image)",
+      "width": 800,
+      "height": 600,
+      "focal_x": 0.5,
+      "focal_y": 0.5
+    },
+    {
+      "id": "m-logo-zensoft",
+      "src": "/images/work/zensoft.jpg",
+      "alt": "Zensoft Lab logo",
+      "width": 800,
+      "height": 600,
+      "focal_x": 0.5,
+      "focal_y": 0.5
+    },
+    {
+      "id": "m-logo-ghit",
+      "src": "/images/work/goldenharvest.jpg",
+      "alt": "Golden Harvest Infotech (GHIT) logo",
+      "width": 800,
+      "height": 600,
+      "focal_x": 0.5,
+      "focal_y": 0.5
+    },
+    {
+      "id": "m-logo-allsheba",
+      "src": "/images/work/allsheba.jpg",
+      "alt": "All Sheba Limited logo",
+      "width": 1448,
+      "height": 1086,
+      "focal_x": 0.5,
+      "focal_y": 0.5
+    },
+    {
+      "id": "m-proj-pos",
+      "src": "/images/projects/pos.jpg",
+      "alt": "POS Dashboard & Analytics System concept visual",
+      "width": 1200,
+      "height": 750,
+      "focal_x": 0.55,
+      "focal_y": 0.5
+    },
+    {
+      "id": "m-proj-salon",
+      "src": "/images/projects/salon.jpg",
+      "alt": "Hair Salon Booking System concept visual",
+      "width": 1200,
+      "height": 750,
+      "focal_x": 0.7,
+      "focal_y": 0.5
+    },
+    {
+      "id": "m-proj-islamichub",
+      "src": "/images/projects/islamichub.jpg",
+      "alt": "Islamic Hub Application concept visual",
+      "width": 1200,
+      "height": 750,
+      "focal_x": 0.7,
+      "focal_y": 0.5
+    },
+    {
+      "id": "m-proj-uninest",
+      "src": "/images/projects/uninest.jpg",
+      "alt": "UniNest concept visual",
+      "width": 1200,
+      "height": 750,
+      "focal_x": 0.6,
+      "focal_y": 0.5
+    }
   ],
-  "section_blocks": {}
+  "section_blocks": {},
+  "experiences": [
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 0,
+      "id": "exp-zensoft",
+      "company": "Zensoft Lab",
+      "role": "UI/UX Designer",
+      "employment_type": null,
+      "start_date": null,
+      "end_date": null,
+      "is_current": false,
+      "location": null,
+      "summary": null,
+      "responsibilities": [],
+      "achievements": [],
+      "logo_media_id": "m-logo-zensoft",
+      "company_url": null
+    },
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 10,
+      "id": "exp-ghit",
+      "company": "Golden Harvest Infotech",
+      "role": "Data Artist",
+      "employment_type": null,
+      "start_date": null,
+      "end_date": null,
+      "is_current": false,
+      "location": null,
+      "summary": null,
+      "responsibilities": [],
+      "achievements": [],
+      "logo_media_id": "m-logo-ghit",
+      "company_url": null
+    },
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 20,
+      "id": "exp-allsheba",
+      "company": "All Sheba Limited",
+      "role": "Graphics & UI/UX Designer",
+      "employment_type": null,
+      "start_date": null,
+      "end_date": null,
+      "is_current": false,
+      "location": null,
+      "summary": null,
+      "responsibilities": [],
+      "achievements": [],
+      "logo_media_id": "m-logo-allsheba",
+      "company_url": null
+    }
+  ],
+  "education": [
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 0,
+      "id": "edu-ssc",
+      "level": "ssc",
+      "institution": "Union High School, Hailjor",
+      "degree": "Secondary School Certificate (SSC)",
+      "department": null,
+      "group_name": "Science",
+      "start_year": null,
+      "end_year": 2018,
+      "result_label": "GPA",
+      "result_value": "4.11 / 5.00",
+      "show_result": false,
+      "summary": null,
+      "activities": [],
+      "cover_media_id": "m-edu-ssc"
+    },
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 10,
+      "id": "edu-hsc",
+      "level": "hsc",
+      "institution": "M. A. Majid Science College",
+      "degree": "Higher Secondary Certificate (HSC)",
+      "department": null,
+      "group_name": "Science",
+      "start_year": null,
+      "end_year": 2020,
+      "result_label": "GPA",
+      "result_value": "4.25 / 5.00",
+      "show_result": false,
+      "summary": null,
+      "activities": [],
+      "cover_media_id": "m-edu-hsc"
+    },
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 20,
+      "id": "edu-bsc",
+      "level": "bsc",
+      "institution": "Green University of Bangladesh",
+      "degree": "B.Sc. in Computer Science & Engineering",
+      "department": "Department of Computer Science and Engineering",
+      "group_name": "Batch CSE 221",
+      "start_year": null,
+      "end_year": null,
+      "result_label": "CGPA",
+      "result_value": "3.01 / 4.00",
+      "show_result": false,
+      "summary": "Capstone thesis completed in Fall 2025 on a federated digital twin framework for personalized healthcare monitoring.",
+      "activities": [],
+      "cover_media_id": "m-uni-1"
+    }
+  ],
+  "projects": [
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 0,
+      "id": "p-healthcare",
+      "slug": "healthcare-web-application",
+      "title": "Healthcare Web Application",
+      "project_type": "Web App",
+      "summary": null,
+      "role": "UI/UX Designer",
+      "year": null,
+      "tools": [],
+      "did": [
+        "UI/UX Design"
+      ],
+      "live_url": "https://advance-healthcare-sd246.web.app/",
+      "behance_url": null,
+      "prototype_url": null,
+      "is_featured": true,
+      "cover_media_id": "m-proj-healthcare",
+      "is_concept_visual": true,
+      "gallery_media_ids": [],
+      "case_study": null
+    },
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 10,
+      "id": "p-uninest",
+      "slug": "uninest",
+      "title": "UniNest",
+      "project_type": "Platform",
+      "summary": "Student Housing & Roommate Finder — helping students find a place to live and compatible roommates.",
+      "role": "UI/UX Designer",
+      "year": null,
+      "tools": [],
+      "did": [
+        "UI/UX Design"
+      ],
+      "live_url": null,
+      "behance_url": null,
+      "prototype_url": null,
+      "is_featured": true,
+      "cover_media_id": "m-proj-uninest",
+      "is_concept_visual": true,
+      "gallery_media_ids": [],
+      "case_study": null
+    },
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 20,
+      "id": "p-pos",
+      "slug": "pos-dashboard-analytics",
+      "title": "POS Dashboard & Analytics System",
+      "project_type": "Dashboard",
+      "summary": null,
+      "role": "UI/UX Designer",
+      "year": null,
+      "tools": [],
+      "did": [
+        "UI/UX Design"
+      ],
+      "live_url": null,
+      "behance_url": null,
+      "prototype_url": null,
+      "is_featured": true,
+      "cover_media_id": "m-proj-pos",
+      "is_concept_visual": true,
+      "gallery_media_ids": [],
+      "case_study": null
+    },
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 30,
+      "id": "p-salon",
+      "slug": "hair-salon-booking",
+      "title": "Hair Salon Booking System",
+      "project_type": "Web App",
+      "summary": null,
+      "role": "UI/UX Designer",
+      "year": null,
+      "tools": [],
+      "did": [
+        "UI/UX Design"
+      ],
+      "live_url": null,
+      "behance_url": null,
+      "prototype_url": null,
+      "is_featured": false,
+      "cover_media_id": "m-proj-salon",
+      "is_concept_visual": true,
+      "gallery_media_ids": [],
+      "case_study": null
+    },
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 40,
+      "id": "p-islamichub",
+      "slug": "islamic-hub",
+      "title": "Islamic Hub Application",
+      "project_type": "Mobile App",
+      "summary": null,
+      "role": "UI/UX Designer",
+      "year": null,
+      "tools": [],
+      "did": [
+        "UI/UX Design"
+      ],
+      "live_url": null,
+      "behance_url": null,
+      "prototype_url": null,
+      "is_featured": false,
+      "cover_media_id": "m-proj-islamichub",
+      "is_concept_visual": true,
+      "gallery_media_ids": [],
+      "case_study": null
+    }
+  ],
+  "videos": [],
+  "research": [
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 0,
+      "id": "r-thesis",
+      "slug": "federated-digital-twin",
+      "title": "A Federated Digital Twin Framework with Multimodal Data Integration for Personalized Healthcare Monitoring",
+      "kind": "Capstone Thesis — B.Sc. in CSE",
+      "team": [
+        "Sourav Debnath",
+        "Nur Hasan Hasib",
+        "Sheak Fahad"
+      ],
+      "supervisor": "Mr. Md. Jahidul Islam",
+      "co_supervisor": "Ms. Shamima Islam",
+      "institution": "Green University of Bangladesh",
+      "department": "Department of Computer Science and Engineering",
+      "term": "Fall 2025",
+      "abstract": null,
+      "problem": null,
+      "objectives": [],
+      "methodology": null,
+      "results": null,
+      "tags": [
+        "Healthcare",
+        "Federated Learning",
+        "Digital Twin",
+        "Multimodal Data"
+      ],
+      "media_ids": [
+        "m-about",
+        "m-uni-6",
+        "m-uni-7"
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 0,
+      "id": "s-uiux",
+      "category": "uiux",
+      "title": "UI / UX Design",
+      "description": null,
+      "items": [
+        "Figma",
+        "UI Design",
+        "Wireframing",
+        "Prototyping"
+      ]
+    },
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 10,
+      "id": "s-graphic",
+      "category": "graphic",
+      "title": "Graphic Design",
+      "description": null,
+      "items": []
+    },
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 20,
+      "id": "s-data",
+      "category": "data_art",
+      "title": "Data Art",
+      "description": null,
+      "items": []
+    },
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 30,
+      "id": "s-research",
+      "category": "research",
+      "title": "Research",
+      "description": null,
+      "items": []
+    },
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 40,
+      "id": "s-video",
+      "category": "video",
+      "title": "Video Editing",
+      "description": null,
+      "items": []
+    },
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 50,
+      "id": "s-motion",
+      "category": "motion",
+      "title": "Motion Graphics",
+      "description": null,
+      "items": []
+    },
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 60,
+      "id": "s-3d",
+      "category": "3d",
+      "title": "3D Design",
+      "description": null,
+      "items": []
+    },
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 70,
+      "id": "s-frontend",
+      "category": "frontend",
+      "title": "Frontend Development",
+      "description": null,
+      "items": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ]
+    },
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 80,
+      "id": "s-programming",
+      "category": "programming",
+      "title": "Programming & Databases",
+      "description": null,
+      "items": [
+        "Python (basic)",
+        "Java (basic)",
+        "C",
+        "MySQL"
+      ]
+    }
+  ],
+  "achievements": [
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 0,
+      "id": "a-ostad-uiux",
+      "kind": "certificate",
+      "title": "UI UX Design Career Track Program",
+      "issuer": "Ostad",
+      "issued_on": null,
+      "credential_id": "C41584",
+      "credential_url": null,
+      "media_id": null,
+      "description": "Certificate of completion."
+    }
+  ],
+  "travel": [],
+  "memories": [
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 0,
+      "id": "mem-graduation",
+      "slug": "graduation-day-cse-221",
+      "title": "Graduation Day — CSE 221",
+      "event_date": null,
+      "date_label": null,
+      "category": "university",
+      "note": "Celebrating graduation day with my CSE 221 batchmates.",
+      "media_ids": [
+        "m-uni-10",
+        "m-uni-8"
+      ]
+    },
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 10,
+      "id": "mem-thesis",
+      "slug": "thesis-submission",
+      "title": "Thesis submission",
+      "event_date": null,
+      "date_label": "Fall 2025",
+      "category": "university",
+      "note": "Holding our bound capstone thesis at Green University of Bangladesh.",
+      "media_ids": [
+        "m-uni-6",
+        "m-uni-7",
+        "m-about"
+      ]
+    },
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 20,
+      "id": "mem-campus-friends",
+      "slug": "campus-with-friends",
+      "title": "Campus days with friends",
+      "event_date": null,
+      "date_label": null,
+      "category": "friends",
+      "note": null,
+      "media_ids": [
+        "m-uni-5",
+        "m-uni-3",
+        "m-uni-11"
+      ]
+    }
+  ],
+  "hobbies": [
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 0,
+      "id": "h-travel",
+      "title": "Travelling",
+      "description": "I love to travel — every trip is a new story.",
+      "icon": "✈️",
+      "tags": [],
+      "media_id": null,
+      "span": 2
+    },
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 10,
+      "id": "h-village",
+      "title": "Village life",
+      "description": "The village is my favourite place.",
+      "icon": "🌾",
+      "tags": [],
+      "media_id": null,
+      "span": 1
+    },
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 20,
+      "id": "h-explore",
+      "title": "Exploring new places",
+      "description": "New place, new feeling — I am always up for it.",
+      "icon": "🧭",
+      "tags": [],
+      "media_id": null,
+      "span": 1
+    },
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 30,
+      "id": "h-gaming",
+      "title": "Gaming",
+      "description": "PUBG Mobile and eFootball.",
+      "icon": "🎮",
+      "tags": [
+        "PUBG Mobile",
+        "eFootball"
+      ],
+      "media_id": null,
+      "span": 1
+    },
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 40,
+      "id": "h-movies",
+      "title": "Movies & series",
+      "description": "Movies and Turkish series.",
+      "icon": "🎬",
+      "tags": [
+        "Movies",
+        "Turkish series"
+      ],
+      "media_id": null,
+      "span": 1
+    },
+    {
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 50,
+      "id": "h-football",
+      "title": "Football",
+      "description": "Football is my favourite sport.",
+      "icon": "⚽",
+      "tags": [],
+      "media_id": null,
+      "span": 2
+    }
+  ]
 }

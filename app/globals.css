@@ -229,6 +229,11 @@ html.js-motion [data-split] {
   opacity: calc(var(--star-opacity) * 0.6);
   animation-duration: 260s;
 }
+@keyframes marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
 @keyframes drift {
   to {
     transform: translate3d(-420px, -300px, 0);

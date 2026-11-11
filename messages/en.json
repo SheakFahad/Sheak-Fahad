@@ -46,5 +46,139 @@
   "contact": {
     "email": "Email",
     "whatsapp": "WhatsApp"
+  },
+  "gallery": {
+    "open": "Open photo"
+  },
+  "about": {
+    "story": "My story",
+    "journey": "Journey",
+    "loves": "What I love",
+    "photos": "Moments",
+    "education": "Education",
+    "career": "Career",
+    "cta": "Want to work together?"
+  },
+  "career": {
+    "roles": "Roles",
+    "responsibilities": "Responsibilities",
+    "achievements": "Achievements",
+    "detailsSoon": "Detailed responsibilities and dates will be added soon.",
+    "present": "Present"
+  },
+  "education": {
+    "timeline": "Academic timeline",
+    "group": "Group",
+    "result": "Result",
+    "passed": "Passed",
+    "uniLife": "University life"
+  },
+  "projects": {
+    "all": "All",
+    "viewCase": "View case study",
+    "concept": "Concept visual",
+    "live": "Live website",
+    "behance": "Behance",
+    "prototype": "Prototype",
+    "role": "Role",
+    "type": "Type",
+    "year": "Year",
+    "tools": "Tools",
+    "did": "What I did",
+    "overview": "Overview",
+    "problem": "Problem",
+    "objectives": "Objectives",
+    "research": "Research",
+    "userFlow": "User flow",
+    "wireframes": "Wireframes",
+    "uiDesign": "UI design",
+    "designSystem": "Design system",
+    "prototypeNote": "Prototype",
+    "screens": "Final screens",
+    "challenges": "Challenges",
+    "results": "Results",
+    "caseSoon": "The full case study — process, wireframes and final screens — is being prepared.",
+    "more": "More projects",
+    "backToProjects": "All projects",
+    "filterLabel": "Filter projects by type"
+  },
+  "studio": {
+    "emptyTitle": "Showreel coming soon",
+    "emptyText": "Video editing and motion graphics work will appear here once published.",
+    "play": "Play video"
+  },
+  "research": {
+    "facts": "Thesis details",
+    "kind": "Type",
+    "institution": "Institution",
+    "department": "Department",
+    "term": "Term",
+    "supervisor": "Supervisor",
+    "coSupervisor": "Co-supervisor",
+    "team": "Research team",
+    "abstract": "Abstract",
+    "problem": "Problem statement",
+    "objectives": "Objectives",
+    "methodology": "Methodology",
+    "results": "Results",
+    "topics": "Topics",
+    "moreSoon": "The abstract, methodology and verified results will be published here soon.",
+    "photos": "From the submission"
+  },
+  "skills": {
+    "groups": "Skill areas",
+    "certificates": "Certificates & achievements",
+    "credential": "Credential ID",
+    "issuer": "Issuer",
+    "soon": "Details coming soon"
+  },
+  "travel": {
+    "emptyTitle": "Journeys coming soon",
+    "emptyText": "Real places I have visited — with stories and photos — will appear here as I add them.",
+    "bangladesh": "Bangladesh",
+    "world": "World"
+  },
+  "memories": {
+    "all": "All",
+    "filterLabel": "Filter memories by category",
+    "categories": {
+      "university": "University",
+      "village": "Village",
+      "friends": "Friends",
+      "family": "Family",
+      "travel": "Travel",
+      "work": "Work",
+      "other": "Other"
+    }
+  },
+  "hobbies": {
+    "intro": "Outside of work"
+  },
+  "contactPage": {
+    "channels": "Direct channels",
+    "formTitle": "Send a message",
+    "name": "Your name",
+    "email": "Your email",
+    "subject": "Subject",
+    "category": "Category",
+    "message": "Message",
+    "send": "Send message",
+    "sendWhatsApp": "Send via WhatsApp",
+    "sending": "Opening your email app…",
+    "invalid": "Please check the highlighted fields.",
+    "fallbackNote": "Your message opens in your email app (or WhatsApp). Direct delivery is enabled once the database is connected.",
+    "categories": {
+      "general": "General",
+      "project": "Project inquiry",
+      "job": "Job opportunity",
+      "collaboration": "Collaboration",
+      "other": "Other"
+    },
+    "errors": {
+      "name": "Please enter your name.",
+      "email": "Please enter a valid email.",
+      "message": "Please write at least 10 characters."
+    },
+    "social": "Social"
   }
 }

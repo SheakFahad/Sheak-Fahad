@@ -25,6 +25,8 @@ export interface MediaRef {
   /** Focal point 0..1 used for object-position when cropping. */
   focal_x?: number
   focal_y?: number
+  /** Preferred display ratio for thumbnails, e.g. '3 / 4' for portrait photos stored in a padded landscape canvas. */
+  display_aspect?: string
   /** Original personal photo: crop/frame only, never filter or regenerate. */
   is_original_photo?: boolean
 }
@@ -55,6 +57,8 @@ export interface SiteSection extends Publishable {
   /** Short label shown on Explore tiles. */
   eyebrow: string | null
   hero_media_id: string | null
+  /** Optional photo strip for the section page, chosen in the admin Media Library. */
+  gallery_media_ids?: string[]
   enabled: boolean
   show_in_nav: boolean
   seo_title: string | null
@@ -117,7 +121,182 @@ export type PageBlock = Publishable & {
     | { type: 'quote'; data: { text: string; cite?: string } }
   )
 
+export interface Experience extends Publishable {
+  id: string
+  company: string
+  role: string
+  employment_type: string | null
+  start_date: string | null
+  end_date: string | null
+  is_current: boolean
+  location: string | null
+  summary: string | null
+  responsibilities: string[]
+  achievements: string[]
+  logo_media_id: string | null
+  company_url: string | null
+}
+
+export interface Education extends Publishable {
+  id: string
+  level: 'ssc' | 'hsc' | 'bsc' | 'msc' | 'other'
+  institution: string
+  degree: string
+  department: string | null
+  group_name: string | null
+  start_year: number | null
+  end_year: number | null
+  result_label: string | null
+  result_value: string | null
+  /** GPA/CGPA is public only when the owner turns this on (default false). */
+  show_result: boolean
+  summary: string | null
+  activities: string[]
+  cover_media_id: string | null
+}
+
+export interface CaseStudy {
+  overview: string | null
+  problem: string | null
+  objectives: string[]
+  research: string | null
+  user_flow: string | null
+  wireframes_note: string | null
+  ui_design: string | null
+  design_system: string | null
+  prototype_note: string | null
+  challenges: string | null
+  results: string | null
+}
+
+export interface Project extends Publishable {
+  id: string
+  slug: string
+  title: string
+  project_type: string
+  summary: string | null
+  role: string | null
+  year: number | null
+  tools: string[]
+  did: string[]
+  live_url: string | null
+  behance_url: string | null
+  prototype_url: string | null
+  is_featured: boolean
+  cover_media_id: string | null
+  /** Cover is an illustrative concept visual, not a real product screenshot. */
+  is_concept_visual: boolean
+  gallery_media_ids: string[]
+  case_study: CaseStudy | null
+}
+
+export interface Video extends Publishable {
+  id: string
+  slug: string
+  title: string
+  category: 'showreel' | 'editing' | 'motion' | '2d' | '3d' | 'promo' | 'commercial' | 'reel'
+  provider: 'youtube' | 'vimeo' | 'storage'
+  external_id: string | null
+  src: string | null
+  poster_media_id: string | null
+  year: number | null
+  client: string | null
+  role: string | null
+  tools: string[]
+  description: string | null
+  aspect: '16:9' | '9:16' | '1:1'
+}
+
+export interface Research extends Publishable {
+  id: string
+  slug: string
+  title: string
+  kind: string
+  team: string[]
+  supervisor: string | null
+  co_supervisor: string | null
+  institution: string
+  department: string | null
+  term: string | null
+  abstract: string | null
+  problem: string | null
+  objectives: string[]
+  methodology: string | null
+  results: string | null
+  tags: string[]
+  media_ids: string[]
+}
+
+export interface SkillGroup extends Publishable {
+  id: string
+  category: string
+  title: string
+  description: string | null
+  items: string[]
+}
+
+export interface Achievement extends Publishable {
+  id: string
+  kind: 'certificate' | 'award' | 'training' | 'milestone'
+  title: string
+  issuer: string | null
+  issued_on: string | null
+  credential_id: string | null
+  credential_url: string | null
+  media_id: string | null
+  description: string | null
+}
+
+export interface TravelLocation extends Publishable {
+  id: string
+  slug: string
+  name: string
+  region: 'bangladesh' | 'world'
+  country: string
+  district: string | null
+  lat: number | null
+  lng: number | null
+  visited_from: string | null
+  short_memory: string | null
+  tags: string[]
+  cover_media_id: string | null
+  photo_media_ids: string[]
+  is_demo: boolean
+}
+
+export interface Memory extends Publishable {
+  id: string
+  slug: string
+  title: string
+  event_date: string | null
+  /** Human label when the exact date is unknown, e.g. "Fall 2025". */
+  date_label: string | null
+  category: 'university' | 'village' | 'friends' | 'family' | 'travel' | 'work' | 'other'
+  note: string | null
+  media_ids: string[]
+}
+
+export interface Hobby extends Publishable {
+  id: string
+  title: string
+  description: string
+  icon: string
+  tags: string[]
+  media_id: string | null
+  span: 1 | 2
+}
+
 export interface ContentSnapshot {
+  experiences: Experience[]
+  education: Education[]
+  projects: Project[]
+  videos: Video[]
+  research: Research[]
+  skills: SkillGroup[]
+  achievements: Achievement[]
+  travel: TravelLocation[]
+  memories: Memory[]
+  hobbies: Hobby[]
   settings: SiteSettings
   profile: Profile
   sections: SiteSection[]

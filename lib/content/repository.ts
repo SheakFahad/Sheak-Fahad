@@ -60,6 +60,36 @@ export const getMedia = cache(async (id: string | null | undefined): Promise<Med
   return media.find(m => m.id === id) ?? null
 })
 
+export const getMediaMany = cache(async (ids: string[]): Promise<MediaRef[]> => {
+  const { media } = await loadSnapshot()
+  return ids.map(id => media.find(m => m.id === id)).filter((m): m is MediaRef => Boolean(m))
+})
+
+/** Generic list getter: published + publicly listed, ordered. */
+const list = <K extends ListKey>(key: K) =>
+  cache(async (): Promise<ContentSnapshot[K]> => {
+    const snap = await loadSnapshot()
+    return (snap[key] as unknown as Publishable[]).filter(isPubliclyListed).sort(bySort) as unknown as ContentSnapshot[K]
+  })
+type ListKey = 'experiences' | 'education' | 'projects' | 'videos' | 'research' | 'skills' | 'achievements' | 'travel' | 'memories' | 'hobbies'
+
+export const getExperiences = list('experiences')
+export const getEducation = list('education')
+export const getProjects = list('projects')
+export const getVideos = list('videos')
+export const getResearch = list('research')
+export const getSkills = list('skills')
+export const getAchievements = list('achievements')
+/** Demo rows are never public, even if mis-flagged as published. */
+export const getTravel = cache(async () => (await list('travel')()).filter(t => !t.is_demo))
+export const getMemories = list('memories')
+export const getHobbies = list('hobbies')
+
+export const getProjectBySlug = cache(async (slug: string) => {
+  const snap = await loadSnapshot()
+  return snap.projects.find(p => p.slug === slug && isPubliclyReachable(p)) ?? null
+})
+
 export const getSectionBlocks = cache(async (sectionKey: string) => {
   const { section_blocks } = await loadSnapshot()
   return (section_blocks[sectionKey] ?? []).filter(isPubliclyListed).sort(bySort)
