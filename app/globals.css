@@ -355,6 +355,7 @@ html.js-motion [data-split] {
 }
 
 /* ═════════════════════════ NEXUS — homepage ═════════════════════════ */
+html.js-motion [data-nx-photo],
 html.js-motion [data-nx-in],
 html.js-motion [data-nx-title],
 html.js-motion [data-nx-name],
@@ -625,23 +626,47 @@ html.js-motion .nexus .dock-link {
   box-shadow: 0 10px 30px -8px color-mix(in srgb, var(--brand) 80%, transparent);
 }
 
-/* Portrait stage + holographic platform */
-.nx-stage {
-  margin-inline: auto;
-  width: min(88vw, 470px);
+/* Portrait stage + holographic platform.
+   The stage is sized by HEIGHT (--nx-h) and gets its width from the photo's own aspect ratio (inline style),
+   so the photograph is never stretched or cropped and never dominates the layout. */
+.nx-center {
+  --nx-h: min(52svh, 400px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 @media (width >= 48rem) {
-  .nx-stage { width: min(44vw, 500px); }
+  .nx-center { --nx-h: min(58svh, 520px); }
 }
 @media (width >= 80rem) {
-  .nx-stage { width: clamp(380px, 32.5vw, min(560px, calc((100dvh - 360px) * 1.08))); }
+  .nx-center { --nx-h: clamp(400px, calc(100dvh - 340px), 570px); }
+}
+.nx-stage {
+  height: var(--nx-h);
+  width: auto;
+  max-width: 100%;
+  animation: nx-stage-float 7s ease-in-out infinite;
+}
+@keyframes nx-stage-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
+}
+.nx-photo {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  user-select: none;
+  /* alpha-only fade of the photo's cropped bottom edge into the platform */
+  mask-image: linear-gradient(to top, transparent 0, #000 9%);
+  -webkit-mask-image: linear-gradient(to top, transparent 0, #000 9%);
 }
 .nx-platform {
   position: relative;
-  margin-inline: auto;
-  margin-top: -6%;
-  width: 100%;
-  height: clamp(56px, 7vw, 96px);
+  margin-top: calc(var(--nx-h) * -0.07);
+  width: min(100%, calc(var(--nx-h) * 0.95));
+  height: calc(var(--nx-h) * 0.17);
 }
 .nx-platform__fallback {
   position: absolute;
@@ -1267,7 +1292,8 @@ li:has(> .nx-float > .nx-station:focus-visible) {
   .nx-orbit__flow,
   .nx-globe-fallback,
   .nx-ai__orb,
-  .nx-ai__eye {
+  .nx-ai__eye,
+  .nx-stage {
     animation: none;
   }
 }

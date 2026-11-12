@@ -68,3 +68,8 @@ Notes: `uni/2,3,4,5,6,7,8,9,10,11,12` are portrait shots padded into 1200×800 w
 - `public/textures/earth-data.webp`, `earth-data-sm.webp` — packed data maps (R = land mask, G = city lights, B = relief) built from the three.js example planet textures (NASA Blue Marble / Black Marble derived imagery, public domain) via a sharp script; ~200 KB / ~58 KB.
 - `public/textures/earth-fallback.webp` — stylised equirectangular Earth for the no-WebGL CSS globe, generated from the same data.
 - Holographic panel graphics and the platform SF mark are drawn at runtime on canvas (no external assets). No AI-generated imagery is used; the NEXUS mockups and `kkkkk.png` remain planning references only.
+
+## Hero portrait (2026-11-12, v3)
+- `public/images/hero/portrait-nexus.webp` (896×1600) and `portrait-nexus-sm.webp` (504×900): owner-provided `Fahad image/IMG_9217.PNG` (2803×3052), background removed (alpha only, RGB max diff 0), faint alpha noise <24 cleared, trimmed, downscaled only. Source folder is git-ignored and untouched.
+- Rejected from the same folder: IMG_8973 (thesis cover visible — names/IDs), IMG_8986 (other people behind the shoulder), IMG_9215 (similar to 9217, busier background).
+- Previous `portrait-cutout*.webp` (from profile.jpg) removed from the homepage.

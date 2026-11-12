@@ -172,10 +172,10 @@ const drawChart: Draw = (ctx, w, h) => {
 
 /**
  * Floating glass panels around the portrait, in portrait units (plane height = 1, centre = 0).
- * All sit beside or below the shoulders (|x| ≥ 0.48 or y ≤ -0.2) — never over the face.
+ * All sit beside the body (|x| ≥ 0.3) below the chin line (y ≤ 0.1); the DOM photo is drawn above the canvas anyway.
  */
 export const HOLO_CARDS = [
-  { key: 'video', w: 320, h: 200, size: [0.32, 0.2] as const, pos: [-0.5, -0.45, 0.12] as const, rot: [0, 0.45, 0.04] as const, draw: drawVideo },
-  { key: 'design', w: 280, h: 200, size: [0.24, 0.17] as const, pos: [0.58, -0.08, 0.1] as const, rot: [0, -0.45, -0.05] as const, draw: drawDesign },
-  { key: 'chart', w: 320, h: 200, size: [0.3, 0.19] as const, pos: [0.5, -0.4, 0.2] as const, rot: [0, -0.35, 0] as const, draw: drawChart },
+  { key: 'video', w: 320, h: 200, size: [0.22, 0.138] as const, pos: [-0.3, -0.47, 0.1] as const, rot: [0, 0.45, 0.04] as const, draw: drawVideo },
+  { key: 'design', w: 280, h: 200, size: [0.18, 0.129] as const, pos: [0.36, 0.04, 0.08] as const, rot: [0, -0.45, -0.05] as const, draw: drawDesign },
+  { key: 'chart', w: 320, h: 200, size: [0.22, 0.138] as const, pos: [0.36, -0.36, 0.12] as const, rot: [0, -0.35, 0] as const, draw: drawChart },
 ]

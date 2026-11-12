@@ -11,9 +11,9 @@ import { BASIC_VERT, cometMaterial, easeOut, lockToRect, seg } from './dom-lock'
 import { createRandom, randomOnSphere } from './random'
 import { HOLO_CARDS, makeCanvasTexture, drawSFLogo } from './holo-textures'
 
-const PORTRAIT = '/images/hero/portrait-cutout.webp'
-const PORTRAIT_SM = '/images/hero/portrait-cutout-sm.webp'
-const ASPECT = 1188 / 1100
+// The photo itself is rendered by the DOM (<img>, native resolution, never stretched).
+// WebGL only loads the small cutout to read its ALPHA for the rim light behind the silhouette.
+const MASK = '/images/hero/portrait-nexus-sm.webp'
 
 const _a = new THREE.Vector3()
 const _p = new THREE.Vector3()
@@ -198,20 +198,15 @@ function additive(frag: string, uniforms: Record<string, THREE.IUniform>, side: 
 }
 
 /**
- * Hero centrepiece in the shared canvas: the ORIGINAL portrait cutout on a plane (basic material,
- * no tone mapping, sRGB — pixels shown exactly as photographed), locked to the DOM stage, inside a
- * holographic structure: HUD rings and glow BEHIND the photo, orbit rings whose front arcs stay below
- * the chin, floating glass panels beside the body, and a holographic SF platform below.
+ * Holographic structure around the hero portrait, locked to the DOM stage. The ORIGINAL photo is a sharp
+ * DOM <img> above the canvas, so every WebGL element (HUD rings, glow, rim light, orbit trails, glass
+ * panels, particles, SF platform) sits visually behind or beside it — nothing can ever cover the face.
  */
 export function HeroPortal({ tier }: { tier: 'low' | 'medium' | 'high' }) {
   const dustCount = tier === 'low' ? 260 : tier === 'medium' ? 520 : 900
-  const map = useTexture(tier === 'low' ? PORTRAIT_SM : PORTRAIT, t => {
-    const tex = Array.isArray(t) ? t[0] : t
-    if (tex) {
-      tex.colorSpace = THREE.SRGBColorSpace
-      tex.anisotropy = 4
-    }
-  })
+  const map = useTexture(MASK)
+  const img = map.image as { width: number; height: number } | undefined
+  const ASPECT = img ? img.width / img.height : 0.56
 
   const root = useRef<THREE.Group>(null)
   const inner = useRef<THREE.Group>(null)
@@ -224,24 +219,6 @@ export function HeroPortal({ tier }: { tier: 'low' | 'medium' | 'high' }) {
   const rings = useRef<THREE.Mesh[]>([])
   const cards = useRef<THREE.Group[]>([])
   const platRings = useRef<THREE.Mesh[]>([])
-
-  // Wipe-reveal of the photo via a clipping plane (geometry clipping — no colour change).
-  const clipPlanes = useMemo(() => [new THREE.Plane(new THREE.Vector3(0, -1, 0), -1000)], [])
-  const portraitMat = useRef<THREE.MeshBasicMaterial>(null)
-
-  // Soft fade of the cropped bottom edge (alpha only).
-  const bottomFade = useMemo(() => {
-    const h = 64
-    const data = new Uint8Array(h * 4)
-    for (let i = 0; i < h; i++) {
-      const v = i / (h - 1)
-      const a = Math.round(255 * Math.min(1, v / 0.1) ** 1.5)
-      data.set([a, a, a, 255], i * 4)
-    }
-    const tex = new THREE.DataTexture(data, 1, h, THREE.RGBAFormat)
-    tex.needsUpdate = true
-    return tex
-  }, [])
 
   const mats = useMemo(() => {
     const logo = makeCanvasTexture(512, 512, drawSFLogo)
@@ -293,7 +270,7 @@ export function HeroPortal({ tier }: { tier: 'low' | 'medium' | 'high' }) {
     const seed = new Float32Array(dustCount)
     for (let i = 0; i < dustCount; i++) {
       const [x, y, z] = randomOnSphere(rand, 0.55 + rand() * 0.45)
-      end.set([x * 1.05, y * 0.75 + 0.05, -Math.abs(z) * 0.6 - 0.05], i * 3)
+      end.set([x * 0.62, y * 0.72 + 0.08, -Math.abs(z) * 0.6 - 0.05], i * 3)
       const st = randomOnSphere(rand, 2.5 + rand() * 3)
       start.set([st[0], st[1], -Math.abs(st[2])], i * 3)
       size[i] = 0.6 + rand() ** 2 * 2.2
@@ -314,7 +291,7 @@ export function HeroPortal({ tier }: { tier: 'low' | 'medium' | 'high' }) {
     const size = new Float32Array(frontCount)
     const seed = new Float32Array(frontCount)
     for (let i = 0; i < frontCount; i++) {
-      pos.set([(rand() - 0.5) * 1.9, -0.78 + rand() * 0.64, 0.05 + rand() * 0.45], i * 3)
+      pos.set([(rand() - 0.5) * 1.15, -0.78 + rand() * 0.64, 0.05 + rand() * 0.45], i * 3)
       size[i] = 0.8 + rand() ** 2 * 2.6
       seed[i] = rand()
     }
@@ -370,15 +347,10 @@ export function HeroPortal({ tier }: { tier: 'low' | 'medium' | 'high' }) {
     const pPortrait = easeOut(seg(intro, 0.4, 0.85))
     const pTrails = easeOut(seg(intro, 0.6, 1))
 
-    // portrait reveal: bottom → top in world space (plane normal (0,-1,0) keeps y <= constant)
-    const bottomY = g.position.y - worldH / 2
-    const plane = portraitMat.current?.clippingPlanes?.[0]
-    if (plane) plane.constant = pPortrait >= 1 ? 1e6 : bottomY + worldH * pPortrait * 1.05
 
-    if (inner.current) {
-      easing.dampE(inner.current.rotation, [state.pointer.y * 0.05, state.pointer.x * 0.1, 0], 0.5, delta)
-      inner.current.position.y = Math.sin(t * 0.6) * 0.018
-    }
+    // Orbit rings tilt slightly with the pointer (depth parallax); rim light + HUD stay locked to the DOM photo.
+    const ringGroup = rings.current[0]?.parent
+    if (ringGroup) ringGroup.rotation.y = THREE.MathUtils.damp(ringGroup.rotation.y, state.pointer.x * 0.12, 3, delta)
 
     if (glowMat.current) glowMat.current.uniforms.uOpacity!.value = pEnv * 0.9
     if (rimMat.current) rimMat.current.uniforms.uOpacity!.value = pPortrait * 0.55
@@ -466,8 +438,8 @@ export function HeroPortal({ tier }: { tier: 'low' | 'medium' | 'high' }) {
       <group ref={root} visible={false}>
         <group ref={inner}>
           {/* back glow */}
-          <mesh position={[0, 0.05, -0.6]} renderOrder={-3}>
-            <planeGeometry args={[2.6, 2.6]} />
+          <mesh position={[0, 0.12, -0.6]} renderOrder={-3}>
+            <planeGeometry args={[1.8, 1.8]} />
             <shaderMaterial
               ref={glowMat}
               vertexShader={BASIC_VERT}
@@ -481,13 +453,13 @@ export function HeroPortal({ tier }: { tier: 'low' | 'medium' | 'high' }) {
           </mesh>
 
           {/* holographic HUD structure — fully behind the photo plane */}
-          <mesh position={[0, 0.1, -0.5]} renderOrder={-3} material={mats.hud}>
-            <planeGeometry args={[1.62, 1.62]} />
+          <mesh position={[0, 0.2, -0.5]} renderOrder={-3} material={mats.hud}>
+            <planeGeometry args={[1.18, 1.18]} />
           </mesh>
 
           {/* halo behind the head */}
-          <mesh position={[0, 0.14, -0.32]} renderOrder={-2}>
-            <torusGeometry args={[0.47, 0.0035, 12, 200]} />
+          <mesh position={[-0.02, 0.37, -0.32]} renderOrder={-2}>
+            <torusGeometry args={[0.2, 0.003, 12, 200]} />
             <meshBasicMaterial ref={discEdge} color="#51e5ff" toneMapped={false} transparent opacity={0} />
           </mesh>
 
@@ -514,24 +486,19 @@ export function HeroPortal({ tier }: { tier: 'low' | 'medium' | 'high' }) {
             <planeGeometry args={[ASPECT, 1]} />
           </mesh>
 
-          {/* THE PHOTO — basic material, untouched pixels */}
-          <mesh renderOrder={0}>
-            <planeGeometry args={[ASPECT, 1]} />
-            <meshBasicMaterial ref={portraitMat} map={map} alphaMap={bottomFade} transparent alphaTest={0.02} toneMapped={false} clippingPlanes={clipPlanes} />
-          </mesh>
 
           {/*
             Orbit rings + light trails. Rule: the FRONT arc of every ring stays at chest height
             (negative X tilt → front arc dips below the centre), so nothing ever crosses the face.
           */}
-          <group position={[0, -0.18, 0]}>
+          <group position={[0, -0.22, 0]}>
             {[
-              { r: 0.6, tube: 0.0034, rot: [-1.3, 0.12, 0] as const, pos: [0, 0, 0] as const },
-              { r: 0.76, tube: 0.0024, rot: [-1.42, -0.16, 0] as const, pos: [0, -0.03, 0] as const },
-              { r: 0.58, tube: 0.0022, rot: [0, 0, 0] as const, pos: [0, 0.3, -0.45] as const },
-              { r: 0.9, tube: 0.006, rot: [-1.22, 0.08, 0] as const, pos: [0, -0.06, 0] as const },
-              { r: 1.06, tube: 0.007, rot: [-1.15, 0.12, 0.08] as const, pos: [0, -0.1, 0] as const },
-              { r: 1.24, tube: 0.005, rot: [-1.1, -0.1, -0.06] as const, pos: [0, -0.14, 0] as const },
+              { r: 0.36, tube: 0.003, rot: [-1.3, 0.12, 0] as const, pos: [0, 0, 0] as const },
+              { r: 0.44, tube: 0.0022, rot: [-1.42, -0.16, 0] as const, pos: [0, -0.03, 0] as const },
+              { r: 0.34, tube: 0.002, rot: [0, 0, 0] as const, pos: [0, 0.6, -0.45] as const },
+              { r: 0.5, tube: 0.005, rot: [-1.22, 0.08, 0] as const, pos: [0, -0.06, 0] as const },
+              { r: 0.55, tube: 0.006, rot: [-1.15, 0.12, 0.08] as const, pos: [0, -0.1, 0] as const },
+              { r: 0.6, tube: 0.0045, rot: [-1.1, -0.1, -0.06] as const, pos: [0, -0.14, 0] as const },
             ].map((ring, i) => (
               <mesh
                 key={i}
@@ -579,7 +546,7 @@ export function HeroPortal({ tier }: { tier: 'low' | 'medium' | 'high' }) {
             />
           </points>
 
-          <pointLight ref={accent} position={[0.55, 0.35, 0.5]} intensity={3} distance={3} color="#51e5ff" />
+          <pointLight ref={accent} position={[0.4, 0.3, 0.5]} intensity={3} distance={3} color="#51e5ff" />
         </group>
       </group>
 

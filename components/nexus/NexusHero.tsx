@@ -71,7 +71,7 @@ export function NexusHero({ config, name, primaryRoles, extraRoles, text, portra
       const el = root.current
       if (!el) return
       const q = gsap.utils.selector(el)
-      const reveal = ['[data-nx-in]', '[data-nx-title]', '[data-nx-name]', '[data-nx-station]', '[data-nx-card]', '[data-nx-ai]', '.dock-link']
+      const reveal = ['[data-nx-photo]', '[data-nx-in]', '[data-nx-title]', '[data-nx-name]', '[data-nx-station]', '[data-nx-card]', '[data-nx-ai]', '.dock-link']
 
       if (prefersReducedMotion()) {
         heroStore.intro = 1
@@ -94,6 +94,13 @@ export function NexusHero({ config, name, primaryRoles, extraRoles, text, portra
       nexusStore.intro = 0
       tl.to(nexusStore, { intro: 1, duration: 3.4, ease: 'power2.inOut' }, 0)
       tl.to(heroStore, { intro: 1, duration: 3.2, ease: 'power2.inOut' }, 0.35)
+      // Portrait reveal: geometric wipe (clip-path) only — the pixels are never filtered or altered
+      tl.fromTo(
+        q('[data-nx-photo]'),
+        { autoAlpha: 1, clipPath: 'inset(100% 0% 0% 0%)' },
+        { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.7, ease: 'power3.inOut', clearProps: 'clipPath' },
+        1.0,
+      )
 
       // 3) Typography — NEXUS: masked chars rise in depth, then the orbit swoosh draws
       const splits: SplitText[] = []
@@ -306,22 +313,22 @@ export function NexusHero({ config, name, primaryRoles, extraRoles, text, portra
           {/* ── CENTER: portrait (WebGL locks to the stage; DOM fallback without WebGL) ── */}
           <div className="nx-center relative">
             <div ref={stage} data-hero-stage className="nx-stage relative" style={{ aspectRatio: `${portrait.width} / ${portrait.height}` }}>
-              <div data-hero-fallback className="absolute inset-0 transition-opacity duration-700">
-                <div aria-hidden="true" className="hero-css-portal" />
-                <picture>
-                  <source media="(max-width: 767px)" srcSet={portrait.srcSm} />
-                  <Image
-                    src={portrait.src}
-                    alt={portrait.alt}
-                    width={portrait.width}
-                    height={portrait.height}
-                    priority
-                    unoptimized
-                    className="relative h-full w-full object-contain [mask-image:linear-gradient(to_top,transparent,black_12%)]"
-                  />
-                </picture>
+              {/* CSS portal only when WebGL is not drawing the holographic structure */}
+              <div data-hero-fallback aria-hidden="true" className="absolute inset-0 transition-opacity duration-700">
+                <div className="hero-css-portal" />
               </div>
-              <span className="sr-only">{portrait.alt}</span>
+              {/* THE PHOTO — the original cutout as a native <img>: full resolution, aspect preserved, no filters */}
+              <Image
+                data-nx-photo
+                src={portrait.src}
+                alt={portrait.alt}
+                width={portrait.width}
+                height={portrait.height}
+                priority
+                unoptimized
+                draggable={false}
+                className="nx-photo"
+              />
             </div>
             <div ref={platform} data-nx-platform aria-hidden="true" className="nx-platform">
               <span className="nx-platform__fallback" />
