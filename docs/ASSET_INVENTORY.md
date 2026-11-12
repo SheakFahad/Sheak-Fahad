@@ -62,3 +62,9 @@ Notes: `uni/2,3,4,5,6,7,8,9,10,11,12` are portrait shots padded into 1200×800 w
 - AI-looking or mock-up imagery: **6** (5 project covers + HSC). Usable as temporary covers, labelled as concept visuals in the admin panel.
 - Videos available (pending approval): **~19**. CV: **1**. Certificates: **1**.
 - Missing entirely: real project screenshots and wireframes, travel photos, hobby photos, the thesis PDF and diagrams.
+
+
+## Generated / third-party textures (R2)
+- `public/textures/earth-data.webp`, `earth-data-sm.webp` — packed data maps (R = land mask, G = city lights, B = relief) built from the three.js example planet textures (NASA Blue Marble / Black Marble derived imagery, public domain) via a sharp script; ~200 KB / ~58 KB.
+- `public/textures/earth-fallback.webp` — stylised equirectangular Earth for the no-WebGL CSS globe, generated from the same data.
+- Holographic panel graphics and the platform SF mark are drawn at runtime on canvas (no external assets). No AI-generated imagery is used; the NEXUS mockups and `kkkkk.png` remain planning references only.

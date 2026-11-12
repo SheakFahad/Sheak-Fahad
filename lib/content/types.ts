@@ -43,8 +43,12 @@ export type SectionKey =
   | 'travel'
   | 'memories'
   | 'hobbies'
+  | 'achievements'
   | 'contact'
   | (string & {})
+
+/** Icon keys for NEXUS stations (components/nexus/StationIcon.tsx). */
+export type StationIconKey = 'home' | 'user' | 'trend' | 'cap' | 'stack' | 'flask' | 'play' | 'layers' | 'trophy' | 'map' | 'image' | 'spark' | 'send'
 
 export interface SiteSection extends Publishable {
   key: SectionKey
@@ -61,6 +65,9 @@ export interface SiteSection extends Publishable {
   gallery_media_ids?: string[]
   enabled: boolean
   show_in_nav: boolean
+  /** NEXUS station icon + one-line hover description (homepage station map). */
+  icon?: StationIconKey | null
+  station_text?: string | null
   seo_title: string | null
   seo_description: string | null
 }
@@ -122,6 +129,24 @@ export interface SiteSettings {
     sound: boolean
   }
   footer_text: string | null
+  /** NEXUS AI: 'local' answers only from verified CMS data (no LLM); 'llm' needs a configured provider. */
+  assistant?: { mode: 'local' | 'llm'; provider: string | null }
+  home?: HomeConfig
+  translations?: Translations
+}
+
+/** Homepage (NEXUS) configuration — edited in the admin "Homepage" panel. */
+export interface HomeConfig {
+  welcome_label: string
+  title: string
+  subtitle: string
+  intro_prefix: string
+  /** Ordered project slugs; only published + public projects are ever shown. */
+  featured_project_slugs: string[]
+  show_stations: boolean
+  show_featured: boolean
+  show_globe: boolean
+  environment: { nebula: boolean; planets: boolean; mountains: boolean; city: boolean; plants: boolean; ground: boolean }
   translations?: Translations
 }
 

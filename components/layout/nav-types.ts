@@ -1,3 +1,5 @@
+import type { StationIconKey } from '@/lib/content/types'
+
 /** Serializable nav item passed from server (DB-driven sections) to client nav components. */
 export interface NavItem {
   key: string
@@ -5,6 +7,8 @@ export interface NavItem {
   label: string
   eyebrow: string | null
   index: number
+  icon: StationIconKey | null
+  text: string | null
 }
 
 export interface SocialItem {
@@ -12,4 +16,12 @@ export interface SocialItem {
   label: string
   url: string
   handle: string | null
+}
+
+/** Search index entry (sections + published projects). */
+export interface SearchEntry {
+  href: string
+  title: string
+  group: 'section' | 'project'
+  hint: string | null
 }

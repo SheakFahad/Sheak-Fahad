@@ -44,7 +44,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
   if (!hasLocale(routing.locales, locale)) notFound()
   setRequestLocale(locale)
 
-  const [{ settings, profile, navItems, socials }, t, rawSettings] = await Promise.all([
+  const [{ settings, profile, navItems, homeItem, socials, search }, t, rawSettings] = await Promise.all([
     getShellData(locale),
     getTranslations(),
     getSiteSettings(),
@@ -69,8 +69,11 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
               <ScrollProgress />
               <Header
                 siteName={profile.full_name}
+                brandSub={t('common.brandSub')}
+                homeItem={homeItem}
                 items={navItems}
                 socials={socials}
+                search={search}
                 labels={{
                   primary: t('nav.primary'),
                   menu: t('common.menu'),
@@ -82,6 +85,12 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
                   toDark: t('common.themeToDark'),
                   toLight: t('common.themeToLight'),
                   home: t('common.home'),
+                  more: t('nav.more'),
+                  search: t('common.search'),
+                  searchPlaceholder: t('common.searchPlaceholder'),
+                  noResults: t('common.noResults'),
+                  sections: t('nav.sections'),
+                  projects: t('nav.projects'),
                 }}
               />
               <main id="main" tabIndex={-1} className="outline-none">

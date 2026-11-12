@@ -17,13 +17,20 @@
     "next": "Next",
     "notFoundTitle": "Lost in space",
     "notFoundText": "This page drifted out of orbit. Let’s get you back.",
-    "goHome": "Back to home"
+    "goHome": "Back to home",
+    "search": "Search",
+    "searchPlaceholder": "Search sections and projects…",
+    "noResults": "Nothing found. Try another word.",
+    "brandSub": "Digital Universe"
   },
   "nav": {
     "primary": "Primary navigation",
     "explore": "Explore",
     "allSections": "All sections",
-    "contact": "Get in touch"
+    "contact": "Get in touch",
+    "more": "More",
+    "sections": "Sections",
+    "projects": "Projects"
   },
   "home": {
     "exploreWorld": "Explore My World",
@@ -35,7 +42,29 @@
     "socialLabel": "Social profiles",
     "skillsLabel": "What I do",
     "iAm": "I am a",
-    "closeSkill": "Close"
+    "closeSkill": "Close",
+    "stationsLabel": "Portfolio stations",
+    "stationsTitle": "Stations of the universe",
+    "featuredTitle": "Featured Projects",
+    "conceptVisual": "Concept visual",
+    "prevProject": "Previous project",
+    "nextProject": "Next project",
+    "viewCase": "View case study",
+    "globeLabel": "Interactive globe — drag to rotate",
+    "openStation": "Open",
+    "aiTitle": "NEXUS AI",
+    "aiText": "Ask anything about my work, skills, projects or journey.",
+    "aiOpen": "Open NEXUS AI",
+    "aiClose": "Close assistant",
+    "aiHide": "Hide assistant",
+    "aiPlaceholder": "Ask about my work, skills, projects…",
+    "aiSend": "Send",
+    "aiNote": "Offline guide · answers only from verified portfolio data — no AI model, nothing is stored.",
+    "aiSuggest": "Try asking",
+    "aiNoAnswer": "I don’t have verified information about that yet. Try one of the suggestions below — or ask Sheak directly.",
+    "aiGreeting": "Hi! I’m the NEXUS guide. Ask me about Sheak’s work, skills, projects, research or how to get in touch.",
+    "aiYou": "You",
+    "aiOpenLink": "Open"
   },
   "section": {
     "preparingTitle": "Content is being prepared",
@@ -184,5 +213,15 @@
       "message": "Please write at least 10 characters."
     },
     "social": "Social"
+  },
+  "achievements": {
+    "credential": "Credential ID",
+    "verify": "Verify",
+    "kind": {
+      "certificate": "Certificate",
+      "award": "Award",
+      "training": "Training",
+      "milestone": "Milestone"
+    }
   }
 }

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import { TransitionLink } from '@/components/motion/TransitionLink'
+import { StationIcon } from '@/components/nexus/StationIcon'
 import { gsap } from '@/lib/gsap'
 import { lockScroll } from '@/lib/motion/lenis'
 import { motion, prefersReducedMotion } from '@/lib/motion/presets'
@@ -98,6 +99,7 @@ export function MegaMenu({ id, open, onClose, items, socials, activeHref, labels
                     )}
                   >
                     <span className="font-mono text-xs text-[var(--cyan)]">{String(item.index).padStart(2, '0')}</span>
+                    <StationIcon name={item.icon} className="size-5 shrink-0 self-center text-[var(--cyan)]" />
                     <span className="font-[family-name:var(--font-display)] text-2xl transition-transform duration-300 group-hover:translate-x-2 md:text-3xl">
                       {item.label}
                     </span>

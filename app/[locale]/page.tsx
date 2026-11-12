@@ -1,5 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { HeroSection } from '@/components/hero/HeroSection'
+import { NexusSection } from '@/components/nexus/NexusSection'
+import { StationIcon } from '@/components/nexus/StationIcon'
 import { SplitHeading } from '@/components/motion/SplitHeading'
 import { TransitionLink } from '@/components/motion/TransitionLink'
 import { Container, Eyebrow, GlassCard } from '@/components/ui/primitives'
@@ -25,14 +26,16 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
 
   return (
     <>
-      <HeroSection locale={locale} />
+      <NexusSection locale={locale} />
 
       {/* ───────── Station map (every enabled section, from the CMS) ───────── */}
       <section id="explore" aria-labelledby="explore-title" className="section-y scroll-mt-24">
         <Container>
-          <Eyebrow>{shell.navItems.length.toString().padStart(2, '0')} · Stations</Eyebrow>
+          <Eyebrow>
+            {shell.navItems.length.toString().padStart(2, '0')} · {t('stationsLabel')}
+          </Eyebrow>
           <SplitHeading id="explore-title" className="mt-3 text-4xl md:text-6xl">
-            {t('exploreTitle')}
+            {t('stationsTitle')}
           </SplitHeading>
           <p data-reveal className="mt-4 max-w-xl text-[var(--text-2)]">
             {t('exploreText')}
@@ -41,11 +44,17 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
             {shell.navItems.map(item => (
               <li key={item.key} data-reveal>
                 <TransitionLink href={item.href} className="block h-full rounded-[var(--radius-card)]">
-                  <GlassCard interactive className="flex h-full min-h-40 flex-col justify-between">
-                    <span className="font-mono text-xs text-[var(--cyan)]">{String(item.index).padStart(2, '0')}</span>
+                  <GlassCard interactive className="group flex h-full min-h-44 flex-col justify-between gap-6">
+                    <span className="flex items-center justify-between">
+                      <span className="nx-tile-icon">
+                        <StationIcon name={item.icon} className="size-6" />
+                      </span>
+                      <span className="font-mono text-xs text-[var(--cyan)]">{String(item.index).padStart(2, '0')}</span>
+                    </span>
                     <span>
                       {item.eyebrow && <span className="eyebrow !text-[var(--text-2)]">{item.eyebrow}</span>}
-                      <span className="mt-1 block font-[family-name:var(--font-display)] text-2xl">{item.label}</span>
+                      <span className="mt-1 block font-[family-name:var(--font-display)] text-2xl uppercase tracking-wide">{item.label}</span>
+                      {item.text && <span className="mt-2 block text-sm text-[var(--text-2)]">{item.text}</span>}
                     </span>
                   </GlassCard>
                 </TransitionLink>

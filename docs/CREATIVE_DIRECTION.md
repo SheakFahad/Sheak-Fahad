@@ -19,18 +19,19 @@ Brand line: **BEYOND DESIGN. BEYOND IMAGINATION.**
 ## 3. Page stations (each has its own composition, not a shared card grid)
 | Page | Station name | 3D environment (shared canvas) | DOM composition | Signature interaction |
 |---|---|---|---|---|
-| Home | **Arrival** | Portal around the real portrait cutout, orbit rings with light trails, converging particles | Oversized name, tagline, six floating skill stations, social dock, CTAs; then an orbit map of all stations and a featured-work reel | Cinematic intro; skill stations light the portal |
-| About | **Origin** | Constellation drawing lines between life chapters | Horizontal pinned "chapters" (Gazipur → school → GUB → work) with layered real photos and serif pull-quotes | Scroll scrubs the constellation |
-| Career | **Trajectory** | A 3D orbital track; three company planets with logos | Pinned timeline: the camera travels the track; each stop opens a glass dossier (role, dates, duties: shown only when verified) | Scroll-driven camera path |
-| Education | **Foundations** | Three stacked light platforms rising | Vertical ascent SSC → HSC → B.Sc.; GPA only if enabled; campus film strip | Platforms rise with scroll |
+| Home | **NEXUS** (v2, 2026-11-12 — replaces "Arrival") | Nebula, gas giant + moon, mountain ridges, reflective floor with light trails, distant city, crystal flora, motes; the real portrait cutout inside a HUD ring structure with chest-level orbit rings, glass panels beside the shoulders and a holographic SF platform; a real 3D Earth (NASA-derived data texture, atmosphere, network arcs, rings, satellite) | Left: WELCOME TO / NEXUS / I'M SHEAK FAHAD, roles, CTAs, brand dock. Centre: portrait. Right: Earth with every CMS section as a holographic station. Bottom: featured-projects carousel, NEXUS AI (local, verified-data only), scroll cue | Station hover lights the Earth's atmosphere in its accent and draws a beam; drag the Earth; scroll recedes the hero and lifts the camera into space |
+| About | **Origin** (nav: ORIGIN · My Story) | Constellation drawing lines between life chapters | Horizontal pinned "chapters" (Gazipur → school → GUB → work) with layered real photos and serif pull-quotes | Scroll scrubs the constellation |
+| Career | **Trajectory** (TRAJECTORY · My Career) | A 3D orbital track; three company planets with logos | Pinned timeline: the camera travels the track; each stop opens a glass dossier (role, dates, duties: shown only when verified) | Scroll-driven camera path |
+| Education | **Academy** (was Foundations) | Three stacked light platforms rising | Vertical ascent SSC → HSC → B.Sc.; GPA only if enabled; campus film strip | Platforms rise with scroll |
 | Projects | **Hangar** | Curved WebGL image wall (project covers on bent planes) | Drag/scroll horizontal gallery + list view toggle; filters with Flip | Hover distorts and previews; click flies into the case study |
 | Case study | **Mission Log** | Cover plane recedes into depth | Editorial long-form: sticky index, full-bleed media, serif quotes, meta rail | "Next mission" portal transition |
-| Studio | **Projection Room** | Film-strip helix + projector beam | Cinema layout: showreel stage, category reels, vertical shorts carousel, fullscreen player | Lite embeds; theatre dims on play |
+| Studio | **Motion Studio** (was Projection Room) | Film-strip helix + projector beam | Cinema layout: showreel stage, category reels, vertical shorts carousel, fullscreen player | Lite embeds; theatre dims on play |
 | Research | **Laboratory** | Node-graph network (sources → clients → aggregator → digital twin) | Lab-sheet typography, fact readouts, team, topics; diagram uses verified structure only | Hover a node to read it |
-| Skills | **Instruments** | Constellations per skill area | Instrument panel of eight areas, verified tools, certificate holo-card | Selecting an area highlights its constellation |
+| Skills | **Arsenal** (was Instruments) | Constellations per skill area | Instrument panel of eight areas, verified tools, certificate holo-card | Selecting an area highlights its constellation |
 | Travel | **Atlas** | Interactive 3D globe (three-globe) with Bangladesh focus | Region switch, year filter, place drawers; honest empty state until real places exist | Drag globe, click marker |
-| Memories | **Archive** | Floating photo constellation | Contact-sheet masonry + timeline scrubber + lightbox; approved visitor stories; "Share your story" | Scrub through years |
-| Hobbies | **Playground** | Playful low-poly objects (ball, controller, film) | Asymmetric interactive bento | Objects react to the pointer |
+| Memories | **Chronicles** (was Archive) | Floating photo constellation | Contact-sheet masonry + timeline scrubber + lightbox; approved visitor stories; "Share your story" | Scrub through years |
+| Hobbies | **Offbeat** (was Playground) | Playful low-poly objects (ball, controller, film) | Asymmetric interactive bento | Objects react to the pointer |
+| Achievements | **Milestones** (new station, 2026-11-12) | — (R6) | Verified certificates list | — |
 | Contact | **Transmission** | Signal beacon pulsing outward | Terminal-style form, direct channels, social dock, CV | Beacon pulses on send |
 
 Global: animated glass nav with active-station indicator, fullscreen station map menu, custom cursor (fine pointer only, native cursor kept), page transitions = curtain plus camera fly, Ctrl+K palette (later phase).
@@ -45,7 +46,7 @@ Original face untouched (background removal changes alpha only; verified pixel-i
 | Phase | Scope |
 |---|---|
 | **R1** | Home "Arrival" hero: portrait cutout, portal, skill stations, dock, CTAs, intro sequence |
-| **R2** | Global shell v2: nav, station-map menu, cursor, camera-aware transitions, station system in the shared canvas |
+| **R2** | ✅ NEXUS homepage + global shell v2: glass nav (NEXUS + 5 stations + MORE), sliding active pill, search (Ctrl K), EN/বাংলা pill, theme orb, mobile drawer, cursor halo, Earth + station orbit, environment, featured carousel, NEXUS AI (local mode) |
 | **R3** | Origin (About), Trajectory (Career), Foundations (Education) |
 | **R4** | Hangar (Projects) + Mission Log (case study) |
 | **R5** | Projection Room (Studio), Laboratory (Research), Instruments (Skills) |

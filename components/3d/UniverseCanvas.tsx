@@ -6,6 +6,8 @@ import { easing } from 'maath'
 import { Suspense, useEffect, useRef, useState } from 'react'
 import { usePathname } from '@/i18n/navigation'
 import { HeroPortal } from './HeroPortal'
+import { NexusEnvironment } from './NexusEnvironment'
+import { NexusGlobe } from './NexusGlobe'
 import { TIER_SETTINGS, type QualityTier } from './quality'
 import { Starfield } from './Starfield'
 
@@ -76,9 +78,15 @@ export default function UniverseCanvas({ tier }: { tier: Exclude<QualityTier, 'o
       <directionalLight position={[0, 5, 8]} intensity={1.2} color="#f5f7ff" />
       <Starfield count={settings.stars} opacity={light ? 0.35 : 1} />
       {isHome && (
-        <Suspense fallback={null}>
-          <HeroPortal tier={tier} />
-        </Suspense>
+        <>
+          <NexusEnvironment tier={tier} light={light} />
+          <Suspense fallback={null}>
+            <HeroPortal tier={tier} />
+          </Suspense>
+          <Suspense fallback={null}>
+            <NexusGlobe tier={tier} />
+          </Suspense>
+        </>
       )}
       <Rig scroll={scroll} />
     </Canvas>

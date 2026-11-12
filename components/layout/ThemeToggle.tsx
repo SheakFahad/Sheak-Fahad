@@ -28,7 +28,7 @@ export function ThemeToggle({ labels }: { labels: { toDark: string; toLight: str
       onClick={toggle}
       aria-label={label}
       title={label}
-      className="grid size-11 place-items-center rounded-full text-[var(--text-2)] transition-colors hover:bg-[var(--line)] hover:text-[var(--text)]"
+      className="theme-orb grid size-11 place-items-center rounded-full text-white transition-transform duration-300 hover:scale-105"
     >
       <svg aria-hidden="true" viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.7">
         {theme === 'light' ? (

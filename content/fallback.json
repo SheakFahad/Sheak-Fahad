@@ -6,7 +6,7 @@
     "seo_description": "Sheak Fahad — UI/UX designer, graphics designer, data artist, researcher and motion creator from Bangladesh. Projects, research, video work, travel and life.",
     "theme_default": "dark",
     "features": {
-      "assistant": false,
+      "assistant": true,
       "explore_mode": true,
       "sound": false
     },
@@ -14,6 +14,39 @@
     "translations": {
       "bn": {
         "tagline": "সৃজনশীলতা, প্রযুক্তি ও জীবনের মধ্য দিয়ে এক নিমগ্ন যাত্রা।"
+      }
+    },
+    "assistant": {
+      "mode": "local",
+      "provider": null
+    },
+    "home": {
+      "welcome_label": "Welcome to",
+      "title": "NEXUS",
+      "subtitle": "The Gateway to My Digital Universe",
+      "intro_prefix": "I'm",
+      "featured_project_slugs": [
+        "pos-dashboard-analytics",
+        "hair-salon-booking",
+        "islamic-hub"
+      ],
+      "show_stations": true,
+      "show_featured": true,
+      "show_globe": true,
+      "environment": {
+        "nebula": true,
+        "planets": true,
+        "mountains": true,
+        "city": true,
+        "plants": true,
+        "ground": true
+      },
+      "translations": {
+        "bn": {
+          "welcome_label": "স্বাগতম",
+          "subtitle": "আমার ডিজিটাল জগতের প্রবেশদ্বার",
+          "intro_prefix": "আমি"
+        }
       }
     }
   },
@@ -97,8 +130,8 @@
       "kind": "builtin",
       "route_slug": "",
       "title": "Home",
-      "nav_label": "Home",
-      "eyebrow": null,
+      "nav_label": "Nexus",
+      "eyebrow": "Gateway",
       "intro": null,
       "hero_media_id": null,
       "enabled": true,
@@ -111,18 +144,22 @@
       "translations": {
         "bn": {
           "title": "হোম",
-          "nav_label": "হোম"
+          "nav_label": "নেক্সাস",
+          "eyebrow": "প্রবেশদ্বার",
+          "station_text": "আমার ডিজিটাল জগতের প্রবেশদ্বার।"
         }
       },
-      "gallery_media_ids": []
+      "gallery_media_ids": [],
+      "icon": "home",
+      "station_text": "The gateway to my digital universe."
     },
     {
       "key": "about",
       "kind": "builtin",
       "route_slug": "about",
       "title": "About Me",
-      "nav_label": "About",
-      "eyebrow": "Story",
+      "nav_label": "Origin",
+      "eyebrow": "My Story",
       "intro": "Designer, researcher and explorer — the person behind the work.",
       "hero_media_id": "m-uni-3",
       "enabled": true,
@@ -135,9 +172,10 @@
       "translations": {
         "bn": {
           "title": "আমার সম্পর্কে",
-          "nav_label": "সম্পর্কে",
-          "eyebrow": "গল্প",
-          "intro": "ডিজাইনার, গবেষক ও অভিযাত্রী — কাজের পেছনের মানুষটি।"
+          "nav_label": "অরিজিন",
+          "eyebrow": "আমার গল্প",
+          "intro": "ডিজাইনার, গবেষক ও অভিযাত্রী — কাজের পেছনের মানুষটি।",
+          "station_text": "আমি কে এবং কী আমাকে কাজে অনুপ্রাণিত করে।"
         }
       },
       "gallery_media_ids": [
@@ -145,15 +183,17 @@
         "m-uni-9",
         "m-uni-11",
         "m-uni-4"
-      ]
+      ],
+      "icon": "user",
+      "station_text": "Who I am and what drives my work."
     },
     {
       "key": "career",
       "kind": "builtin",
       "route_slug": "career",
       "title": "Career & Experience",
-      "nav_label": "Career",
-      "eyebrow": "Experience",
+      "nav_label": "Trajectory",
+      "eyebrow": "My Career",
       "intro": "Three companies, four roles — design, data and visuals.",
       "hero_media_id": "m-uni-9",
       "enabled": true,
@@ -166,20 +206,23 @@
       "translations": {
         "bn": {
           "title": "ক্যারিয়ার ও অভিজ্ঞতা",
-          "nav_label": "ক্যারিয়ার",
-          "eyebrow": "অভিজ্ঞতা",
-          "intro": "তিনটি প্রতিষ্ঠান — ডিজাইন, ডেটা ও ভিজ্যুয়াল।"
+          "nav_label": "ট্র্যাজেক্টরি",
+          "eyebrow": "আমার ক্যারিয়ার",
+          "intro": "তিনটি প্রতিষ্ঠান — ডিজাইন, ডেটা ও ভিজ্যুয়াল।",
+          "station_text": "তিনটি প্রতিষ্ঠানে ডিজাইন ও ডেটার কাজ।"
         }
       },
-      "gallery_media_ids": []
+      "gallery_media_ids": [],
+      "icon": "trend",
+      "station_text": "Design and data roles across three companies."
     },
     {
       "key": "education",
       "kind": "builtin",
       "route_slug": "education",
       "title": "Education & University Life",
-      "nav_label": "Education",
-      "eyebrow": "Academics",
+      "nav_label": "Academy",
+      "eyebrow": "My Education",
       "intro": "From school in Gazipur to Computer Science & Engineering at Green University of Bangladesh.",
       "hero_media_id": "m-uni-1",
       "enabled": true,
@@ -192,9 +235,10 @@
       "translations": {
         "bn": {
           "title": "শিক্ষা ও বিশ্ববিদ্যালয় জীবন",
-          "nav_label": "শিক্ষা",
-          "eyebrow": "একাডেমিক",
-          "intro": "স্কুল থেকে গ্রিন ইউনিভার্সিটি অব বাংলাদেশে কম্পিউটার সায়েন্স অ্যান্ড ইঞ্জিনিয়ারিং।"
+          "nav_label": "একাডেমি",
+          "eyebrow": "আমার শিক্ষা",
+          "intro": "স্কুল থেকে গ্রিন ইউনিভার্সিটি অব বাংলাদেশে কম্পিউটার সায়েন্স অ্যান্ড ইঞ্জিনিয়ারিং।",
+          "station_text": "সিএসই-তে বি.এসসি — গ্রিন ইউনিভার্সিটি অব বাংলাদেশ।"
         }
       },
       "gallery_media_ids": [
@@ -204,15 +248,17 @@
         "m-uni-5",
         "m-uni-8",
         "m-uni-10"
-      ]
+      ],
+      "icon": "cap",
+      "station_text": "B.Sc. in CSE — Green University of Bangladesh."
     },
     {
       "key": "projects",
       "kind": "builtin",
       "route_slug": "projects",
       "title": "Projects & Case Studies",
-      "nav_label": "Projects",
-      "eyebrow": "Work",
+      "nav_label": "Hangar",
+      "eyebrow": "My Projects",
       "intro": "Products I designed — the problem, the process and my part in it.",
       "hero_media_id": "m-proj-healthcare",
       "enabled": true,
@@ -225,22 +271,25 @@
       "translations": {
         "bn": {
           "title": "প্রজেক্ট ও কেস স্টাডি",
-          "nav_label": "প্রজেক্ট",
-          "eyebrow": "কাজ",
-          "intro": "যে প্রোডাক্টগুলো ডিজাইন করেছি — সমস্যা, প্রক্রিয়া ও আমার ভূমিকা।"
+          "nav_label": "হ্যাঙ্গার",
+          "eyebrow": "আমার প্রজেক্ট",
+          "intro": "যে প্রোডাক্টগুলো ডিজাইন করেছি — সমস্যা, প্রক্রিয়া ও আমার ভূমিকা।",
+          "station_text": "UI/UX ও প্রোডাক্ট ডিজাইনের কাজ।"
         }
       },
-      "gallery_media_ids": []
+      "gallery_media_ids": [],
+      "icon": "stack",
+      "station_text": "UI/UX and product design work."
     },
     {
-      "key": "video_studio",
+      "key": "research",
       "kind": "builtin",
-      "route_slug": "video-studio",
-      "title": "Video & Motion Studio",
-      "nav_label": "Studio",
-      "eyebrow": "Motion",
-      "intro": "Video editing, motion graphics and animation work.",
-      "hero_media_id": null,
+      "route_slug": "research",
+      "title": "Research & Thesis",
+      "nav_label": "Laboratory",
+      "eyebrow": "My Research",
+      "intro": "A Federated Digital Twin Framework with Multimodal Data Integration for Personalized Healthcare Monitoring.",
+      "hero_media_id": "m-uni-7",
       "enabled": true,
       "show_in_nav": true,
       "status": "published",
@@ -250,23 +299,25 @@
       "seo_description": null,
       "translations": {
         "bn": {
-          "title": "ভিডিও ও মোশন স্টুডিও",
-          "nav_label": "স্টুডিও",
-          "eyebrow": "মোশন",
-          "intro": "ভিডিও এডিটিং, মোশন গ্রাফিক্স ও অ্যানিমেশনের কাজ।"
+          "title": "গবেষণা ও থিসিস",
+          "nav_label": "ল্যাবরেটরি",
+          "eyebrow": "আমার গবেষণা",
+          "station_text": "স্বাস্থ্যসেবায় ফেডারেটেড ডিজিটাল টুইন নিয়ে ক্যাপস্টোন গবেষণা।"
         }
       },
-      "gallery_media_ids": []
+      "gallery_media_ids": [],
+      "icon": "flask",
+      "station_text": "Capstone research on federated digital twins for healthcare."
     },
     {
-      "key": "research",
+      "key": "video_studio",
       "kind": "builtin",
-      "route_slug": "research",
-      "title": "Research & Thesis",
-      "nav_label": "Research",
-      "eyebrow": "Thesis",
-      "intro": "A Federated Digital Twin Framework with Multimodal Data Integration for Personalized Healthcare Monitoring.",
-      "hero_media_id": "m-uni-7",
+      "route_slug": "video-studio",
+      "title": "Video & Motion Studio",
+      "nav_label": "Motion Studio",
+      "eyebrow": "Video & Motion",
+      "intro": "Video editing, motion graphics and animation work.",
+      "hero_media_id": null,
       "enabled": true,
       "show_in_nav": true,
       "status": "published",
@@ -276,20 +327,24 @@
       "seo_description": null,
       "translations": {
         "bn": {
-          "title": "গবেষণা ও থিসিস",
-          "nav_label": "গবেষণা",
-          "eyebrow": "থিসিস"
+          "title": "ভিডিও ও মোশন স্টুডিও",
+          "nav_label": "মোশন স্টুডিও",
+          "eyebrow": "ভিডিও ও মোশন",
+          "intro": "ভিডিও এডিটিং, মোশন গ্রাফিক্স ও অ্যানিমেশনের কাজ।",
+          "station_text": "ভিডিও এডিটিং ও মোশন গ্রাফিক্স।"
         }
       },
-      "gallery_media_ids": []
+      "gallery_media_ids": [],
+      "icon": "play",
+      "station_text": "Video editing and motion graphics."
     },
     {
       "key": "skills",
       "kind": "builtin",
       "route_slug": "skills",
       "title": "Skills & Achievements",
-      "nav_label": "Skills",
-      "eyebrow": "Craft",
+      "nav_label": "Arsenal",
+      "eyebrow": "My Skills",
       "intro": "Tools, craft and certificates — backed by real work.",
       "hero_media_id": "m-uni-2",
       "enabled": true,
@@ -302,20 +357,52 @@
       "translations": {
         "bn": {
           "title": "দক্ষতা ও অর্জন",
-          "nav_label": "দক্ষতা",
-          "eyebrow": "দক্ষতা",
-          "intro": "টুলস, দক্ষতা ও সার্টিফিকেট — বাস্তব কাজের প্রমাণসহ।"
+          "nav_label": "আর্সেনাল",
+          "eyebrow": "আমার দক্ষতা",
+          "intro": "টুলস, দক্ষতা ও সার্টিফিকেট — বাস্তব কাজের প্রমাণসহ।",
+          "station_text": "আমার সিভি থেকে যাচাই করা টুল ও দক্ষতা।"
         }
       },
-      "gallery_media_ids": []
+      "gallery_media_ids": [],
+      "icon": "layers",
+      "station_text": "Tools and skills, verified from my CV."
+    },
+    {
+      "key": "achievements",
+      "kind": "builtin",
+      "route_slug": "achievements",
+      "title": "Achievements",
+      "nav_label": "Milestones",
+      "eyebrow": "My Achievements",
+      "intro": "Certificates, programs and milestones — each one verified.",
+      "hero_media_id": null,
+      "enabled": true,
+      "show_in_nav": true,
+      "status": "published",
+      "visibility": "public",
+      "sort_order": 75,
+      "seo_title": null,
+      "seo_description": null,
+      "translations": {
+        "bn": {
+          "title": "অর্জন",
+          "intro": "সার্টিফিকেট, প্রোগ্রাম ও মাইলফলক — প্রতিটি যাচাই করা।",
+          "nav_label": "মাইলফলক",
+          "eyebrow": "আমার অর্জন",
+          "station_text": "সার্টিফিকেট ও অর্জন।"
+        }
+      },
+      "gallery_media_ids": [],
+      "icon": "trophy",
+      "station_text": "Certificates and achievements."
     },
     {
       "key": "travel",
       "kind": "builtin",
       "route_slug": "travel",
       "title": "Travel Journal",
-      "nav_label": "Travel",
-      "eyebrow": "Journeys",
+      "nav_label": "Atlas",
+      "eyebrow": "My Travels",
       "intro": "Places I have explored across Bangladesh and the world.",
       "hero_media_id": null,
       "enabled": true,
@@ -328,20 +415,23 @@
       "translations": {
         "bn": {
           "title": "ভ্রমণ জার্নাল",
-          "nav_label": "ভ্রমণ",
-          "eyebrow": "যাত্রা",
-          "intro": "বাংলাদেশ ও বিশ্বের যেসব জায়গা ঘুরে দেখেছি।"
+          "nav_label": "অ্যাটলাস",
+          "eyebrow": "আমার ভ্রমণ",
+          "intro": "বাংলাদেশ ও বিশ্বের যেসব জায়গা ঘুরে দেখেছি।",
+          "station_text": "যেসব জায়গা ঘুরে দেখেছি।"
         }
       },
-      "gallery_media_ids": []
+      "gallery_media_ids": [],
+      "icon": "map",
+      "station_text": "Places I have explored."
     },
     {
       "key": "memories",
       "kind": "builtin",
       "route_slug": "memories",
       "title": "Life & Memories",
-      "nav_label": "Memories",
-      "eyebrow": "Archive",
+      "nav_label": "Chronicles",
+      "eyebrow": "My Memories",
       "intro": "Moments that matter — university, friends, village and more.",
       "hero_media_id": "m-uni-10",
       "enabled": true,
@@ -354,20 +444,23 @@
       "translations": {
         "bn": {
           "title": "জীবন ও স্মৃতি",
-          "nav_label": "স্মৃতি",
-          "eyebrow": "আর্কাইভ",
-          "intro": "গুরুত্বপূর্ণ মুহূর্তগুলো — বিশ্ববিদ্যালয়, বন্ধু, গ্রাম ও আরও অনেক কিছু।"
+          "nav_label": "ক্রনিকলস",
+          "eyebrow": "আমার স্মৃতি",
+          "intro": "গুরুত্বপূর্ণ মুহূর্তগুলো — বিশ্ববিদ্যালয়, বন্ধু, গ্রাম ও আরও অনেক কিছু।",
+          "station_text": "বিশ্ববিদ্যালয়ের দিন, বন্ধু ও মুহূর্ত।"
         }
       },
-      "gallery_media_ids": []
+      "gallery_media_ids": [],
+      "icon": "image",
+      "station_text": "University days, friends and moments."
     },
     {
       "key": "hobbies",
       "kind": "builtin",
       "route_slug": "hobbies",
       "title": "Hobbies & Interests",
-      "nav_label": "Hobbies",
-      "eyebrow": "Play",
+      "nav_label": "Offbeat",
+      "eyebrow": "My Hobbies",
       "intro": "Travel, village life, football, games, movies and Turkish series.",
       "hero_media_id": "m-uni-11",
       "enabled": true,
@@ -380,20 +473,23 @@
       "translations": {
         "bn": {
           "title": "শখ ও আগ্রহ",
-          "nav_label": "শখ",
-          "eyebrow": "শখ",
-          "intro": "ভ্রমণ, গ্রামীণ জীবন, ফুটবল, গেমস, মুভি ও তুর্কি সিরিজ।"
+          "nav_label": "অফবিট",
+          "eyebrow": "আমার শখ",
+          "intro": "ভ্রমণ, গ্রামীণ জীবন, ফুটবল, গেমস, মুভি ও তুর্কি সিরিজ।",
+          "station_text": "কাজের বাইরে যা ভালোবাসি।"
         }
       },
-      "gallery_media_ids": []
+      "gallery_media_ids": [],
+      "icon": "spark",
+      "station_text": "What I enjoy beyond work."
     },
     {
       "key": "contact",
       "kind": "builtin",
       "route_slug": "contact",
       "title": "Get in Touch",
-      "nav_label": "Contact",
-      "eyebrow": "Say hello",
+      "nav_label": "Transmission",
+      "eyebrow": "Contact Me",
       "intro": "Have a project, an idea or a story to share? I’d love to hear from you.",
       "hero_media_id": null,
       "enabled": true,
@@ -406,12 +502,15 @@
       "translations": {
         "bn": {
           "title": "যোগাযোগ",
-          "nav_label": "যোগাযোগ",
-          "eyebrow": "হ্যালো বলুন",
-          "intro": "কোনো প্রজেক্ট, আইডিয়া বা গল্প আছে? শুনতে ভালো লাগবে।"
+          "nav_label": "ট্রান্সমিশন",
+          "eyebrow": "যোগাযোগ",
+          "intro": "কোনো প্রজেক্ট, আইডিয়া বা গল্প আছে? শুনতে ভালো লাগবে।",
+          "station_text": "ইমেইল, হোয়াটসঅ্যাপ বা সরাসরি বার্তা।"
         }
       },
-      "gallery_media_ids": []
+      "gallery_media_ids": [],
+      "icon": "send",
+      "station_text": "Email, WhatsApp or a direct message."
     }
   ],
   "social_links": [
