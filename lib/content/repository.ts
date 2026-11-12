@@ -1,6 +1,7 @@
 import 'server-only'
 import { cache } from 'react'
 import fallback from '@/content/fallback.json'
+import { isPrivateUrl, protectUrl } from '@/lib/utils/protect'
 import type { ContentSnapshot, MediaRef, Publishable, SiteSection, SocialLink } from './types'
 
 /**
@@ -49,9 +50,13 @@ export const getSectionByKey = cache(async (key: string): Promise<SiteSection | 
   return sections.find(s => s.key === key) ?? null
 })
 
+/** Public social links. Private channels (email/WhatsApp/phone) get an opaque URL token and no handle. */
 export const getSocialLinks = cache(async (): Promise<SocialLink[]> => {
   const { social_links } = await loadSnapshot()
-  return social_links.filter(isPubliclyListed).sort(bySort)
+  return social_links
+    .filter(isPubliclyListed)
+    .sort(bySort)
+    .map(s => (isPrivateUrl(s.url) ? { ...s, url: protectUrl(s.url), handle: null } : s))
 })
 
 export const getMedia = cache(async (id: string | null | undefined): Promise<MediaRef | null> => {
@@ -82,6 +87,15 @@ export const getSkills = list('skills')
 export const getAchievements = list('achievements')
 /** Demo rows are never public, even if mis-flagged as published. */
 export const getTravel = cache(async () => (await list('travel')()).filter(t => !t.is_demo))
+/**
+ * Layout-testing rows for ATLAS. Returned ONLY when ATLAS_PREVIEW=1 is set at build/run time
+ * (never set in production); every row is flagged is_demo and rendered with a DEMO badge.
+ */
+export const getTravelPreview = cache(async () => {
+  if (process.env.ATLAS_PREVIEW !== '1') return []
+  const snap = await loadSnapshot()
+  return snap.travel.filter(t => t.is_demo)
+})
 export const getMemories = list('memories')
 export const getHobbies = list('hobbies')
 

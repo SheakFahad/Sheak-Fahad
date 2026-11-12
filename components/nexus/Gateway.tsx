@@ -17,9 +17,8 @@ export const isGated = () => typeof document !== 'undefined' && document.documen
 
 interface Props {
   name: string
-  title: string
   links: { href: string; label: string; icon: StationIconKey }[]
-  labels: { label: string; brandSub: string; kicker: string; tagline: string; enter: string; skip: string; quick: string; language: string }
+  labels: { label: string; hello: string; welcome: string; roles: string; enter: string; skip: string; quick: string; language: string }
 }
 
 /**
@@ -27,7 +26,7 @@ interface Props {
  * "Skip" goes straight to the site; both remember the choice. Rendered in the HTML but only displayed
  * when <html data-gate="1"> (so there is no flash and no-JS visitors never see it).
  */
-export function Gateway({ name, title, links, labels }: Props) {
+export function Gateway({ name, links, labels }: Props) {
   const root = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -93,10 +92,7 @@ export function Gateway({ name, title, links, labels }: Props) {
       <header className="relative z-10 flex items-center justify-between gap-4 p-4 md:p-8">
         <span className="flex items-center gap-3">
           <SFMark className="size-11" />
-          <span className="leading-none">
-            <span className="block font-[family-name:var(--font-display)] text-base font-semibold">{name}</span>
-            <span className="mt-1 block font-mono text-[9px] tracking-[0.32em] text-[var(--text-2)] uppercase">{labels.brandSub}</span>
-          </span>
+          <span className="font-[family-name:var(--font-display)] text-base font-semibold tracking-[0.12em] uppercase">{name}</span>
         </span>
         <LocaleSwitcher label={labels.language} />
       </header>
@@ -109,17 +105,14 @@ export function Gateway({ name, title, links, labels }: Props) {
         </div>
         <div className="relative text-center">
           <SFMark className="mx-auto size-16 md:size-20" />
-          <p data-gate-in className="mt-4 font-[family-name:var(--font-display)] text-sm tracking-[0.5em] uppercase md:text-lg">
-            {name}
+          <h2 data-gate-in className="gateway__title mt-5">
+            {labels.hello}
+          </h2>
+          <p data-gate-in className="mt-4 font-[family-name:var(--font-display)] text-lg md:text-2xl">
+            {labels.welcome}
           </p>
-          <p data-gate-in className="gateway__title">
-            {title}
-          </p>
-          <p data-gate-in className="font-mono text-[11px] tracking-[0.45em] text-[var(--text-2)] uppercase md:text-sm">
-            {labels.kicker}
-          </p>
-          <p data-gate-in className="mx-auto mt-5 max-w-md text-base text-[var(--text)]/90 italic md:text-lg">
-            {labels.tagline}
+          <p data-gate-in className="mt-3 font-mono text-[11px] tracking-[0.3em] text-[var(--cyan)] uppercase md:text-sm">
+            {labels.roles}
           </p>
           <div data-gate-in className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <button type="button" data-gate-enter onClick={() => leave(true)} className="nx-cta nx-cta--primary">

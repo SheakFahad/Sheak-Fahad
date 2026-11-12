@@ -21,7 +21,8 @@
     "search": "Search",
     "searchPlaceholder": "Search sections and projects…",
     "noResults": "Nothing found. Try another word.",
-    "brandSub": "Digital Universe"
+    "brandSub": "Portfolio",
+    "replayIntro": "Replay intro"
   },
   "nav": {
     "primary": "Primary navigation",
@@ -35,7 +36,7 @@
   "home": {
     "exploreWorld": "Explore My World",
     "viewProjects": "View Projects",
-    "exploreTitle": "Explore the universe",
+    "exploreTitle": "Explore my portfolio",
     "exploreText": "Every part of my work and life, one click away.",
     "scrollHint": "Scroll to explore",
     "downloadCv": "Download CV",
@@ -44,7 +45,7 @@
     "iAm": "I am a",
     "closeSkill": "Close",
     "stationsLabel": "Portfolio stations",
-    "stationsTitle": "Stations of the universe",
+    "stationsTitle": "Explore my work and life",
     "featuredTitle": "Featured Projects",
     "conceptVisual": "Concept visual",
     "prevProject": "Previous project",
@@ -52,19 +53,9 @@
     "viewCase": "View case study",
     "globeLabel": "Interactive globe — drag to rotate",
     "openStation": "Open",
-    "aiTitle": "NEXUS AI",
-    "aiText": "Ask anything about my work, skills, projects or journey.",
-    "aiOpen": "Open NEXUS AI",
-    "aiClose": "Close assistant",
-    "aiHide": "Hide assistant",
-    "aiPlaceholder": "Ask about my work, skills, projects…",
-    "aiSend": "Send",
-    "aiNote": "Offline guide · answers only from verified portfolio data — no AI model, nothing is stored.",
-    "aiSuggest": "Try asking",
-    "aiNoAnswer": "I don’t have verified information about that yet. Try one of the suggestions below — or ask Sheak directly.",
-    "aiGreeting": "Hi! I’m the NEXUS guide. Ask me about Sheak’s work, skills, projects, research or how to get in touch.",
-    "aiYou": "You",
-    "aiOpenLink": "Open"
+    "exploreWork": "Explore My Work",
+    "connect": "Let's Connect",
+    "aiGreet": "Hi! Ask me about Sheak."
   },
   "section": {
     "preparingTitle": "Content is being prepared",
@@ -183,7 +174,18 @@
     "atlasTitle": "The Atlas",
     "atlasText": "Drag the Earth or use the arrow keys. Verified places will light up here once they are added.",
     "phPlace": "Verified place — coming soon",
-    "phPlaceText": "A real place with the owner’s own photos will appear here after verification."
+    "phPlaceText": "A real place with the owner’s own photos will appear here after verification.",
+    "all": "All",
+    "regions": "Region",
+    "select": "Choose a destination",
+    "selectText": "Click a glowing marker on the Earth, a destination card or a timeline entry to see the place, its date, story, photos and related memories.",
+    "destinations": "Destinations",
+    "timeline": "Travel timeline",
+    "photos": "Photos",
+    "memories": "Related memories",
+    "videos": "Travel videos",
+    "demo": "Demo preview — not a real trip",
+    "undated": "Date not added"
   },
   "memories": {
     "all": "All",
@@ -236,14 +238,19 @@
       "award": "Award",
       "training": "Training",
       "milestone": "Milestone"
-    }
+    },
+    "details": "View details",
+    "type": "Type",
+    "issuer": "Issued by",
+    "issued": "Issued",
+    "noImage": "Certificate image will be added after verification."
   },
   "station": {
     "station": "Station",
     "prev": "Previous station",
     "next": "Next station",
-    "explore": "Explore mode",
-    "exploreTitle": "Explore the universe",
+    "explore": "Explore",
+    "exploreTitle": "Explore my portfolio",
     "exploreHint": "Choose a station — arrow keys move, Enter opens, Esc closes.",
     "quickNav": "Quick navigation",
     "placeholder": "Placeholder",
@@ -251,16 +258,37 @@
     "current": "You are here"
   },
   "gateway": {
-    "label": "Welcome to the NEXUS",
-    "brandSub": "Digital Universe",
-    "kicker": "Personal Digital Universe",
-    "tagline": "A universe of creativity, technology and imagination.",
-    "enter": "Enter the Experience",
-    "skip": "Skip Intro — Go to Website",
+    "label": "Welcome",
+    "enter": "Explore My Portfolio",
+    "skip": "Skip Intro",
     "quick": "Jump straight to",
     "work": "My Work",
     "journey": "My Journey",
     "research": "My Research",
-    "vision": "My Story"
+    "vision": "My Story",
+    "hello": "Hello, I'm Sheak Fahad.",
+    "welcome": "Welcome to My Creative World.",
+    "roles": "UI/UX Designer • Creative Designer • Researcher"
+  },
+  "assistant": {
+    "open": "Ask Fahad's AI Assistant",
+    "title": "Fahad AI Assistant",
+    "subtitle": "Your guide to Sheak Fahad's portfolio.",
+    "greeting": "Hi! I can tell you about Sheak's work, experience, projects, research and skills — and take you to the right page.",
+    "placeholder": "Ask about his work, skills, projects…",
+    "send": "Send",
+    "minimize": "Minimize",
+    "restore": "Restore",
+    "close": "Close",
+    "clear": "Clear conversation",
+    "suggest": "Suggested questions",
+    "you": "You",
+    "openLink": "Open",
+    "noAnswer": "That hasn't been published on the portfolio yet, so I can't answer it reliably. Try one of the suggested questions — or contact Sheak directly.",
+    "refused": "Sorry, I can't help with that. Ask me about Sheak's work, skills or projects.",
+    "modeAi": "AI",
+    "modeOffline": "Guide mode",
+    "offlineNote": "The AI service isn't configured yet — answers come from Sheak's verified portfolio data (offline guide, no AI model).",
+    "fallbackNote": "The AI service is unavailable right now — this answer comes from the offline portfolio guide."
   }
 }

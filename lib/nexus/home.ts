@@ -17,10 +17,6 @@ import type { HomeConfig } from '@/lib/content/types'
 import type { AssistantEntry, FeaturedProject } from './types'
 
 const DEFAULT_HOME: HomeConfig = {
-  welcome_label: 'Welcome to',
-  title: 'NEXUS',
-  subtitle: 'The Gateway to My Digital Universe',
-  intro_prefix: "I'm",
   featured_project_slugs: [],
   show_stations: true,
   show_featured: true,
@@ -62,14 +58,14 @@ export async function getFeaturedProjects(locale: string, slugs: string[]): Prom
 
 const T = {
   en: {
-    who: { q: 'What does Sheak do?', a: (roles: string, text: string) => `Sheak Fahad is a ${roles}. ${text}` },
-    projects: { q: 'Which projects has he worked on?', a: (list: string) => `Published projects: ${list}. Each one has its own case-study page.` },
-    skills: { q: 'What are his skills?', a: (list: string) => `Skill areas: ${list}.` },
-    research: { q: 'Tell me about his research', a: (title: string, kind: string, inst: string) => `${kind} at ${inst}: “${title}”.` },
+    who: { q: 'Who is Sheak Fahad?', a: (roles: string, text: string) => `Sheak Fahad is a ${roles}. ${text}` },
+    projects: { q: 'Show me his best projects.', a: (list: string) => `Published projects: ${list}. Each one has its own case-study page.` },
+    skills: { q: 'What are his design skills?', a: (list: string) => `Skill areas: ${list}.` },
+    research: { q: 'Tell me about his research.', a: (title: string, kind: string, inst: string) => `${kind} at ${inst}: “${title}”.` },
     education: { q: 'Where did he study?', a: (list: string) => `Education: ${list}.` },
-    career: { q: 'Where has he worked?', a: (list: string) => `Experience: ${list}.` },
-    achievements: { q: 'Any certificates?', a: (list: string) => `Certificates: ${list}.` },
-    contact: { q: 'How can I contact him?', a: (list: string) => `You can reach Sheak via ${list} — tap the icons on the Transmission page, or send a message with the form there.` },
+    career: { q: 'Tell me about his experience.', a: (list: string) => `Experience: ${list}.` },
+    achievements: { q: 'What certificates does he have?', a: (list: string) => `Certificates: ${list}.` },
+    contact: { q: 'How can I contact him?', a: (list: string) => `You can reach Sheak via ${list} — tap the icons on the Contact page, or send a message with the form there.` },
     cv: { q: 'Can I download his CV?', a: () => 'Yes — the CV is available as a PDF download.' },
     at: ' at ',
     and: ', ',
@@ -77,15 +73,15 @@ const T = {
     cvLabel: 'Download CV',
   },
   bn: {
-    who: { q: 'শেখ ফাহাদ কী করেন?', a: (roles: string, text: string) => `শেখ ফাহাদ একজন ${roles}। ${text}` },
-    projects: { q: 'তিনি কোন কোন প্রজেক্টে কাজ করেছেন?', a: (list: string) => `প্রকাশিত প্রজেক্ট: ${list}। প্রতিটির আলাদা কেস স্টাডি পেজ আছে।` },
-    skills: { q: 'তার দক্ষতা কী কী?', a: (list: string) => `দক্ষতার ক্ষেত্র: ${list}।` },
-    research: { q: 'তার গবেষণা সম্পর্কে বলুন', a: (title: string, kind: string, inst: string) => `${inst}-এ ${kind}: “${title}”।` },
+    who: { q: 'শেখ ফাহাদ কে?', a: (roles: string, text: string) => `শেখ ফাহাদ একজন ${roles}। ${text}` },
+    projects: { q: 'তার সেরা প্রজেক্টগুলো দেখান।', a: (list: string) => `প্রকাশিত প্রজেক্ট: ${list}। প্রতিটির আলাদা কেস স্টাডি পেজ আছে।` },
+    skills: { q: 'তার ডিজাইন দক্ষতা কী কী?', a: (list: string) => `দক্ষতার ক্ষেত্র: ${list}।` },
+    research: { q: 'তার গবেষণা সম্পর্কে বলুন।', a: (title: string, kind: string, inst: string) => `${inst}-এ ${kind}: “${title}”।` },
     education: { q: 'তিনি কোথায় পড়াশোনা করেছেন?', a: (list: string) => `শিক্ষা: ${list}।` },
-    career: { q: 'তিনি কোথায় কাজ করেছেন?', a: (list: string) => `অভিজ্ঞতা: ${list}।` },
-    achievements: { q: 'কোনো সার্টিফিকেট আছে?', a: (list: string) => `সার্টিফিকেট: ${list}।` },
-    contact: { q: 'কীভাবে যোগাযোগ করব?', a: (list: string) => `${list} — এর মাধ্যমে যোগাযোগ করতে পারেন; ট্রান্সমিশন পেজের আইকনে চাপুন অথবা মেসেজ ফর্ম ব্যবহার করুন।` },
-    cv: { q: 'সিভি ডাউনলোড করা যাবে?', a: () => 'হ্যাঁ — সিভি PDF হিসেবে ডাউনলোড করা যায়।' },
+    career: { q: 'তার অভিজ্ঞতা সম্পর্কে বলুন।', a: (list: string) => `অভিজ্ঞতা: ${list}।` },
+    achievements: { q: 'তার কী কী সার্টিফিকেট আছে?', a: (list: string) => `সার্টিফিকেট: ${list}।` },
+    contact: { q: 'কীভাবে তার সাথে যোগাযোগ করব?', a: (list: string) => `${list} — এর মাধ্যমে যোগাযোগ করতে পারেন; যোগাযোগ পেজের আইকনে চাপুন অথবা মেসেজ ফর্ম ব্যবহার করুন।` },
+    cv: { q: 'তার সিভি ডাউনলোড করা যাবে?', a: () => 'হ্যাঁ — সিভি PDF হিসেবে ডাউনলোড করা যায়।' },
     at: ', ',
     and: ', ',
     open: 'খুলুন',
@@ -94,9 +90,9 @@ const T = {
 } as const
 
 const KEYWORDS: Record<string, string[]> = {
-  who: ['who', 'role', 'roles', 'designer', 'profession', 'background', 'introduce', 'introduction', 'sheak', 'fahad', 'কে', 'করেন', 'পরিচয়', 'সম্পর্কে'],
-  projects: ['project', 'projects', 'work', 'portfolio', 'case', 'uninest', 'pos', 'salon', 'islamic', 'healthcare', 'app', 'প্রজেক্ট', 'কাজ'],
-  skills: ['skill', 'skills', 'tool', 'tools', 'figma', 'software', 'stack', 'know', 'দক্ষতা', 'টুল', 'স্কিল'],
+  who: ['who', 'sheak', 'fahad', 'role', 'roles', 'designer', 'profession', 'background', 'introduce', 'introduction', 'কে', 'করেন', 'পরিচয়', 'সম্পর্কে'],
+  projects: ['project', 'projects', 'best', 'work', 'portfolio', 'case', 'uninest', 'pos', 'salon', 'islamic', 'healthcare', 'app', 'প্রজেক্ট', 'কাজ'],
+  skills: ['skill', 'skills', 'design', 'tool', 'tools', 'figma', 'software', 'stack', 'know', 'দক্ষতা', 'টুল', 'স্কিল'],
   research: ['research', 'thesis', 'paper', 'digital', 'twin', 'federated', 'capstone', 'গবেষণা', 'থিসিস'],
   education: ['study', 'studied', 'education', 'university', 'degree', 'school', 'college', 'cse', 'green', 'পড়াশোনা', 'শিক্ষা', 'বিশ্ববিদ্যালয়', 'পড়েছেন'],
   career: ['work', 'worked', 'experience', 'company', 'companies', 'career', 'job', 'employ', 'zensoft', 'অভিজ্ঞতা', 'চাকরি', 'ক্যারিয়ার', 'কোম্পানি'],
@@ -124,12 +120,14 @@ export async function getAssistantKnowledge(locale: string): Promise<AssistantEn
     return s ? sectionHref(s.route_slug) : null
   }
   const out: AssistantEntry[] = []
-  const push = (id: string, answer: string, link: string | null, linkLabel: string = t.open) => {
+  const push = (id: string, answer: string, link: string | null, linkLabel?: string) => {
     const qa = t[id as keyof typeof KEYWORDS & keyof typeof t] as { q: string }
-    out.push({ id, question: qa.q, keywords: KEYWORDS[id] ?? [], answer, href: link, linkLabel })
+    const section = link ? sections.find(x => sectionHref(x.route_slug) === link) : undefined
+    const label = linkLabel ?? (section ? localize(section, locale).nav_label : t.open)
+    out.push({ id, question: qa.q, keywords: KEYWORDS[id] ?? [], answer, href: link, linkLabel: label })
   }
 
-  if (profile.roles.length) push('who', t.who.a(profile.roles.slice(0, 4).join(', '), profile.hero_text ?? profile.intro), href('about'))
+  if (profile.roles.length) push('who', t.who.a(profile.roles.slice(0, 5).join(', '), profile.intro), href('about'))
   if (projects.length && href('projects')) push('projects', t.projects.a(projects.map(p => localize(p, locale).title).join(t.and)), href('projects'))
   if (skills.length) push('skills', t.skills.a(skills.map(s => localize(s, locale).title).join(t.and)), href('skills'))
   const thesis = research[0] ? localize(research[0], locale) : null

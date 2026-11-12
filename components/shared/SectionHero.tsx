@@ -55,14 +55,14 @@ export async function SectionHero({ title, eyebrow, intro, hero, crumbs, heroAsp
                     <span aria-hidden="true" className="text-[var(--violet)]">
                       ·
                     </span>
-                    <span className="text-[var(--text)]">{stationMode === 'detail' ? station.nav_label : station.eyebrow}</span>
+                    <span className="text-[var(--text)]">{station.nav_label}</span>
                   </>
                 )}
               </p>
               {stationMode === 'index' ? (
                 <h1 className="mt-4">
                   {/* plain text (a split would break the gradient text clip); revealed with a CSS mask wipe */}
-                  <span className="station-word block">{station.nav_label}</span>
+                  <span className="station-word block">{station.station_name ?? station.nav_label}</span>
                   <span className="sr-only">: </span>
                   <span data-reveal className="station-sub mt-3 block">
                     {title}

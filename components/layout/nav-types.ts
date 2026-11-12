@@ -9,6 +9,8 @@ export interface NavItem {
   index: number
   icon: StationIconKey | null
   text: string | null
+  /** Creative station name (secondary to the plain label). */
+  station: string | null
 }
 
 export interface SocialItem {

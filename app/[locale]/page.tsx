@@ -50,13 +50,12 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
     <>
       <Gateway
         name={shell.profile.full_name}
-        title={home.title}
         links={gateLinks}
         labels={{
           label: tg('label'),
-          brandSub: tg('brandSub'),
-          kicker: tg('kicker'),
-          tagline: tg('tagline'),
+          hello: tg('hello'),
+          welcome: tg('welcome'),
+          roles: tg('roles'),
           enter: tg('enter'),
           skip: tg('skip'),
           quick: tg('quick'),

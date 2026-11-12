@@ -10,16 +10,16 @@ import { MegaMenu } from './MegaMenu'
 import type { NavItem, SearchEntry, SocialItem } from './nav-types'
 import { SearchDialog } from './SearchDialog'
 import { openExplore } from './StationNavigator'
+import { openAssistant } from '@/components/assistant/events'
 import { SFMark } from './SFMark'
 import { ThemeToggle } from './ThemeToggle'
 
 interface Props {
   siteName: string
-  brandSub: string
   homeItem: NavItem | null
   items: NavItem[]
-  /** How many section items sit in the desktop bar after NEXUS; the rest live under MORE. */
-  barCount?: number
+  /** Section keys shown in the desktop bar (CMS: site_settings.nav_primary); the rest live under "More". */
+  primaryKeys: string[]
   socials: SocialItem[]
   search: SearchEntry[]
   labels: {
@@ -40,12 +40,13 @@ interface Props {
     sections: string
     projects: string
     explore: string
+    ai: string
   }
 }
 
 const useIsoLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect
 
-export function Header({ siteName, brandSub, homeItem, items, barCount = 5, socials, search, labels }: Props) {
+export function Header({ siteName, homeItem, items, primaryKeys, socials, search, labels }: Props) {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
   const [moreOpen, setMoreOpen] = useState(false)
@@ -58,8 +59,8 @@ export function Header({ siteName, brandSub, homeItem, items, barCount = 5, soci
   const pill = useRef<HTMLSpanElement>(null)
   const moreRef = useRef<HTMLLIElement>(null)
 
-  const bar = [...(homeItem ? [homeItem] : []), ...items.slice(0, barCount)]
-  const more = items.slice(barCount)
+  const bar = primaryKeys.flatMap(k => items.filter(i => i.key === k))
+  const more = items.filter(i => !primaryKeys.includes(i.key))
   const allItems = [...(homeItem ? [homeItem] : []), ...items]
 
   const isActive = (href: string) => (href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`))
@@ -145,10 +146,7 @@ export function Header({ siteName, brandSub, homeItem, items, barCount = 5, soci
         >
           <TransitionLink href="/" aria-label={`${siteName} — ${labels.home}`} className="flex min-h-11 shrink-0 items-center gap-2.5 rounded-full pr-2">
             <SFMark className="size-10" />
-            <span className="hidden leading-none sm:block">
-              <span className="block font-[family-name:var(--font-display)] text-[15px] font-semibold tracking-tight">{siteName}</span>
-              <span className="mt-1 block font-mono text-[9px] tracking-[0.32em] text-[var(--text-2)] uppercase">{brandSub}</span>
-            </span>
+            <span className="brand-wordmark hidden sm:block">{siteName}</span>
           </TransitionLink>
 
           <nav aria-label={labels.primary} className="mx-auto hidden xl:block">
@@ -165,12 +163,13 @@ export function Header({ siteName, brandSub, homeItem, items, barCount = 5, soci
                       onPointerEnter={e => movePill(e.currentTarget)}
                       onFocus={e => movePill(e.currentTarget)}
                       className={cn(
-                        'nexus-link relative z-[1] inline-flex min-h-11 items-center gap-1.5 rounded-full px-2.5 font-[family-name:var(--font-display)] text-[11.5px] tracking-[0.06em] uppercase transition-colors 2xl:gap-2 2xl:px-3.5 2xl:text-[12px] 2xl:tracking-[0.08em]',
+                        'nexus-link relative z-[1] inline-flex min-h-11 items-center gap-1.5 rounded-full px-2 font-[family-name:var(--font-display)] text-[11.5px] tracking-[0.05em] uppercase transition-colors 2xl:gap-2 2xl:px-3.5 2xl:text-[12px] 2xl:tracking-[0.08em]',
                         current ? 'text-[var(--text)]' : 'text-[var(--text-2)] hover:text-[var(--text)]',
                       )}
                     >
-                      <StationIcon name={item.icon} className="size-4 text-[var(--cyan)]" />
+                      <StationIcon name={item.icon} className="hidden size-4 text-[var(--cyan)] 2xl:inline" />
                       {item.label}
+                      {item.station && <span className="sr-only"> — {item.station}</span>}
                     </TransitionLink>
                   </li>
                 )
@@ -212,7 +211,7 @@ export function Header({ siteName, brandSub, homeItem, items, barCount = 5, soci
                               </span>
                               <span className="min-w-0">
                                 <span className="block font-[family-name:var(--font-display)] text-[13px] tracking-[0.06em] uppercase">{item.label}</span>
-                                {item.eyebrow && <span className="block truncate text-xs text-[var(--text-2)]">{item.eyebrow}</span>}
+                                {item.station && <span className="block truncate text-xs text-[var(--text-2)]">{item.station}</span>}
                               </span>
                             </TransitionLink>
                           </li>
@@ -226,6 +225,16 @@ export function Header({ siteName, brandSub, homeItem, items, barCount = 5, soci
           </nav>
 
           <div className="ml-auto flex items-center gap-1.5 xl:ml-0">
+            <button
+              type="button"
+              onClick={openAssistant}
+              aria-label={labels.ai}
+              title={labels.ai}
+              className="ai-header-btn hidden md:inline-flex"
+            >
+              <span aria-hidden="true" className="ai-header-btn__orb" />
+              <span className="hidden 2xl:inline">AI</span>
+            </button>
             <button
               type="button"
               onClick={() => setSearchOpen(true)}
@@ -245,7 +254,7 @@ export function Header({ siteName, brandSub, homeItem, items, barCount = 5, soci
               aria-label={labels.explore}
               aria-haspopup="dialog"
               title={labels.explore}
-              className="hidden size-11 place-items-center rounded-full text-[var(--text-2)] transition-colors hover:bg-[var(--line)] hover:text-[var(--text)] sm:grid"
+              className="hidden size-11 place-items-center rounded-full text-[var(--text-2)] transition-colors hover:bg-[var(--line)] hover:text-[var(--text)] sm:grid xl:hidden 2xl:grid"
             >
               <svg aria-hidden="true" viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.7">
                 <circle cx="12" cy="12" r="9" />

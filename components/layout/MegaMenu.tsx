@@ -104,7 +104,7 @@ export function MegaMenu({ id, open, onClose, items, socials, activeHref, labels
                     <span className="font-[family-name:var(--font-display)] text-2xl transition-transform duration-300 group-hover:translate-x-2 md:text-3xl">
                       {item.label}
                     </span>
-                    {item.eyebrow && <span className="ml-auto hidden font-mono text-xs uppercase tracking-widest sm:inline">{item.eyebrow}</span>}
+                    {(item.station ?? item.eyebrow) && <span className="ml-auto hidden font-mono text-xs uppercase tracking-widest sm:inline">{item.station ?? item.eyebrow}</span>}
                   </TransitionLink>
                 </li>
               )

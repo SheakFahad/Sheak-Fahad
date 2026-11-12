@@ -131,6 +131,29 @@ function arcCurve(a: THREE.Vector3, b: THREE.Vector3) {
 }
 
 const _c = new THREE.Vector3()
+const _m = new THREE.Vector3()
+const _n = new THREE.Vector3()
+const _cam = new THREE.Vector3()
+const TAU = Math.PI * 2
+
+/** Writes marker screen positions (for the DOM marker buttons) and returns the yaw that faces the selected marker. */
+function trackMarkers(earth: THREE.Object3D, camera: THREE.Camera, w: number, h: number) {
+  const out: Record<string, { x: number; y: number; front: boolean }> = {}
+  let target: number | null = null
+  camera.getWorldPosition(_cam)
+  for (const mk of nexusStore.markers) {
+    const local = latLon(mk.lat, mk.lng, 1.02)
+    if (mk.id === nexusStore.selected) target = -Math.atan2(local.x, local.z)
+    _m.copy(local)
+    earth.localToWorld(_m)
+    _n.copy(_m).sub(earth.getWorldPosition(new THREE.Vector3())).normalize()
+    const front = _n.dot(_cam.clone().sub(_m).normalize()) > 0.12
+    _m.project(camera)
+    out[mk.id] = { x: (_m.x * 0.5 + 0.5) * w, y: (-_m.y * 0.5 + 0.5) * h, front }
+  }
+  nexusStore.markerScreen = out
+  return target
+}
 const _accent = new THREE.Color()
 const CYAN = new THREE.Color('#51e5ff')
 const ATMO_BASE = new THREE.Color('#3f8cff')
@@ -251,7 +274,15 @@ export function NexusGlobe({ tier }: { tier: 'low' | 'medium' | 'high' }) {
 
     // rotation: idle drift + drag spin (decays)
     nexusStore.spin *= Math.exp(-delta * 1.6)
-    if (earth.current) earth.current.rotation.y += delta * (0.09 + nexusStore.spin)
+    if (earth.current) {
+      const target = nexusStore.markers.length ? trackMarkers(earth.current, state.camera, state.size.width, state.size.height) : null
+      if (target !== null && Math.abs(nexusStore.spin) < 0.05) {
+        // turn the selected destination towards the visitor (shortest way round)
+        const cur = earth.current.rotation.y
+        const diff = ((((target - cur) % TAU) + TAU * 1.5) % TAU) - Math.PI
+        earth.current.rotation.y = cur + diff * (1 - Math.exp(-delta * 3))
+      } else earth.current.rotation.y += delta * ((nexusStore.markers.length ? 0.04 : 0.09) + nexusStore.spin)
+    }
     if (tilt.current) easing.dampE(tilt.current.rotation, [0.18 + state.pointer.y * 0.12, state.pointer.x * 0.25, 0.41], 0.6, delta)
 
     const hover = nexusStore.hoverStation

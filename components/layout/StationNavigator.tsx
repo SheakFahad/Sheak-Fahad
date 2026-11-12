@@ -184,7 +184,7 @@ export function StationNavigator({ home, items, labels }: { home: NavItem | null
             {/* Desktop: orbit map around the NEXUS core */}
             <div className="relative mx-auto mt-6 hidden w-full max-w-[min(760px,calc(100dvh-180px))] lg:block">
               <div className="explore-core" aria-hidden="true">
-                <span>NEXUS</span>
+                <span>SF</span>
               </div>
               <StationOrbit stations={items} showGlobe={false} labels={{ stations: labels.stations, globe: labels.globe, open: labels.open }} />
             </div>

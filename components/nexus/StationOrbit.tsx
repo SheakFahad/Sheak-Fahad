@@ -155,7 +155,7 @@ export function StationOrbit({ stations, showGlobe, labels }: Props) {
                     <StationIcon name={s.icon} className="size-[22px]" />
                   </span>
                   <span className="nx-station__label">{s.label}</span>
-                  {s.eyebrow && <span className="nx-station__sub">{s.eyebrow}</span>}
+                  {(s.station ?? s.eyebrow) && <span className="nx-station__sub">{s.station ?? s.eyebrow}</span>}
                 </TransitionLink>
                 {s.text && (
                   <span id={descId} className="sr-only">

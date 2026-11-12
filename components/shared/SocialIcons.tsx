@@ -1,5 +1,8 @@
+'use client'
+
 import { BrandIcon, BRAND_ICONS, type BrandKey } from '@/components/icons/BrandIcons'
 import { cn } from '@/lib/utils/cn'
+import { ContactHref } from './ContactHref'
 
 /** Platform → genuine brand mark. Contact details are never printed as text — icons + accessible names only. */
 const MARK: Partial<Record<string, BrandKey>> = {
@@ -29,13 +32,10 @@ export function SocialIcons({ items, label, size = 'md', className }: { items: S
   return (
     <ul aria-label={label} className={cn('flex flex-wrap gap-2.5', className)}>
       {list.map(i => {
-        const external = i.url.startsWith('http')
         return (
           <li key={i.platform}>
-            <a
-              href={i.url}
-              target={external ? '_blank' : undefined}
-              rel={external ? 'noopener noreferrer' : undefined}
+            <ContactHref
+              url={i.url}
               aria-label={i.label}
               title={i.label}
               className={cn('social-tile group', box)}
@@ -43,7 +43,7 @@ export function SocialIcons({ items, label, size = 'md', className }: { items: S
               data-platform={i.platform}
             >
               <BrandIcon name={i.key} className={icon} />
-            </a>
+            </ContactHref>
           </li>
         )
       })}

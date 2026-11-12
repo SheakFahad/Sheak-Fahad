@@ -1,6 +1,7 @@
 'use client'
 
 import { BrandIcon, BRAND_ICONS, type BrandKey } from '@/components/icons/BrandIcons'
+import { ContactHref } from '@/components/shared/ContactHref'
 import { Magnetic } from '@/components/ui/Magnetic'
 
 export interface DockItem {
@@ -16,14 +17,11 @@ export function SocialDock({ items, label }: { items: DockItem[]; label: string 
     <nav aria-label={label} data-hero-dock>
       <ul className="glass inline-flex items-center gap-1 rounded-full p-1.5 shadow-[0_20px_60px_-25px_rgb(66_99_255/0.6)]">
         {items.map(item => {
-          const external = item.url.startsWith('http')
           return (
             <li key={item.key} className="relative">
               <Magnetic strength={0.3}>
-                <a
-                  href={item.url}
-                  target={external ? '_blank' : undefined}
-                  rel={external ? 'noopener noreferrer' : undefined}
+                <ContactHref
+                  url={item.url}
                   aria-label={item.label}
                   className="dock-link group relative grid size-12 place-items-center rounded-full text-[var(--text-2)] transition-[color,background,transform,box-shadow] duration-300 hover:scale-110 hover:text-white focus-visible:scale-110 focus-visible:text-white"
                   style={{ '--brand': BRAND_ICONS[item.key].hex } as React.CSSProperties}
@@ -35,7 +33,7 @@ export function SocialDock({ items, label }: { items: DockItem[]; label: string 
                   >
                     {item.label}
                   </span>
-                </a>
+                </ContactHref>
               </Magnetic>
             </li>
           )

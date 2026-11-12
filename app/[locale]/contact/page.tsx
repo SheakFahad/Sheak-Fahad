@@ -15,8 +15,9 @@ export default async function ContactPage({ params }: PageProps<'/[locale]/conta
   const onContact = socials.filter(s => s.show_on_contact)
   const direct = onContact.filter(s => s.platform === 'email' || s.platform === 'whatsapp' || s.platform === 'phone')
   const social = onContact.filter(s => !direct.includes(s))
-  const email = socials.find(s => s.platform === 'email')?.url.replace(/^mailto:/, '') ?? null
-  const whatsappDigits = socials.find(s => s.platform === 'whatsapp')?.url.match(/wa\.me\/(\d+)/)?.[1] ?? null
+  // Private channel URLs are already opaque tokens (lib/utils/protect.ts) — decoded only in the browser on send
+  const emailUrl = socials.find(s => s.platform === 'email')?.url ?? null
+  const whatsappUrl = socials.find(s => s.platform === 'whatsapp')?.url ?? null
 
   return (
     <>
@@ -43,8 +44,8 @@ export default async function ContactPage({ params }: PageProps<'/[locale]/conta
           </div>
           <div data-reveal>
             <ContactForm
-              email={email}
-              whatsappDigits={whatsappDigits}
+              emailUrl={emailUrl}
+              whatsappUrl={whatsappUrl}
               labels={{
                 title: t('formTitle'),
                 name: t('name'),

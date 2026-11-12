@@ -5,6 +5,7 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { easing } from 'maath'
 import { Suspense, useEffect, useRef, useState } from 'react'
 import { usePathname } from '@/i18n/navigation'
+import { AiOrb } from './AiOrb'
 import { HeroPortal } from './HeroPortal'
 import { NexusEnvironment } from './NexusEnvironment'
 import { NexusGlobe } from './NexusGlobe'
@@ -87,6 +88,7 @@ export default function UniverseCanvas({ tier }: { tier: Exclude<QualityTier, 'o
           <Suspense fallback={null}>
             <NexusGlobe tier={tier} />
           </Suspense>
+          <AiOrb />
         </>
       )}
       {!isHome && <StationBackdrop variant={variantForPath(pathname)} light={light} />}

@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { hasLocale, NextIntlClientProvider } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Footer } from '@/components/layout/Footer'
+import { AssistantWidget } from '@/components/assistant/AssistantWidget'
 import { Header } from '@/components/layout/Header'
 import { StationNavigator } from '@/components/layout/StationNavigator'
 import { Universe } from '@/components/3d/Universe'
@@ -14,6 +15,7 @@ import { ToastProvider } from '@/components/ui/Toast'
 import { routing } from '@/i18n/routing'
 import { getSiteSettings } from '@/lib/content/repository'
 import { fontVariables } from '@/lib/fonts'
+import { getAssistantKnowledge } from '@/lib/nexus/home'
 import { getShellData } from '@/lib/site/shell'
 import { themeBootScript } from '@/lib/site/theme'
 
@@ -45,7 +47,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
   if (!hasLocale(routing.locales, locale)) notFound()
   setRequestLocale(locale)
 
-  const [{ settings, profile, navItems, homeItem, socials, search }, t, rawSettings] = await Promise.all([
+  const [{ settings, profile, navItems, homeItem, socials, search, primaryKeys }, t, rawSettings] = await Promise.all([
     getShellData(locale),
     getTranslations(),
     getSiteSettings(),
@@ -70,9 +72,9 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
               <ScrollProgress />
               <Header
                 siteName={profile.full_name}
-                brandSub={t('common.brandSub')}
                 homeItem={homeItem}
                 items={navItems}
+                primaryKeys={primaryKeys}
                 socials={socials}
                 search={search}
                 labels={{
@@ -93,6 +95,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
                   sections: t('nav.sections'),
                   projects: t('nav.projects'),
                   explore: t('station.explore'),
+                  ai: t('assistant.open'),
                 }}
               />
               <main id="main" tabIndex={-1} className="outline-none">
@@ -126,8 +129,36 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
                   connect: t('footer.connect'),
                   rights: t('footer.rights'),
                   backToTop: t('common.backToTop'),
+                  replayIntro: t('common.replayIntro'),
                 }}
               />
+              {rawSettings.features.assistant && (
+                <AssistantWidget
+                  kb={await getAssistantKnowledge(locale)}
+                  locale={locale}
+                  labels={{
+                    button: t('assistant.open'),
+                    title: t('assistant.title'),
+                    subtitle: t('assistant.subtitle'),
+                    greeting: t('assistant.greeting'),
+                    placeholder: t('assistant.placeholder'),
+                    send: t('assistant.send'),
+                    minimize: t('assistant.minimize'),
+                    restore: t('assistant.restore'),
+                    close: t('assistant.close'),
+                    clear: t('assistant.clear'),
+                    suggest: t('assistant.suggest'),
+                    you: t('assistant.you'),
+                    open: t('assistant.openLink'),
+                    noAnswer: t('assistant.noAnswer'),
+                    refused: t('assistant.refused'),
+                    modeAi: t('assistant.modeAi'),
+                    modeOffline: t('assistant.modeOffline'),
+                    offlineNote: t('assistant.offlineNote'),
+                    fallbackNote: t('assistant.fallbackNote'),
+                  }}
+                />
+              )}
               <MotionRoot />
               <Universe />
             </PageTransitionProvider>

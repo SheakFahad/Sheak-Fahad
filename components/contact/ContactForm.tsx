@@ -1,5 +1,6 @@
 'use client'
 
+import { revealUrl } from '@/lib/utils/protect'
 import { useState, type FormEvent } from 'react'
 import { Button } from '@/components/ui/Button'
 import { SelectInput, TextArea, TextInput } from '@/components/ui/Field'
@@ -7,8 +8,9 @@ import { useToast } from '@/components/ui/Toast'
 import { contactSchema, MESSAGE_CATEGORIES } from '@/lib/validations/contact'
 
 interface Props {
-  email: string | null
-  whatsappDigits: string | null
+  /** Protected (opaque) URLs — decoded in the browser only when the visitor sends. */
+  emailUrl: string | null
+  whatsappUrl: string | null
   labels: {
     title: string
     name: string
@@ -32,7 +34,7 @@ type Errors = Partial<Record<'name' | 'email' | 'message', string>>
  * Contact form. Until the database is connected (Phase 7) it hands the validated message to the
  * visitor's email app or WhatsApp — both real, working channels (no fake submit).
  */
-export function ContactForm({ email, whatsappDigits, labels }: Props) {
+export function ContactForm({ emailUrl, whatsappUrl, labels }: Props) {
   const toast = useToast()
   const [errors, setErrors] = useState<Errors>({})
 
@@ -59,6 +61,7 @@ export function ContactForm({ email, whatsappDigits, labels }: Props) {
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const d = read(e.currentTarget)
+    const email = emailUrl ? revealUrl(emailUrl).replace(/^mailto:/, '') : ''
     if (!d || d.website || !email) return
     const subject = d.subject || `${labels.categories[d.category]} — ${d.name}`
     window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body(d))}`
@@ -66,6 +69,7 @@ export function ContactForm({ email, whatsappDigits, labels }: Props) {
   }
 
   const onWhatsApp = (form: HTMLFormElement | null) => {
+    const whatsappDigits = whatsappUrl ? (revealUrl(whatsappUrl).match(/wa\.me\/(\d+)/)?.[1] ?? '') : ''
     if (!form || !whatsappDigits) return
     const d = read(form)
     if (!d || d.website) return
@@ -95,12 +99,12 @@ export function ContactForm({ email, whatsappDigits, labels }: Props) {
       </div>
       <p className="text-xs text-[var(--text-2)]">{labels.note}</p>
       <div className="flex flex-wrap gap-3">
-        {email && (
+        {emailUrl && (
           <Button type="submit" size="lg" magnetic>
             {labels.send}
           </Button>
         )}
-        {whatsappDigits && (
+        {whatsappUrl && (
           <Button type="button" variant="secondary" size="lg" onClick={e => onWhatsApp(e.currentTarget.form)}>
             {labels.sendWhatsApp}
           </Button>

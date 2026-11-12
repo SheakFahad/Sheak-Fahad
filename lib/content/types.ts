@@ -68,6 +68,8 @@ export interface SiteSection extends Publishable {
   /** NEXUS station icon + one-line hover description (homepage station map). */
   icon?: StationIconKey | null
   station_text?: string | null
+  /** Creative station name shown next to the plain label (e.g. "Origin" for About). */
+  station_name?: string | null
   seo_title: string | null
   seo_description: string | null
 }
@@ -82,6 +84,8 @@ export interface Profile {
   about_media_id: string | null
   /** Hero headline extras (CMS-editable). */
   hero_tagline?: string | null
+  /** Professional title under the name in the hero, e.g. "UI/UX Designer & Creative Professional". */
+  hero_title?: string | null
   hero_text?: string | null
   /** Background-removed cutout of an original portrait (alpha only; RGB pixels identical to the source). */
   hero_media_id?: string | null
@@ -131,16 +135,14 @@ export interface SiteSettings {
   footer_text: string | null
   /** NEXUS AI: 'local' answers only from verified CMS data (no LLM); 'llm' needs a configured provider. */
   assistant?: { mode: 'local' | 'llm'; provider: string | null }
+  /** Section keys shown directly in the desktop navigation bar (the rest go under "More"). */
+  nav_primary?: string[]
   home?: HomeConfig
   translations?: Translations
 }
 
 /** Homepage (NEXUS) configuration — edited in the admin "Homepage" panel. */
 export interface HomeConfig {
-  welcome_label: string
-  title: string
-  subtitle: string
-  intro_prefix: string
   /** Ordered project slugs; only published + public projects are ever shown. */
   featured_project_slugs: string[]
   show_stations: boolean
@@ -300,6 +302,9 @@ export interface TravelLocation extends Publishable {
   tags: string[]
   cover_media_id: string | null
   photo_media_ids: string[]
+  /** Related CMS memories / videos shown in the ATLAS destination panel. */
+  related_memory_ids?: string[]
+  video_ids?: string[]
   is_demo: boolean
 }
 

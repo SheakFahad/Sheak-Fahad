@@ -14,6 +14,7 @@ const toItem = (s: SiteSection, locale: string, index: number): NavItem => {
     index,
     icon: s.icon ?? null,
     text: l.station_text ?? null,
+    station: l.station_name ?? null,
   }
 }
 
@@ -39,7 +40,7 @@ export async function getShellData(locale: string) {
   const search: SearchEntry[] = [
     ...(homeItem ? [homeItem] : []),
     ...navItems,
-  ].map(i => ({ href: i.href, title: i.label, group: 'section' as const, hint: i.eyebrow }))
+  ].map(i => ({ href: i.href, title: i.label, group: 'section' as const, hint: [i.station, i.eyebrow].filter(Boolean).join(' · ') || null }))
   if (projectsSection) {
     for (const p of projects) {
       const l = localize(p, locale)
@@ -47,7 +48,9 @@ export async function getShellData(locale: string) {
     }
   }
 
+  const primaryKeys = settings.nav_primary ?? navItems.slice(0, 6).map(i => i.key)
   return {
+    primaryKeys,
     settings: localize(settings, locale),
     profile: localize(profile, locale),
     navItems,

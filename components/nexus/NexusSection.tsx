@@ -4,7 +4,7 @@ import type { BrandKey } from '@/components/icons/BrandIcons'
 import { localize } from '@/lib/content/localize'
 import { getMedia, getProfile, getSectionByKey, getSiteSettings, getSocialLinks } from '@/lib/content/repository'
 import type { SocialPlatform } from '@/lib/content/types'
-import { getAssistantKnowledge, getFeaturedProjects, getHomeConfig } from '@/lib/nexus/home'
+import { getFeaturedProjects, getHomeConfig } from '@/lib/nexus/home'
 import { getShellData } from '@/lib/site/shell'
 import { NexusHero } from './NexusHero'
 
@@ -20,20 +20,21 @@ const DOCK: [SocialPlatform, BrandKey][] = [
 
 /** NEXUS homepage hero — every string, link, image and toggle comes from the CMS content layer. */
 export async function NexusSection({ locale }: { locale: string }) {
-  const [t, rawProfile, socials, projectsSection, settings, config, shell] = await Promise.all([
+  const [t, ta, rawProfile, socials, projectsSection, contactSection, settings, config, shell] = await Promise.all([
     getTranslations('home'),
+    getTranslations('assistant'),
     getProfile(),
     getSocialLinks(),
     getSectionByKey('projects'),
+    getSectionByKey('contact'),
     getSiteSettings(),
     getHomeConfig(locale),
     getShellData(locale),
   ])
   const profile = localize(rawProfile, locale)
-  const [cutout, featured, assistant] = await Promise.all([
+  const [cutout, featured] = await Promise.all([
     getMedia(rawProfile.hero_media_id ?? rawProfile.avatar_media_id),
     config.show_featured ? getFeaturedProjects(locale, config.featured_project_slugs) : Promise.resolve([]),
-    settings.features.assistant ? getAssistantKnowledge(locale) : Promise.resolve(null),
   ])
 
   const dock: DockItem[] = DOCK.flatMap(([platform, key]) => {
@@ -46,8 +47,9 @@ export async function NexusSection({ locale }: { locale: string }) {
     <NexusHero
       config={config}
       name={profile.full_name}
-      primaryRoles={roles.slice(0, 4)}
-      extraRoles={roles.slice(4)}
+      title={profile.hero_title ?? roles[0] ?? ''}
+      tagline={profile.hero_tagline ?? settings.tagline}
+      roles={roles.slice(0, 5)}
       text={profile.hero_text ?? profile.intro}
       portrait={{
         src: cutout?.src ?? '',
@@ -59,14 +61,14 @@ export async function NexusSection({ locale }: { locale: string }) {
       dock={dock}
       stations={config.show_stations ? shell.navItems : []}
       featured={featured}
-      assistant={assistant}
+      showAssistant={settings.features.assistant}
       cta={{
-        exploreLabel: t('exploreWorld'),
-        exploreHref: '#explore',
-        projectsLabel: t('viewProjects'),
-        projectsHref: projectsSection ? `/${projectsSection.route_slug}` : null,
+        workLabel: t('exploreWork'),
+        workHref: projectsSection ? `/${projectsSection.route_slug}` : null,
         cvLabel: t('downloadCv'),
         cvUrl: rawProfile.cv_url ?? null,
+        connectLabel: t('connect'),
+        connectHref: contactSection ? `/${contactSection.route_slug}` : null,
       }}
       labels={{
         social: t('socialLabel'),
@@ -75,20 +77,7 @@ export async function NexusSection({ locale }: { locale: string }) {
         globe: t('globeLabel'),
         open: t('openStation'),
         featured: { title: t('featuredTitle'), prev: t('prevProject'), next: t('nextProject'), concept: t('conceptVisual'), view: t('viewCase') },
-        ai: {
-          title: t('aiTitle'),
-          text: t('aiText'),
-          open: t('aiOpen'),
-          close: t('aiClose'),
-          hide: t('aiHide'),
-          placeholder: t('aiPlaceholder'),
-          send: t('aiSend'),
-          note: t('aiNote'),
-          suggest: t('aiSuggest'),
-          noAnswer: t('aiNoAnswer'),
-          greeting: t('aiGreeting'),
-          you: t('aiYou'),
-        },
+        ai: { open: ta('open'), greeting: t('aiGreet') },
       }}
     />
   )

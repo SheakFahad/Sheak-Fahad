@@ -1,5 +1,6 @@
 import { TransitionLink } from '@/components/motion/TransitionLink'
 import { SocialIcons } from '@/components/shared/SocialIcons'
+import { ReplayIntro } from './ReplayIntro'
 import type { NavItem, SocialItem } from './nav-types'
 import { SFMark } from './SFMark'
 
@@ -8,7 +9,7 @@ interface Props {
   tagline: string
   items: NavItem[]
   socials: SocialItem[]
-  labels: { tagline: string; explore: string; connect: string; rights: string; backToTop: string }
+  labels: { tagline: string; explore: string; connect: string; rights: string; backToTop: string; replayIntro: string }
 }
 
 export function Footer({ siteName, tagline, items, socials, labels }: Props) {
@@ -50,9 +51,12 @@ export function Footer({ siteName, tagline, items, socials, labels }: Props) {
           <p>
             © {year} {siteName}. {labels.rights}
           </p>
+          <span className="flex flex-wrap items-center gap-x-6">
+            <ReplayIntro label={labels.replayIntro} />
           <a href="#top" className="inline-flex min-h-10 items-center gap-2 hover:text-[var(--text)]">
             {labels.backToTop} <span aria-hidden="true">↑</span>
           </a>
+          </span>
         </div>
       </div>
     </footer>
