@@ -12,7 +12,7 @@ interface FieldProps {
 }
 
 /** Label + control + hint/error wiring with correct aria attributes. */
-export function Field({ label, error, hint, children }: FieldProps) {
+function Field({ label, error, hint, children }: FieldProps) {
   const id = useId()
   const hintId = hint ? `${id}-hint` : undefined
   const errId = error ? `${id}-err` : undefined

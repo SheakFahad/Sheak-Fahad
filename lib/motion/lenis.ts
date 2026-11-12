@@ -8,7 +8,6 @@ let instance: Lenis | null = null
 export const setLenis = (l: Lenis | null) => {
   instance = l
 }
-export const getLenis = () => instance
 
 export function scrollToTop(immediate = true) {
   if (instance) instance.scrollTo(0, { immediate, force: true })

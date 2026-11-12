@@ -28,10 +28,14 @@
   "home": {
     "exploreWorld": "আমার জগৎ ঘুরে দেখুন",
     "viewProjects": "প্রজেক্ট দেখুন",
-    "quickContact": "দ্রুত যোগাযোগ",
     "exploreTitle": "মহাবিশ্ব ঘুরে দেখুন",
     "exploreText": "আমার কাজ ও জীবনের প্রতিটি অংশ, এক ক্লিকে।",
-    "scrollHint": "স্ক্রল করে দেখুন"
+    "scrollHint": "স্ক্রল করে দেখুন",
+    "downloadCv": "সিভি ডাউনলোড",
+    "socialLabel": "সোশ্যাল প্রোফাইল",
+    "skillsLabel": "আমি যা করি",
+    "iAm": "আমি একজন",
+    "closeSkill": "বন্ধ করুন"
   },
   "section": {
     "preparingTitle": "কনটেন্ট প্রস্তুত করা হচ্ছে",

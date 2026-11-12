@@ -19,7 +19,7 @@ const sizes: Record<Size, string> = {
   lg: 'px-8 py-4 text-base',
 }
 
-export function buttonClass(variant: Variant = 'primary', size: Size = 'md', className?: string) {
+function buttonClass(variant: Variant = 'primary', size: Size = 'md', className?: string) {
   return cn(base, variants[variant], sizes[size], className)
 }
 

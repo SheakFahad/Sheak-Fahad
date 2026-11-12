@@ -28,10 +28,14 @@
   "home": {
     "exploreWorld": "Explore My World",
     "viewProjects": "View Projects",
-    "quickContact": "Quick contact",
     "exploreTitle": "Explore the universe",
     "exploreText": "Every part of my work and life, one click away.",
-    "scrollHint": "Scroll to explore"
+    "scrollHint": "Scroll to explore",
+    "downloadCv": "Download CV",
+    "socialLabel": "Social profiles",
+    "skillsLabel": "What I do",
+    "iAm": "I am a",
+    "closeSkill": "Close"
   },
   "section": {
     "preparingTitle": "Content is being prepared",

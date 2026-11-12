@@ -43,9 +43,53 @@
           "ক্রিয়েটিভ ডিজাইনার",
           "ভিডিও ও মোশন গ্রাফিক্স ক্রিয়েটর"
         ],
-        "tagline": "সৃজনশীলতা, প্রযুক্তি ও জীবনের মধ্য দিয়ে এক নিমগ্ন যাত্রা।"
+        "tagline": "সৃজনশীলতা, প্রযুক্তি ও জীবনের মধ্য দিয়ে এক নিমগ্ন যাত্রা।",
+        "hero_tagline": "ডিজাইনের ওপারে। কল্পনার ওপারে।",
+        "hero_text": "ডিজাইন, প্রযুক্তি, সৃজনশীলতা ও গবেষণার মাধ্যমে অর্থবহ ডিজিটাল অভিজ্ঞতা তৈরি করি।"
       }
-    }
+    },
+    "hero_tagline": "Beyond Design. Beyond Imagination.",
+    "hero_text": "Creating meaningful digital experiences through design, technology, creativity and research.",
+    "hero_media_id": "m-hero-cutout",
+    "cv_url": "/documents/sheak-fahad-cv.pdf",
+    "hero_skills": [
+      {
+        "key": "uiux",
+        "title": "UI/UX Design",
+        "text": "Figma, wireframing and prototyping — UI/UX Designer at Zensoft Lab.",
+        "icon": "layers"
+      },
+      {
+        "key": "graphics",
+        "title": "Graphics Design",
+        "text": "Visual and brand design — Graphics & UI/UX Designer at All Sheba Limited.",
+        "icon": "pen"
+      },
+      {
+        "key": "data",
+        "title": "Data Art & Analytics",
+        "text": "Turning data into visual stories — Data Artist at Golden Harvest Infotech.",
+        "icon": "chart"
+      },
+      {
+        "key": "research",
+        "title": "Research & AI",
+        "text": "Capstone thesis on a federated digital twin framework for personalized healthcare monitoring.",
+        "icon": "atom"
+      },
+      {
+        "key": "motion",
+        "title": "Video Editing & Motion Graphics",
+        "text": "Video editing and motion graphics — reels, promos and animated stories.",
+        "icon": "play"
+      },
+      {
+        "key": "web",
+        "title": "Web & Product Design",
+        "text": "Product interfaces such as the Healthcare Web App, UniNest and a POS dashboard.",
+        "icon": "globe"
+      }
+    ]
   },
   "sections": [
     {
@@ -684,6 +728,16 @@
       "height": 750,
       "focal_x": 0.6,
       "focal_y": 0.5
+    },
+    {
+      "id": "m-hero-cutout",
+      "src": "/images/hero/portrait-cutout.webp",
+      "alt": "Sheak Fahad — portrait",
+      "width": 1188,
+      "height": 1100,
+      "focal_x": 0.5,
+      "focal_y": 0.3,
+      "is_original_photo": true
     }
   ],
   "section_blocks": {},

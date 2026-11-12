@@ -73,7 +73,21 @@ export interface Profile {
   location_city: string | null
   avatar_media_id: string | null
   about_media_id: string | null
+  /** Hero headline extras (CMS-editable). */
+  hero_tagline?: string | null
+  hero_text?: string | null
+  /** Background-removed cutout of an original portrait (alpha only; RGB pixels identical to the source). */
+  hero_media_id?: string | null
+  cv_url?: string | null
+  hero_skills?: HeroSkill[]
   translations?: Translations
+}
+
+export interface HeroSkill {
+  key: string
+  title: string
+  text: string
+  icon: 'layers' | 'pen' | 'chart' | 'atom' | 'play' | 'globe'
 }
 
 export type SocialPlatform =

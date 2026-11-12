@@ -16,6 +16,9 @@ Legacy static site lives in `sheak-website/`. **Never delete or modify it**; cop
 
 ## Identity & content (non-negotiable)
 - **Never alter the owner's face**: no AI regeneration, filters, beauty effects, warping, shader distortion, avatar/cartoon/3D-face conversion. Photos may be cropped, framed, placed on 3D planes, relit *around* them. `media_assets.is_original_photo=true` ⇒ only resize/re-encode.
+- **Nothing may pass in front of the face** in any composition: 3D rings keep their front arcs below the chin (negative X tilt), particles stay behind the photo plane (z < 0), DOM chips/tooltips sit beside or below the head. Check every hero/portrait screenshot at 1280, 1440 and 390 px.
+- Hero portrait = `public/images/hero/portrait-cutout*.webp`: background removed, alpha only; RGB verified identical to `profile.jpg` (max diff 0). Shown with meshBasicMaterial, toneMapped=false, sRGB; reveal by clipping plane only.
+- Visual direction: `docs/CREATIVE_DIRECTION.md` (stations, phases R1–R6).
 - `kkkkk.png` / the storyboard face is AI-drawn → planning reference only, never published.
 - **Never invent facts.** Only ✅ verified / 📝 owner-stated data from `docs/CONTENT_MAPPING.md`. Missing ⇒ NULL + hidden publicly + "Needs info" in admin. No fake projects, testimonials, metrics, skill percentages, travel visits.
 - Demo rows (`is_demo`) can never be published.

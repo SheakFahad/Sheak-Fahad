@@ -12,5 +12,3 @@ export const contactSchema = z.object({
   /** Honeypot — must stay empty. */
   website: z.string().max(0).optional().default(''),
 })
-
-export type ContactInput = z.infer<typeof contactSchema>

@@ -13,5 +13,6 @@ export default defineConfig([
     // legacy static site and docs helpers are not part of the app
     'sheak-website/**',
     'docs/**',
+    '.claude/**',
   ]),
 ])

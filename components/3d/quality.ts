@@ -36,7 +36,7 @@ export function detectTier(): QualityTier {
 }
 
 export const TIER_SETTINGS = {
-  low: { stars: 900, shards: 14, dpr: [1, 1.25] as [number, number], glass: false },
-  medium: { stars: 1800, shards: 26, dpr: [1, 1.5] as [number, number], glass: false },
-  high: { stars: 2800, shards: 40, dpr: [1, 1.75] as [number, number], glass: true },
+  low: { stars: 900, dpr: [1, 1.25] as [number, number] },
+  medium: { stars: 1800, dpr: [1, 1.5] as [number, number] },
+  high: { stars: 2800, dpr: [1, 1.75] as [number, number] },
 } as const

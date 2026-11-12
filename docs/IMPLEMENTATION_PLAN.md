@@ -28,3 +28,7 @@ Live public URL · all public routes render real verified content or tasteful em
 ## Measured performance notes
 - 2026-11-11: three.js/R3F ship as a separate lazy chunk (267 KB gz) loaded on idle; not in the initial bundle.
 - Initial JS on public pages: ~250 KB gz (framework + next-intl + GSAP/Lenis). Above the 200 KB target; to be re-measured with Lighthouse in Phase 10 (candidates: trim next-intl client messages per page, lazy SplitText).
+
+## Full redesign (v2) — see docs/CREATIVE_DIRECTION.md
+- **R1 Arrival hero** ✅ 2026-11-12: background-removed portrait (alpha only, RGB diff 0) as a WebGL plane locked to a DOM stage, halo + chest-level orbit rings with light trails, converging dust behind the photo, rim light, six holographic skill stations (hover/focus/click, keyboard, mobile list), brand-icon social dock, Explore/View Projects/Download CV, masked character name reveal, intro timeline, DOM fallback for no-WebGL/reduced motion. Tested 390/820/1280/1440 px, en/bn, reduced motion, ?nowebgl, keyboard.
+- R2–R6 pending. Known: an intermittent glBlitFramebuffer warning appears only in headless SwiftShader screenshots; not verified on a real GPU.
