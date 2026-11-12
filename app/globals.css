@@ -634,7 +634,7 @@ html.js-motion .nexus .dock-link {
   .nx-stage { width: min(44vw, 500px); }
 }
 @media (width >= 80rem) {
-  .nx-stage { width: clamp(360px, 30vw, min(520px, calc((100dvh - 380px) * 1.08))); }
+  .nx-stage { width: clamp(380px, 32.5vw, min(560px, calc((100dvh - 360px) * 1.08))); }
 }
 .nx-platform {
   position: relative;

@@ -140,9 +140,49 @@ const cardFrag = /* glsl */ `
   }
 `
 
+// Foreground sparkles: drift upward but wrap below the chin line (y ≤ -0.14) — never over the face.
+const frontVert = /* glsl */ `
+  attribute float aSeed; attribute float aSize;
+  uniform float uTime; uniform float uPixelRatio; uniform float uScale;
+  varying float vA; varying float vSeed;
+  void main() {
+    vec3 p = position;
+    p.y = -0.78 + mod(p.y + 0.78 + uTime * (0.015 + aSeed * 0.03), 0.64);
+    p.x += sin(uTime * 0.5 + aSeed * 30.0) * 0.02;
+    vec4 mv = modelViewMatrix * vec4(p, 1.0);
+    gl_Position = projectionMatrix * mv;
+    gl_PointSize = aSize * uPixelRatio * uScale * (12.0 / -mv.z);
+    float edge = smoothstep(-0.14, -0.24, p.y) * smoothstep(-0.78, -0.68, p.y);
+    vA = edge * (0.5 + 0.5 * sin(uTime * 2.5 + aSeed * 40.0));
+    vSeed = aSeed;
+  }
+`
+const frontFrag = /* glsl */ `
+  uniform float uOpacity; varying float vA; varying float vSeed;
+  void main() {
+    float d = length(gl_PointCoord - 0.5);
+    float a = smoothstep(0.5, 0.0, d); a *= a * vA * uOpacity;
+    vec3 c = mix(vec3(0.32, 0.9, 1.0), vec3(1.0, 0.36, 0.94), step(0.6, vSeed));
+    gl_FragColor = vec4(c * a, a);
+  }
+`
+
 const BLUE = new THREE.Color('#4263ff')
 const CYAN = new THREE.Color('#51e5ff')
 const VIOLET = new THREE.Color('#a678ff')
+
+/** Coloured rim light from the cutout ALPHA only, drawn behind the photo plane. */
+function rimMaterial(color: string) {
+  return new THREE.ShaderMaterial({
+    vertexShader: BASIC_VERT,
+    fragmentShader: rimFrag,
+    uniforms: { uMask: { value: null }, uColorA: { value: new THREE.Color(color) }, uColorB: { value: new THREE.Color(color) }, uOpacity: { value: 0 } },
+    transparent: true,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+    toneMapped: false,
+  })
+}
 
 function additive(frag: string, uniforms: Record<string, THREE.IUniform>, side: THREE.Side = THREE.FrontSide) {
   return new THREE.ShaderMaterial({
@@ -211,7 +251,20 @@ export function HeroPortal({ tier }: { tier: 'low' | 'medium' | 'high' }) {
         cometMaterial(VIOLET, CYAN, -0.06, 0.22, 64),
         cometMaterial(BLUE, VIOLET, 0.045, 0.12),
         cometMaterial(CYAN, '#ff5cf0', -0.11, 0.0), // pure light trail
+        cometMaterial('#ff5cf0', VIOLET, 0.07, 0.03), // wide magenta sweep
+        cometMaterial(BLUE, CYAN, -0.05, 0.04), // outer blue sweep
       ],
+      rimL: rimMaterial('#51e5ff'),
+      rimR: rimMaterial('#ff5cf0'),
+      front: new THREE.ShaderMaterial({
+        vertexShader: frontVert,
+        fragmentShader: frontFrag,
+        uniforms: { uTime: { value: 0 }, uPixelRatio: { value: 1 }, uScale: { value: 1 }, uOpacity: { value: 0 } },
+        transparent: true,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending,
+        toneMapped: false,
+      }),
       hud: additive(hudFrag, { uTime: { value: 0 }, uOpacity: { value: 0 }, uAccent: { value: new THREE.Color('#ff5cf0') } }),
       disc: additive(discFrag, { uLogo: { value: logo }, uTime: { value: 0 }, uOpacity: { value: 0 } }, THREE.DoubleSide),
       tiers: [0, 1, 2].map(i => additive(bandFrag, { uColor: { value: new THREE.Color(i === 1 ? '#a678ff' : '#4f8bff') }, uOpacity: { value: 0 }, uLip: { value: 0.12 }, uTime: { value: 0 } }, THREE.DoubleSide)),
@@ -227,7 +280,7 @@ export function HeroPortal({ tier }: { tier: 'low' | 'medium' | 'high' }) {
     () => () => {
       mats.logo.dispose()
       mats.cards.forEach(m => (m.uniforms.uMap!.value as THREE.Texture).dispose())
-      ;[...mats.rings, mats.hud, mats.disc, ...mats.tiers, mats.beam, ...mats.platRings, ...mats.cards].forEach(m => m.dispose())
+      ;[...mats.rings, mats.rimL, mats.rimR, mats.front, mats.hud, mats.disc, ...mats.tiers, mats.beam, ...mats.platRings, ...mats.cards].forEach(m => m.dispose())
     },
     [mats],
   )
@@ -253,6 +306,24 @@ export function HeroPortal({ tier }: { tier: 'low' | 'medium' | 'high' }) {
     g.setAttribute('aSeed', new THREE.BufferAttribute(seed, 1))
     return g
   }, [dustCount])
+
+  const frontCount = tier === 'low' ? 70 : tier === 'medium' ? 140 : 220
+  const front = useMemo(() => {
+    const rand = createRandom(5150)
+    const pos = new Float32Array(frontCount * 3)
+    const size = new Float32Array(frontCount)
+    const seed = new Float32Array(frontCount)
+    for (let i = 0; i < frontCount; i++) {
+      pos.set([(rand() - 0.5) * 1.9, -0.78 + rand() * 0.64, 0.05 + rand() * 0.45], i * 3)
+      size[i] = 0.8 + rand() ** 2 * 2.6
+      seed[i] = rand()
+    }
+    const g = new THREE.BufferGeometry()
+    g.setAttribute('position', new THREE.BufferAttribute(pos, 3))
+    g.setAttribute('aSize', new THREE.BufferAttribute(size, 1))
+    g.setAttribute('aSeed', new THREE.BufferAttribute(seed, 1))
+    return g
+  }, [frontCount])
 
   const glowUniforms = useMemo(() => ({ uColorA: { value: BLUE.clone() }, uColorB: { value: VIOLET.clone() }, uOpacity: { value: 0 } }), [])
   const rimUniforms = useMemo(() => ({ uMask: { value: map }, uColorA: { value: CYAN.clone() }, uColorB: { value: VIOLET.clone() }, uOpacity: { value: 0 } }), [map])
@@ -306,11 +377,19 @@ export function HeroPortal({ tier }: { tier: 'low' | 'medium' | 'high' }) {
 
     if (inner.current) {
       easing.dampE(inner.current.rotation, [state.pointer.y * 0.05, state.pointer.x * 0.1, 0], 0.5, delta)
-      inner.current.position.y = Math.sin(t * 0.8) * 0.01
+      inner.current.position.y = Math.sin(t * 0.6) * 0.018
     }
 
     if (glowMat.current) glowMat.current.uniforms.uOpacity!.value = pEnv * 0.9
     if (rimMat.current) rimMat.current.uniforms.uOpacity!.value = pPortrait * 0.55
+    for (const m of [mats.rimL, mats.rimR]) {
+      m.uniforms.uMask!.value = map
+      m.uniforms.uOpacity!.value = pPortrait * 0.75
+    }
+    setU(mats.front, 'uTime', t)
+    setU(mats.front, 'uPixelRatio', state.viewport.dpr)
+    setU(mats.front, 'uScale', Math.max(0.6, worldH / 3))
+    setU(mats.front, 'uOpacity', pTrails)
     if (discEdge.current) discEdge.current.opacity = pRings
     setU(mats.hud, 'uTime', t)
     setU(mats.hud, 'uOpacity', pRings * 0.9)
@@ -326,7 +405,7 @@ export function HeroPortal({ tier }: { tier: 'low' | 'medium' | 'high' }) {
 
     mats.rings.forEach((m, i) => {
       m.uniforms.uTime!.value = t
-      m.uniforms.uOpacity!.value = i === 3 ? pTrails : pRings
+      m.uniforms.uOpacity!.value = i >= 3 ? pTrails : pRings
     })
     rings.current.forEach((ring, i) => {
       if (!ring) return
@@ -427,6 +506,14 @@ export function HeroPortal({ tier }: { tier: 'low' | 'medium' | 'high' }) {
             />
           </mesh>
 
+          {/* coloured rim light: cyan from the left, magenta from the right — alpha-only, behind the photo */}
+          <mesh position={[-0.007, 0.002, -0.025]} scale={1.008} renderOrder={-1} material={mats.rimL}>
+            <planeGeometry args={[ASPECT, 1]} />
+          </mesh>
+          <mesh position={[0.007, 0.002, -0.025]} scale={1.008} renderOrder={-1} material={mats.rimR}>
+            <planeGeometry args={[ASPECT, 1]} />
+          </mesh>
+
           {/* THE PHOTO — basic material, untouched pixels */}
           <mesh renderOrder={0}>
             <planeGeometry args={[ASPECT, 1]} />
@@ -443,6 +530,8 @@ export function HeroPortal({ tier }: { tier: 'low' | 'medium' | 'high' }) {
               { r: 0.76, tube: 0.0024, rot: [-1.42, -0.16, 0] as const, pos: [0, -0.03, 0] as const },
               { r: 0.58, tube: 0.0022, rot: [0, 0, 0] as const, pos: [0, 0.3, -0.45] as const },
               { r: 0.9, tube: 0.006, rot: [-1.22, 0.08, 0] as const, pos: [0, -0.06, 0] as const },
+              { r: 1.06, tube: 0.007, rot: [-1.15, 0.12, 0.08] as const, pos: [0, -0.1, 0] as const },
+              { r: 1.24, tube: 0.005, rot: [-1.1, -0.1, -0.06] as const, pos: [0, -0.14, 0] as const },
             ].map((ring, i) => (
               <mesh
                 key={i}
@@ -472,6 +561,9 @@ export function HeroPortal({ tier }: { tier: 'low' | 'medium' | 'high' }) {
               </mesh>
             </group>
           ))}
+
+          {/* foreground sparkles — below the chin line only */}
+          <points geometry={front} material={mats.front} renderOrder={4} frustumCulled={false} />
 
           {/* converging particle dust (clamped behind the photo in the shader) */}
           <points geometry={dust} renderOrder={2} frustumCulled={false}>
