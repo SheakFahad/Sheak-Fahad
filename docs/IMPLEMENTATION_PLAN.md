@@ -1,3 +1,5 @@
+> **Workflow order (owner, 2026-11-12):** 1) complete the public website → 2) review it (docs/PUBLIC_SITE_REVIEW.md) → 3) admin dashboard UI → 4) connect database, storage and email → final end-to-end testing. Do not switch between public and admin work; do not start admin before the review passes.
+
 # Phased Implementation Roadmap
 
 Each phase ends with: `npm run build` passing, lint/typecheck clean, manual check at 375px and 1440px in both themes, a git checkpoint commit, and a short report to the owner. **Nothing is called "done" untested.**
