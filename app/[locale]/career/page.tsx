@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { getFormatter, getTranslations } from 'next-intl/server'
+import { ScrollLine } from '@/components/motion/ScrollLine'
 import { SectionHero } from '@/components/shared/SectionHero'
 import { Chip, Container, GlassCard } from '@/components/ui/primitives'
 import { getExperiences, getMediaMany } from '@/lib/content/repository'
@@ -16,7 +17,7 @@ export default async function CareerPage({ params }: PageProps<'/[locale]/career
 
   return (
     <>
-      <SectionHero title={section.title} eyebrow={section.eyebrow} intro={section.intro} hero={hero}>
+      <SectionHero stationKey="career" title={section.title} eyebrow={section.eyebrow} intro={section.intro} hero={hero}>
         <ul data-reveal className="mt-8 flex flex-wrap gap-2" aria-label={t('roles')}>
           {[...new Set(experiences.map(e => e.role))].map(r => (
             <li key={r}>
@@ -28,14 +29,16 @@ export default async function CareerPage({ params }: PageProps<'/[locale]/career
 
       <section className="section-y pt-0">
         <Container>
-          <ol className="grid gap-6">
+          <ol className="trajectory relative grid gap-6 pl-8 md:pl-16">
+            <ScrollLine className="left-2 md:left-6" />
             {experiences.map((x, i) => {
               const logo = logos.find(l => l.id === x.logo_media_id)
               const from = fmt(x.start_date)
               const to = x.is_current ? t('present') : fmt(x.end_date)
               const hasDetails = x.responsibilities.length > 0 || x.achievements.length > 0 || x.summary
               return (
-                <li key={x.id} data-reveal>
+                <li key={x.id} data-reveal className="relative">
+                  <span aria-hidden="true" className="trajectory__node" />
                   <GlassCard className="grid gap-8 p-6 md:grid-cols-[220px_1fr] md:p-10">
                     <div className="flex items-start gap-4 md:flex-col">
                       <span className="font-mono text-sm text-[var(--cyan)]">{String(i + 1).padStart(2, '0')}</span>

@@ -1,4 +1,5 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { Gateway } from '@/components/nexus/Gateway'
 import { NexusSection } from '@/components/nexus/NexusSection'
 import { StationIcon } from '@/components/nexus/StationIcon'
 import { SplitHeading } from '@/components/motion/SplitHeading'
@@ -6,13 +7,34 @@ import { TransitionLink } from '@/components/motion/TransitionLink'
 import { Container, Eyebrow, GlassCard } from '@/components/ui/primitives'
 import { getProfile, getSocialLinks } from '@/lib/content/repository'
 import { getShellData } from '@/lib/site/shell'
+import { getHomeConfig } from '@/lib/nexus/home'
 import { jsonLd } from '@/lib/utils/json-ld'
 
 export default async function HomePage({ params }: PageProps<'/[locale]'>) {
   const { locale } = await params
   setRequestLocale(locale)
 
-  const [t, rawProfile, shell, socials] = await Promise.all([getTranslations('home'), getProfile(), getShellData(locale), getSocialLinks()])
+  const [t, tg, tc, rawProfile, shell, socials, home] = await Promise.all([
+    getTranslations('home'),
+    getTranslations('gateway'),
+    getTranslations('common'),
+    getProfile(),
+    getShellData(locale),
+    getSocialLinks(),
+    getHomeConfig(locale),
+  ])
+  const byKey = (k: string) => shell.navItems.find(i => i.key === k)
+  const gateLinks = (
+    [
+      ['projects', tg('work')],
+      ['career', tg('journey')],
+      ['research', tg('research')],
+      ['about', tg('vision')],
+    ] as const
+  ).flatMap(([k, label]) => {
+    const it = byKey(k)
+    return it ? [{ href: it.href, label, icon: it.icon ?? 'spark' }] : []
+  })
   const sameAs = socials.filter(s => s.url.startsWith('http') && s.platform !== 'whatsapp').map(s => s.url)
 
   const person = {
@@ -26,6 +48,21 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
 
   return (
     <>
+      <Gateway
+        name={shell.profile.full_name}
+        title={home.title}
+        links={gateLinks}
+        labels={{
+          label: tg('label'),
+          brandSub: tg('brandSub'),
+          kicker: tg('kicker'),
+          tagline: tg('tagline'),
+          enter: tg('enter'),
+          skip: tg('skip'),
+          quick: tg('quick'),
+          language: tc('language'),
+        }}
+      />
       <NexusSection locale={locale} />
 
       {/* ───────── Station map (every enabled section, from the CMS) ───────── */}

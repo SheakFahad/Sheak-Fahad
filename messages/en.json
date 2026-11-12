@@ -138,7 +138,17 @@
   "studio": {
     "emptyTitle": "Showreel coming soon",
     "emptyText": "Video editing and motion graphics work will appear here once published.",
-    "play": "Play video"
+    "play": "Play video",
+    "phShowreel": "Showreel — awaiting upload",
+    "phShowreelText": "The owner’s showreel will play here once it is uploaded and published.",
+    "phCategory": "Awaiting upload",
+    "reels": "Reels",
+    "categories": {
+      "motion": "Motion graphics",
+      "editing": "Video editing",
+      "reel": "Short-form reels",
+      "promo": "Promos"
+    }
   },
   "research": {
     "facts": "Thesis details",
@@ -169,7 +179,11 @@
     "emptyTitle": "Journeys coming soon",
     "emptyText": "Real places I have visited — with stories and photos — will appear here as I add them.",
     "bangladesh": "Bangladesh",
-    "world": "World"
+    "world": "World",
+    "atlasTitle": "The Atlas",
+    "atlasText": "Drag the Earth or use the arrow keys. Verified places will light up here once they are added.",
+    "phPlace": "Verified place — coming soon",
+    "phPlaceText": "A real place with the owner’s own photos will appear here after verification."
   },
   "memories": {
     "all": "All",
@@ -223,5 +237,30 @@
       "training": "Training",
       "milestone": "Milestone"
     }
+  },
+  "station": {
+    "station": "Station",
+    "prev": "Previous station",
+    "next": "Next station",
+    "explore": "Explore mode",
+    "exploreTitle": "Explore the universe",
+    "exploreHint": "Choose a station — arrow keys move, Enter opens, Esc closes.",
+    "quickNav": "Quick navigation",
+    "placeholder": "Placeholder",
+    "close": "Close explore mode",
+    "current": "You are here"
+  },
+  "gateway": {
+    "label": "Welcome to the NEXUS",
+    "brandSub": "Digital Universe",
+    "kicker": "Personal Digital Universe",
+    "tagline": "A universe of creativity, technology and imagination.",
+    "enter": "Enter the Experience",
+    "skip": "Skip Intro — Go to Website",
+    "quick": "Jump straight to",
+    "work": "My Work",
+    "journey": "My Journey",
+    "research": "My Research",
+    "vision": "My Story"
   }
 }

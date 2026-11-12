@@ -9,6 +9,7 @@ import { LocaleSwitcher } from './LocaleSwitcher'
 import { MegaMenu } from './MegaMenu'
 import type { NavItem, SearchEntry, SocialItem } from './nav-types'
 import { SearchDialog } from './SearchDialog'
+import { openExplore } from './StationNavigator'
 import { SFMark } from './SFMark'
 import { ThemeToggle } from './ThemeToggle'
 
@@ -38,6 +39,7 @@ interface Props {
     noResults: string
     sections: string
     projects: string
+    explore: string
   }
 }
 
@@ -235,6 +237,19 @@ export function Header({ siteName, brandSub, homeItem, items, barCount = 5, soci
               <svg aria-hidden="true" viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.8">
                 <circle cx="11" cy="11" r="6.5" />
                 <path d="m20 20-4.2-4.2" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              onClick={openExplore}
+              aria-label={labels.explore}
+              aria-haspopup="dialog"
+              title={labels.explore}
+              className="hidden size-11 place-items-center rounded-full text-[var(--text-2)] transition-colors hover:bg-[var(--line)] hover:text-[var(--text)] sm:grid"
+            >
+              <svg aria-hidden="true" viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.7">
+                <circle cx="12" cy="12" r="9" />
+                <path d="m15.5 8.5-2 5-5 2 2-5 5-2Z" />
               </svg>
             </button>
             <span aria-hidden="true" className="mx-1 hidden h-6 w-px bg-[var(--line-strong)] md:block" />

@@ -17,7 +17,7 @@ export default async function HobbiesPage({ params }: PageProps<'/[locale]/hobbi
 
   return (
     <>
-      <SectionHero title={section.title} eyebrow={section.eyebrow} intro={section.intro} hero={hero} />
+      <SectionHero stationKey="hobbies" title={section.title} eyebrow={section.eyebrow} intro={section.intro} hero={hero} />
 
       {words.length > 0 && (
         <div aria-hidden="true" className="overflow-hidden border-y border-[var(--line)] py-6">

@@ -8,6 +8,7 @@ import { usePathname } from '@/i18n/navigation'
 import { HeroPortal } from './HeroPortal'
 import { NexusEnvironment } from './NexusEnvironment'
 import { NexusGlobe } from './NexusGlobe'
+import { StationBackdrop, variantForPath } from './StationBackdrop'
 import { TIER_SETTINGS, type QualityTier } from './quality'
 import { Starfield } from './Starfield'
 
@@ -87,6 +88,12 @@ export default function UniverseCanvas({ tier }: { tier: Exclude<QualityTier, 'o
             <NexusGlobe tier={tier} />
           </Suspense>
         </>
+      )}
+      {!isHome && <StationBackdrop variant={variantForPath(pathname)} light={light} />}
+      {variantForPath(pathname) === 'atlas' && !isHome && (
+        <Suspense fallback={null}>
+          <NexusGlobe tier={tier} />
+        </Suspense>
       )}
       <Rig scroll={scroll} />
     </Canvas>

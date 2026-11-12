@@ -33,7 +33,7 @@ export default async function MemoriesPage({ params }: PageProps<'/[locale]/memo
 
   return (
     <>
-      <SectionHero title={section.title} eyebrow={section.eyebrow} intro={section.intro} hero={hero} heroAspect="4 / 3" />
+      <SectionHero stationKey="memories" title={section.title} eyebrow={section.eyebrow} intro={section.intro} hero={hero} heroAspect="4 / 3" />
       <section className="pb-16">
         <Container>
           {items.length === 0 ? (

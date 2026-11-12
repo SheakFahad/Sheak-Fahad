@@ -18,7 +18,7 @@ export default async function ResearchPage({ params }: PageProps<'/[locale]/rese
   if (!r) {
     return (
       <>
-        <SectionHero title={section.title} eyebrow={section.eyebrow} intro={section.intro} hero={hero} heroAspect="4 / 3" />
+        <SectionHero stationKey="research" title={section.title} eyebrow={section.eyebrow} intro={section.intro} hero={hero} heroAspect="4 / 3" />
         <Container className="pb-16">
           <EmptyState title={t('facts')} text={t('moreSoon')} />
         </Container>
@@ -54,7 +54,7 @@ export default async function ResearchPage({ params }: PageProps<'/[locale]/rese
 
   return (
     <>
-      <SectionHero title={section.title} eyebrow={r.term ?? section.eyebrow} intro={r.title} hero={hero} heroAspect="4 / 3" />
+      <SectionHero stationKey="research" title={section.title} eyebrow={r.term ?? section.eyebrow} intro={r.title} hero={hero} heroAspect="4 / 3" />
 
       <section className="section-y pt-0" aria-labelledby="facts">
         <Container className="grid gap-8 lg:grid-cols-[1.2fr_1fr]">

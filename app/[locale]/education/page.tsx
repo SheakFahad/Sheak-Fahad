@@ -22,12 +22,12 @@ export default async function EducationPage({ params }: PageProps<'/[locale]/edu
 
   return (
     <>
-      <SectionHero title={section.title} eyebrow={section.eyebrow} intro={section.intro} hero={hero} heroAspect="4 / 3" />
+      <SectionHero stationKey="education" title={section.title} eyebrow={section.eyebrow} intro={section.intro} hero={hero} heroAspect="4 / 3" />
 
       <section className="section-y pt-0" aria-labelledby="timeline">
         <Container>
           <BlockHeading eyebrow="01" title={t('timeline')} id="timeline" />
-          <ol className="grid gap-6 lg:grid-cols-3">
+          <ol className="ascent grid gap-6 lg:grid-cols-3">
             {education.map(e => {
               const cover = covers.find(c => c.id === e.cover_media_id)
               return (

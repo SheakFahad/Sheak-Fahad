@@ -29,7 +29,7 @@ export default async function ProjectsPage({ params }: PageProps<'/[locale]/proj
 
   return (
     <>
-      <SectionHero title={section.title} eyebrow={section.eyebrow} intro={section.intro} />
+      <SectionHero stationKey="projects" title={section.title} eyebrow={section.eyebrow} intro={section.intro} />
       <section className="pb-16">
         <Container>
           <ProjectGrid

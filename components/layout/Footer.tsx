@@ -1,4 +1,5 @@
 import { TransitionLink } from '@/components/motion/TransitionLink'
+import { SocialIcons } from '@/components/shared/SocialIcons'
 import type { NavItem, SocialItem } from './nav-types'
 import { SFMark } from './SFMark'
 
@@ -41,21 +42,7 @@ export function Footer({ siteName, tagline, items, socials, labels }: Props) {
 
         <div>
           <p className="eyebrow mb-4">{labels.connect}</p>
-          <ul className="grid gap-1">
-            {socials.map(s => (
-              <li key={s.platform}>
-                <a
-                  href={s.url}
-                  target={s.url.startsWith('http') ? '_blank' : undefined}
-                  rel={s.url.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  className="group inline-flex min-h-10 items-center gap-2 text-[var(--text-2)] hover:text-[var(--text)]"
-                >
-                  <span>{s.label}</span>
-                  {s.handle && <span className="font-mono text-xs opacity-60 group-hover:opacity-100">{s.handle}</span>}
-                </a>
-              </li>
-            ))}
-          </ul>
+          <SocialIcons items={socials} label={labels.connect} size="sm" />
         </div>
       </div>
       <div className="border-t border-[var(--line)]">

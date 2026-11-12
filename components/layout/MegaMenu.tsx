@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react'
 import { TransitionLink } from '@/components/motion/TransitionLink'
 import { StationIcon } from '@/components/nexus/StationIcon'
+import { SocialIcons } from '@/components/shared/SocialIcons'
 import { gsap } from '@/lib/gsap'
 import { lockScroll } from '@/lib/motion/lenis'
 import { motion, prefersReducedMotion } from '@/lib/motion/presets'
@@ -113,20 +114,7 @@ export function MegaMenu({ id, open, onClose, items, socials, activeHref, labels
         {socials.length > 0 && (
           <div className="mt-10">
             <p className="eyebrow mb-3">{labels.connect}</p>
-            <ul className="flex flex-wrap gap-2">
-              {socials.map(s => (
-                <li key={s.platform}>
-                  <a
-                    href={s.url}
-                    target={s.url.startsWith('http') ? '_blank' : undefined}
-                    rel={s.url.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className="glass inline-flex min-h-11 items-center rounded-full px-4 text-sm hover:border-[var(--line-strong)]"
-                  >
-                    {s.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <SocialIcons items={socials} label={labels.connect} />
           </div>
         )}
       </div>

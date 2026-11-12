@@ -17,7 +17,7 @@ export default async function AchievementsPage({ params }: PageProps<'/[locale]/
 
   return (
     <>
-      <SectionHero title={section.title} eyebrow={section.eyebrow} intro={section.intro} hero={hero} />
+      <SectionHero stationKey="achievements" title={section.title} eyebrow={section.eyebrow} intro={section.intro} hero={hero} />
       <section className="section-y">
         <Container>
           {items.length === 0 ? (

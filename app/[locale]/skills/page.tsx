@@ -15,7 +15,7 @@ export default async function SkillsPage({ params }: PageProps<'/[locale]/skills
 
   return (
     <>
-      <SectionHero title={section.title} eyebrow={section.eyebrow} intro={section.intro} hero={hero} />
+      <SectionHero stationKey="skills" title={section.title} eyebrow={section.eyebrow} intro={section.intro} hero={hero} />
 
       {tools.length > 0 && (
         <div aria-hidden="true" className="overflow-hidden border-y border-[var(--line)] py-5">

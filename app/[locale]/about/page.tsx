@@ -35,7 +35,7 @@ export default async function AboutPage({ params }: PageProps<'/[locale]/about'>
 
   return (
     <>
-      <SectionHero title={section.title} eyebrow={section.eyebrow} intro={section.intro} hero={hero} />
+      <SectionHero stationKey="about" title={section.title} eyebrow={section.eyebrow} intro={section.intro} hero={hero} />
 
       <section className="section-y" aria-labelledby="story">
         <Container className="grid gap-12 lg:grid-cols-[1fr_1.4fr]">

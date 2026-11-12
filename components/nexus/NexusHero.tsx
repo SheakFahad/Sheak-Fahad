@@ -13,6 +13,7 @@ import { prefersReducedMotion } from '@/lib/motion/presets'
 import { nexusStore } from '@/lib/nexus/store'
 import type { AssistantEntry, FeaturedProject } from '@/lib/nexus/types'
 import { FeaturedProjects } from './FeaturedProjects'
+import { GATE_EVENT, isGated } from './Gateway'
 import { NexusAssistant } from './NexusAssistant'
 import { NexusCursor } from './NexusCursor'
 import { StationOrbit } from './StationOrbit'
@@ -86,8 +87,12 @@ export function NexusHero({ config, name, primaryRoles, extraRoles, text, portra
         sessionStorage.setItem(INTRO_KEY, '1')
       } catch {}
 
-      const tl = gsap.timeline({ defaults: { ease: 'expo.out' } })
-      tl.timeScale(seen ? 2.4 : 1)
+      // While the Welcome gateway is open the intro waits; "Enter"/"Skip" starts it.
+      const gated = isGated()
+      const tl = gsap.timeline({ defaults: { ease: 'expo.out' }, paused: gated })
+      tl.timeScale(seen && !gated ? 2.4 : 1)
+      const onGate = () => tl.play()
+      if (gated) window.addEventListener(GATE_EVENT, onGate, { once: true })
 
       // 1) Environment + Earth, 2) portrait portal (WebGL reads these)
       heroStore.intro = 0
@@ -185,6 +190,7 @@ export function NexusHero({ config, name, primaryRoles, extraRoles, text, portra
       })
 
       return () => {
+        window.removeEventListener(GATE_EVENT, onGate)
         mm.revert()
         splits.forEach(s => s.revert())
       }

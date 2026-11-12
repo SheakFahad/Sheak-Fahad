@@ -69,7 +69,7 @@ const T = {
     education: { q: 'Where did he study?', a: (list: string) => `Education: ${list}.` },
     career: { q: 'Where has he worked?', a: (list: string) => `Experience: ${list}.` },
     achievements: { q: 'Any certificates?', a: (list: string) => `Certificates: ${list}.` },
-    contact: { q: 'How can I contact him?', a: (list: string) => `You can reach Sheak via ${list} — or use the message form on the contact page.` },
+    contact: { q: 'How can I contact him?', a: (list: string) => `You can reach Sheak via ${list} — tap the icons on the Transmission page, or send a message with the form there.` },
     cv: { q: 'Can I download his CV?', a: () => 'Yes — the CV is available as a PDF download.' },
     at: ' at ',
     and: ', ',
@@ -84,7 +84,7 @@ const T = {
     education: { q: 'তিনি কোথায় পড়াশোনা করেছেন?', a: (list: string) => `শিক্ষা: ${list}।` },
     career: { q: 'তিনি কোথায় কাজ করেছেন?', a: (list: string) => `অভিজ্ঞতা: ${list}।` },
     achievements: { q: 'কোনো সার্টিফিকেট আছে?', a: (list: string) => `সার্টিফিকেট: ${list}।` },
-    contact: { q: 'কীভাবে যোগাযোগ করব?', a: (list: string) => `${list} — এর মাধ্যমে যোগাযোগ করতে পারেন, অথবা যোগাযোগ পেজের মেসেজ ফর্ম ব্যবহার করুন।` },
+    contact: { q: 'কীভাবে যোগাযোগ করব?', a: (list: string) => `${list} — এর মাধ্যমে যোগাযোগ করতে পারেন; ট্রান্সমিশন পেজের আইকনে চাপুন অথবা মেসেজ ফর্ম ব্যবহার করুন।` },
     cv: { q: 'সিভি ডাউনলোড করা যাবে?', a: () => 'হ্যাঁ — সিভি PDF হিসেবে ডাউনলোড করা যায়।' },
     at: ', ',
     and: ', ',
@@ -144,7 +144,7 @@ export async function getAssistantKnowledge(locale: string): Promise<AssistantEn
       href('achievements'),
     )
   const channels = socials.filter(s => s.platform === 'email' || s.platform === 'whatsapp' || s.platform === 'linkedin')
-  if (channels.length) push('contact', t.contact.a(channels.map(s => (s.handle ? `${s.label} (${s.handle})` : s.label)).join(t.and)), href('contact'))
+  if (channels.length) push('contact', t.contact.a(channels.map(s => s.label).join(t.and)), href('contact'))
   if (rawProfile.cv_url) push('cv', t.cv.a(), rawProfile.cv_url, t.cvLabel)
   return out
 }

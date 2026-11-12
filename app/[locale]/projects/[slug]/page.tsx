@@ -86,10 +86,12 @@ export default async function ProjectPage({ params }: PageProps<'/[locale]/proje
   return (
     <>
       <SectionHero
+        stationKey="projects"
+        stationMode="detail"
         title={project.title}
         eyebrow={project.project_type}
         intro={project.summary}
-        crumbs={[{ label: tc('home'), href: '/' }, { label: localize(section, locale).title, href: sectionHref }, { label: project.title }]}
+        crumbs={[{ label: tc('home'), href: '/' }, { label: localize(section, locale).nav_label, href: sectionHref }, { label: project.title }]}
       >
         <div data-reveal className="mt-8 flex flex-wrap gap-3">
           {project.live_url && (

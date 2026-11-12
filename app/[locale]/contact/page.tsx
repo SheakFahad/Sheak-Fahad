@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 import { ContactForm } from '@/components/contact/ContactForm'
 import { SectionHero } from '@/components/shared/SectionHero'
+import { SocialIcons } from '@/components/shared/SocialIcons'
 import { Container, GlassCard } from '@/components/ui/primitives'
 import { getSocialLinks } from '@/lib/content/repository'
 import { requireSection, sectionMetadata } from '@/lib/site/section'
@@ -19,54 +20,26 @@ export default async function ContactPage({ params }: PageProps<'/[locale]/conta
 
   return (
     <>
-      <SectionHero title={section.title} eyebrow={section.eyebrow} intro={section.intro} />
+      <SectionHero stationKey="contact" title={section.title} eyebrow={section.eyebrow} intro={section.intro} />
       <section className="pb-16">
         <Container className="grid gap-8 lg:grid-cols-[1fr_1.4fr]">
-          <div className="grid content-start gap-8">
-            <div>
-              <p className="eyebrow mb-4">{t('channels')}</p>
-              <ul className="grid gap-3">
-                {direct.map(s => (
-                  <li key={s.platform} data-reveal>
-                    <a
-                      href={s.url}
-                      target={s.url.startsWith('http') ? '_blank' : undefined}
-                      rel={s.url.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      className="group block rounded-[var(--radius-card)]"
-                    >
-                      <GlassCard interactive className="flex items-center justify-between gap-4">
-                        <span>
-                          <span className="block text-sm text-[var(--text-2)]">{s.label}</span>
-                          <span className="mt-1 block font-[family-name:var(--font-display)] text-lg break-all md:text-xl">{s.handle ?? s.url}</span>
-                        </span>
-                        <span aria-hidden="true" className="text-xl transition-transform group-hover:translate-x-1">
-                          →
-                        </span>
-                      </GlassCard>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className="grid content-start gap-6">
+            {/* Contact details are never printed as text — recognisable icons with accessible names only */}
+            <GlassCard data-reveal className="transmission-card">
+              <p className="eyebrow">{t('channels')}</p>
+              <SocialIcons items={direct} label={t('channels')} size="lg" className="mt-5" />
+            </GlassCard>
             {social.length > 0 && (
-              <div data-reveal>
-                <p className="eyebrow mb-4">{t('social')}</p>
-                <ul className="flex flex-wrap gap-2">
-                  {social.map(s => (
-                    <li key={s.platform}>
-                      <a
-                        href={s.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="glass inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-sm hover:border-[var(--line-strong)]"
-                      >
-                        {s.label} <span aria-hidden="true">↗</span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <GlassCard data-reveal className="transmission-card">
+                <p className="eyebrow">{t('social')}</p>
+                <SocialIcons items={social} label={t('social')} size="lg" className="mt-5" />
+              </GlassCard>
             )}
+            <div aria-hidden="true" className="transmission-beacon" data-reveal>
+              <span />
+              <span />
+              <span />
+            </div>
           </div>
           <div data-reveal>
             <ContactForm

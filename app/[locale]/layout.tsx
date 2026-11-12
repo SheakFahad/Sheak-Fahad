@@ -5,6 +5,7 @@ import { hasLocale, NextIntlClientProvider } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Footer } from '@/components/layout/Footer'
 import { Header } from '@/components/layout/Header'
+import { StationNavigator } from '@/components/layout/StationNavigator'
 import { Universe } from '@/components/3d/Universe'
 import { MotionRoot } from '@/components/motion/MotionRoot'
 import { PageTransitionProvider } from '@/components/motion/PageTransition'
@@ -91,11 +92,29 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
                   noResults: t('common.noResults'),
                   sections: t('nav.sections'),
                   projects: t('nav.projects'),
+                  explore: t('station.explore'),
                 }}
               />
               <main id="main" tabIndex={-1} className="outline-none">
                 {children}
               </main>
+              <StationNavigator
+                home={homeItem}
+                items={navItems}
+                labels={{
+                  prev: t('station.prev'),
+                  next: t('station.next'),
+                  explore: t('station.explore'),
+                  exploreTitle: t('station.exploreTitle'),
+                  exploreHint: t('station.exploreHint'),
+                  quickNav: t('station.quickNav'),
+                  close: t('station.close'),
+                  current: t('station.current'),
+                  stations: t('home.stationsLabel'),
+                  globe: t('home.globeLabel'),
+                  open: t('home.openStation'),
+                }}
+              />
               <Footer
                 siteName={profile.full_name}
                 tagline={settings.tagline}
