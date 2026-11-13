@@ -5,7 +5,6 @@ import type { HomeConfig } from '@/lib/content/types'
 /**
  * Shared, mutable state between the DOM NEXUS homepage and the WebGL universe (no React re-renders per frame).
  * - globe: DOM element the 3D Earth is locked to (null → globe hidden)
- * - platform: DOM element under the portrait the holographic platform is locked to
  * - intro: 0 → 1 environment/globe activation (driven by GSAP)
  * - scroll: 0 → 1 progress of the hero leaving the viewport
  * - spin: extra globe rotation velocity from dragging / keyboard (rad/s, decays)
@@ -13,7 +12,6 @@ import type { HomeConfig } from '@/lib/content/types'
  */
 export const nexusStore = {
   globe: null as HTMLElement | null,
-  platform: null as HTMLElement | null,
   intro: 0,
   scroll: 0,
   spin: 0,

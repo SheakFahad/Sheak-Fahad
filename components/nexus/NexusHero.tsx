@@ -8,7 +8,6 @@ import { TransitionLink } from '@/components/motion/TransitionLink'
 import { Magnetic } from '@/components/ui/Magnetic'
 import type { HomeConfig } from '@/lib/content/types'
 import { gsap, ScrollTrigger, SplitText, useGSAP } from '@/lib/gsap'
-import { heroStore } from '@/lib/hero/store'
 import { prefersReducedMotion } from '@/lib/motion/presets'
 import { nexusStore } from '@/lib/nexus/store'
 import type { FeaturedProject } from '@/lib/nexus/types'
@@ -48,21 +47,17 @@ const INTRO_KEY = 'sf-nexus-intro'
 export function NexusHero({ config, name, title, tagline, roles, text, portrait, dock, stations, featured, showAssistant, cta, labels }: Props) {
   const root = useRef<HTMLElement>(null)
   const stage = useRef<HTMLDivElement>(null)
-  const platform = useRef<HTMLDivElement>(null)
+  const glass = useRef<HTMLDivElement>(null)
 
   // Name: last word gets the gradient ("SHEAK FAHAD" → SHEAK + FAHAD)
   const parts = name.trim().split(/\s+/)
   const last = parts.length > 1 ? parts.pop()! : ''
   const first = parts.join(' ')
 
-  // WebGL anchors
+  // Shared-canvas inputs (environment layers, Earth)
   useEffect(() => {
-    heroStore.stage = stage.current
-    nexusStore.platform = platform.current
     nexusStore.env = config.environment
     return () => {
-      heroStore.stage = null
-      nexusStore.platform = null
       nexusStore.env = null
       nexusStore.scroll = 0
       nexusStore.hoverStation = -1
@@ -74,10 +69,9 @@ export function NexusHero({ config, name, title, tagline, roles, text, portrait,
       const el = root.current
       if (!el) return
       const q = gsap.utils.selector(el)
-      const reveal = ['[data-nx-photo]', '[data-nx-in]', '[data-nx-name]', '[data-nx-station]', '[data-nx-card]', '[data-nx-ai]', '.dock-link']
+      const reveal = ['[data-nx-photo]', '[data-pf-in]', '[data-nx-in]', '[data-nx-name]', '[data-nx-station]', '[data-nx-card]', '[data-nx-ai]', '.dock-link']
 
       if (prefersReducedMotion()) {
-        heroStore.intro = 1
         nexusStore.intro = 1
         reveal.forEach(s => gsap.set(q(s), { autoAlpha: 1, clearProps: 'transform,filter' }))
         return
@@ -96,11 +90,11 @@ export function NexusHero({ config, name, title, tagline, roles, text, portrait,
       const onGate = () => tl.play()
       if (gated) window.addEventListener(GATE_EVENT, onGate, { once: true })
 
-      // 1) Environment + Earth, 2) portrait portal (WebGL reads these)
-      heroStore.intro = 0
+      // 1) Environment + Earth (WebGL reads this)
       nexusStore.intro = 0
       tl.to(nexusStore, { intro: 1, duration: 3.4, ease: 'power2.inOut' }, 0)
-      tl.to(heroStore, { intro: 1, duration: 3.2, ease: 'power2.inOut' }, 0.35)
+      // 2) Portrait composition: ambient light + glass panel settle in, then the photo is revealed
+      tl.fromTo(q('[data-pf-in]'), { autoAlpha: 0, scale: 0.96 }, { autoAlpha: 1, scale: 1, duration: 1.6, stagger: 0.12, ease: 'power3.out' }, 0.4)
       // Portrait reveal: geometric wipe (clip-path) only — the pixels are never filtered or altered
       tl.fromTo(
         q('[data-nx-photo]'),
@@ -147,7 +141,7 @@ export function NexusHero({ config, name, title, tagline, roles, text, portrait,
           y: gsap.quickTo(n, 'y', { duration: 1.4, ease: 'power3' }),
           d: Number(n.dataset.depth) || 0,
         }))
-        // Portrait: small natural turn toward the visitor — max 3° yaw / 2° pitch, a few px of drift.
+        // Portrait: calm, small turn toward the visitor — max 1.5° yaw / 1° pitch, a few px of drift.
         // A rigid 3D rotation of the whole photo (no warping, no per-pixel change).
         const photo = stage.current
         let tilt: { ry: (v: number) => void; rx: (v: number) => void; x: (v: number) => void } | null = null
@@ -159,14 +153,27 @@ export function NexusHero({ config, name, title, tagline, roles, text, portrait,
             x: gsap.quickTo(photo, 'x', { duration: 1.8, ease: 'power3' }),
           }
         }
+        // Glass panel sits deeper: drifts the opposite way with a slight turn
+        const g = glass.current
+        if (g) gsap.set(g, { transformPerspective: 1400 })
+        const panel = g
+          ? {
+              x: gsap.quickTo(g, 'x', { duration: 2.2, ease: 'power3' }),
+              y: gsap.quickTo(g, 'y', { duration: 2.2, ease: 'power3' }),
+              ry: gsap.quickTo(g, 'rotationY', { duration: 2.2, ease: 'power3' }),
+            }
+          : null
         const apply = (nx: number, ny: number) => {
           layers.forEach(l => {
             l.x(-nx * l.d)
             l.y(-ny * l.d)
           })
-          tilt?.ry(nx * 3)
-          tilt?.rx(-ny * 2)
-          tilt?.x(nx * 5)
+          tilt?.ry(nx * 1.5)
+          tilt?.rx(-ny * 1)
+          tilt?.x(nx * 4)
+          panel?.x(-nx * 10)
+          panel?.y(-ny * 6)
+          panel?.ry(-nx * 1.2)
         }
         const onMove = (e: PointerEvent) => {
           if (e.pointerType === 'touch') return
@@ -179,6 +186,7 @@ export function NexusHero({ config, name, title, tagline, roles, text, portrait,
           window.removeEventListener('pointermove', onMove)
           document.documentElement.removeEventListener('pointerleave', onLeave)
           if (photo) gsap.set(photo, { clearProps: 'transform' })
+          if (g) gsap.set(g, { clearProps: 'transform' })
         }
       })
 
@@ -293,13 +301,26 @@ export function NexusHero({ config, name, title, tagline, roles, text, portrait,
             </div>
           </div>
 
-          {/* ── CENTER: portrait (WebGL locks to the stage; DOM fallback without WebGL) ── */}
+          {/* ── CENTER: holographic glass portrait (CSS only — works with or without WebGL) ── */}
           <div className="nx-center relative">
-            <div ref={stage} data-hero-stage className="nx-stage relative" style={{ aspectRatio: `${portrait.width} / ${portrait.height}` }}>
-              {/* CSS portal only when WebGL is not drawing the holographic structure */}
-              <div data-hero-fallback aria-hidden="true" className="absolute inset-0 transition-opacity duration-700">
-                <div className="hero-css-portal" />
+            <div className="pf" style={{ '--pf-mask': `url(${portrait.srcSm || portrait.src})` } as React.CSSProperties}>
+              {/* slow blue / purple ambient light */}
+              <div data-pf-in aria-hidden="true" className="pf-ambient" />
+              {/* one transparent glass panel behind the portrait */}
+              <div ref={glass} data-pf-in aria-hidden="true" className="pf-glass">
+                <span className="pf-glass__scan" />
+                <span className="pf-glass__tick pf-glass__tick--tl" />
+                <span className="pf-glass__tick pf-glass__tick--br" />
               </div>
+              {/* a few drifting particles — outside the face area */}
+              <div aria-hidden="true" className="pf-particles">
+                {Array.from({ length: 8 }, (_, i) => (
+                  <i key={i} />
+                ))}
+              </div>
+            <div ref={stage} data-hero-stage className="nx-stage relative" style={{ aspectRatio: `${portrait.width} / ${portrait.height}` }}>
+              {/* soft rim light: the cutout's alpha as a mask behind the photo (the photo itself is untouched) */}
+              <span data-pf-in aria-hidden="true" className="pf-rim" />
               {/* THE PHOTO — the original cutout as a native <img>: full resolution, aspect preserved, no filters */}
               <Image
                 data-nx-photo
@@ -313,8 +334,8 @@ export function NexusHero({ config, name, title, tagline, roles, text, portrait,
                 className="nx-photo"
               />
             </div>
-            <div ref={platform} data-nx-platform aria-hidden="true" className="nx-platform">
-              <span className="nx-platform__fallback" />
+              {/* natural contact shadow */}
+              <span aria-hidden="true" className="pf-shadow" />
             </div>
           </div>
 

@@ -7,7 +7,6 @@ import { Suspense, useEffect, useRef, useState } from 'react'
 import { usePathname } from '@/i18n/navigation'
 import { parallax, startParallax, stepParallax } from '@/lib/motion/parallax'
 import { AiOrb } from './AiOrb'
-import { HeroPortal } from './HeroPortal'
 import { NexusEnvironment } from './NexusEnvironment'
 import { NexusGlobe } from './NexusGlobe'
 import { StationBackdrop, variantForPath } from './StationBackdrop'
@@ -86,9 +85,6 @@ export default function UniverseCanvas({ tier }: { tier: Exclude<QualityTier, 'o
       {isHome && (
         <>
           <NexusEnvironment tier={tier} light={light} />
-          <Suspense fallback={null}>
-            <HeroPortal tier={tier} />
-          </Suspense>
           <Suspense fallback={null}>
             <NexusGlobe tier={tier} />
           </Suspense>

@@ -75,7 +75,13 @@ export function AiOrb() {
     }),
     [],
   )
-  useEffect(() => () => Object.values(mats).forEach(m => m.dispose()), [mats])
+  useEffect(
+    () => () => {
+      Object.values(mats).forEach(m => m.dispose())
+      delete document.documentElement.dataset.aiGl
+    },
+    [mats],
+  )
 
   useFrame((state, delta) => {
     const g = root.current
@@ -84,6 +90,7 @@ export function AiOrb() {
     if (!g) return
     g.visible = size > 0
     if (!size) return
+    if (!document.documentElement.dataset.aiGl) document.documentElement.dataset.aiGl = '1'
     const t = state.clock.elapsedTime
     const appear = easeOut(seg(nexusStore.intro, 0.7, 1))
 

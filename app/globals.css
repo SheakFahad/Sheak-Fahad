@@ -414,9 +414,10 @@ html.js-motion .nexus .dock-link {
   gap: 10px;
   padding: 6px 18px 6px 12px;
   font-family: var(--font-display);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
   text-transform: uppercase;
   clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
   background: linear-gradient(90deg, rgb(66 99 255 / 0.28), rgb(81 229 255 / 0.06));
@@ -649,7 +650,7 @@ html.js-motion .nexus .dock-link {
   .nx-center { --nx-h: min(58svh, 520px); }
 }
 @media (width >= 80rem) {
-  .nx-center { --nx-h: clamp(400px, calc(100dvh - 340px), 570px); }
+  .nx-center { --nx-h: clamp(420px, calc(100dvh - 300px), 620px); }
 }
 .nx-stage {
   height: var(--nx-h);
@@ -672,58 +673,6 @@ html.js-motion .nexus .dock-link {
   mask-image: linear-gradient(to top, transparent 0, #000 9%);
   -webkit-mask-image: linear-gradient(to top, transparent 0, #000 9%);
 }
-.nx-platform {
-  position: relative;
-  margin-top: calc(var(--nx-h) * -0.07);
-  width: min(100%, calc(var(--nx-h) * 0.95));
-  height: calc(var(--nx-h) * 0.17);
-}
-.nx-platform__fallback {
-  position: absolute;
-  inset: 10% 6% 0;
-  border-radius: 50%;
-  background:
-    radial-gradient(closest-side, rgb(81 229 255 / 0.55), rgb(66 99 255 / 0.25) 55%, transparent 72%);
-  box-shadow: 0 0 0 2px rgb(81 229 255 / 0.5) inset;
-  transition: opacity 0.7s;
-}
-html[data-nexus-gl] .nx-platform__fallback {
-  opacity: 0;
-}
-
-/* DOM fallback portal (only when WebGL is not drawing the portrait) */
-html[data-hero-gl] [data-hero-fallback] {
-  opacity: 0;
-}
-.hero-css-portal {
-  position: absolute;
-  inset: 4% 12% 18%;
-  border-radius: 9999px;
-  background:
-    radial-gradient(closest-side, rgb(66 99 255 / 0.55), transparent 70%),
-    radial-gradient(closest-side at 70% 30%, rgb(166 120 255 / 0.45), transparent 70%);
-  filter: blur(18px);
-}
-.hero-css-portal::before,
-.hero-css-portal::after {
-  content: '';
-  position: absolute;
-  inset: -6% -14%;
-  border-radius: 50%;
-  border: 1.5px solid rgb(81 229 255 / 0.7);
-  transform: rotateX(72deg) rotateZ(-14deg);
-  animation: hero-ring 18s linear infinite;
-}
-.hero-css-portal::after {
-  inset: -2% -24%;
-  border-color: rgb(166 120 255 / 0.6);
-  animation-duration: 26s;
-  animation-direction: reverse;
-}
-@keyframes hero-ring {
-  to { transform: rotateX(72deg) rotateZ(346deg); }
-}
-
 /* ── Earth + station orbit ── */
 .nx-orbit {
   max-width: min(640px, calc(100dvh - 220px));
@@ -1870,7 +1819,7 @@ html[data-gate] .fahad-ai {
   box-shadow: 0 0 40px -6px rgb(81 229 255 / 0.9);
   transition: opacity 0.6s;
 }
-html[data-nexus-gl] .ai-anchor__fallback {
+html[data-ai-gl] .ai-anchor__fallback {
   opacity: 0;
 }
 .ai-anchor__bubble {
@@ -2033,4 +1982,182 @@ html[data-ai-orb] .fahad-ai__fab:not(.is-open) {
   opacity: 0;
   transform: scale(0.6);
   pointer-events: none;
+}
+
+/* ═════════════ Portrait — clean holographic glass composition (CSS only) ═════════════
+   Layers (back → front): ambient light · glass panel (+ occasional scan) · particles ·
+   rim glow (photo alpha as mask, behind the photo) · THE PHOTO (untouched) · contact shadow. */
+.pf {
+  position: relative;
+  isolation: isolate;
+}
+.pf-ambient {
+  position: absolute;
+  inset: -18% -45%;
+  z-index: -3;
+  pointer-events: none;
+  background:
+    radial-gradient(45% 38% at 30% 32%, rgb(66 99 255 / 0.32), transparent 70%),
+    radial-gradient(40% 36% at 72% 70%, rgb(166 120 255 / 0.24), transparent 70%);
+  filter: blur(10px);
+  animation: pf-ambient 16s ease-in-out infinite alternate;
+}
+@keyframes pf-ambient {
+  0% { opacity: 0.8; translate: -2% 0; }
+  100% { opacity: 1; translate: 2% -2%; }
+}
+.pf-glass {
+  position: absolute;
+  inset: 5% -16% 3%;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+  border-radius: 28px;
+  background:
+    linear-gradient(160deg, rgb(81 229 255 / 0.1), rgb(16 26 53 / 0.38) 38%, rgb(10 14 32 / 0.45) 62%, rgb(166 120 255 / 0.1)),
+    repeating-linear-gradient(0deg, rgb(255 255 255 / 0.018) 0 1px, transparent 1px 4px);
+  box-shadow:
+    inset 0 0 0 1px rgb(81 229 255 / 0.42),
+    inset 0 1px 0 rgb(255 255 255 / 0.12),
+    0 40px 90px -40px rgb(0 0 0 / 0.8),
+    0 0 60px -30px rgb(81 229 255 / 0.45);
+  animation: pf-glass 11s ease-in-out infinite;
+}
+@keyframes pf-glass {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -5px; }
+}
+/* occasional soft scan (inside the glass, behind the photo) */
+.pf-glass__scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -20%;
+  height: 18%;
+  background: linear-gradient(180deg, transparent, rgb(81 229 255 / 0.08) 70%, rgb(140 240 255 / 0.35) 98%, transparent);
+  opacity: 0;
+  animation: pf-scan 9s ease-in-out infinite 3s;
+}
+@keyframes pf-scan {
+  0% { top: -20%; opacity: 0; }
+  8% { opacity: 1; }
+  30% { top: 102%; opacity: 0.8; }
+  34%, 100% { top: 102%; opacity: 0; }
+}
+.pf-glass__tick {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-color: rgb(81 229 255 / 0.85);
+  border-style: solid;
+  border-width: 0;
+}
+.pf-glass__tick--tl {
+  top: 14px;
+  left: 14px;
+  border-top-width: 1.5px;
+  border-left-width: 1.5px;
+  border-top-left-radius: 8px;
+}
+.pf-glass__tick--br {
+  right: 14px;
+  bottom: 14px;
+  border-right-width: 1.5px;
+  border-bottom-width: 1.5px;
+  border-bottom-right-radius: 8px;
+}
+/* minimal particles at the panel edges (never over the face) */
+.pf-particles {
+  position: absolute;
+  inset: 5% -16% 3%;
+  z-index: -1;
+  pointer-events: none;
+}
+.pf-particles i {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 9999px;
+  background: #9feeff;
+  box-shadow: 0 0 6px rgb(81 229 255 / 0.9);
+  opacity: 0;
+  animation: pf-dot 14s linear infinite;
+}
+.pf-particles i:nth-child(1) { left: 5%; top: 70%; animation-delay: 0s; }
+.pf-particles i:nth-child(2) { left: 9%; top: 40%; animation-delay: 3.5s; }
+.pf-particles i:nth-child(3) { left: 4%; top: 88%; animation-delay: 7s; }
+.pf-particles i:nth-child(4) { left: 12%; top: 58%; animation-delay: 10.5s; }
+.pf-particles i:nth-child(5) { right: 6%; top: 76%; animation-delay: 1.8s; background: #d6bfff; box-shadow: 0 0 6px rgb(166 120 255 / 0.9); }
+.pf-particles i:nth-child(6) { right: 10%; top: 46%; animation-delay: 5.2s; }
+.pf-particles i:nth-child(7) { right: 4%; top: 90%; animation-delay: 8.6s; background: #d6bfff; box-shadow: 0 0 6px rgb(166 120 255 / 0.9); }
+.pf-particles i:nth-child(8) { right: 13%; top: 62%; animation-delay: 12s; }
+@keyframes pf-dot {
+  0% { opacity: 0; translate: 0 0; }
+  15% { opacity: 0.7; }
+  70% { opacity: 0.5; }
+  100% { opacity: 0; translate: 0 -70px; }
+}
+/* rim glow: the cutout's alpha as a mask, blurred, BEHIND the photo — the photo itself is untouched */
+.pf-rim {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(170deg, #51e5ff 10%, #4263ff 55%, #a678ff);
+  -webkit-mask-image: var(--pf-mask), linear-gradient(to top, transparent 4%, #000 18%);
+  mask-image: var(--pf-mask), linear-gradient(to top, transparent 4%, #000 18%);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+  filter: blur(9px);
+  opacity: 0.55;
+  transform: scale(1.02);
+}
+.pf .nx-photo {
+  z-index: 1;
+}
+.pf-shadow {
+  position: absolute;
+  left: 50%;
+  bottom: -2.5%;
+  z-index: -1;
+  width: 78%;
+  height: 7%;
+  translate: -50% 0;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(2 4 12 / 0.75), rgb(66 99 255 / 0.12) 70%, transparent);
+  filter: blur(4px);
+}
+:root[data-theme='light'] .pf-glass {
+  background: linear-gradient(160deg, rgb(11 143 176 / 0.12), rgb(255 255 255 / 0.55) 40%, rgb(122 77 224 / 0.1));
+  box-shadow: inset 0 0 0 1px rgb(11 143 176 / 0.45), 0 40px 90px -45px rgb(16 26 53 / 0.45);
+}
+:root[data-theme='light'] .pf-shadow {
+  background: radial-gradient(closest-side, rgb(16 26 53 / 0.35), transparent);
+}
+html.js-motion [data-pf-in] {
+  visibility: hidden;
+  animation: motion-failsafe 0s linear 5s forwards;
+}
+@media (width < 48rem) {
+  /* lighter mobile composition: no scan, fewer particles */
+  .pf-glass__scan,
+  .pf-particles i:nth-child(n + 5) {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pf-ambient,
+  .pf-glass,
+  .pf-glass__scan,
+  .pf-particles i {
+    animation: none;
+  }
+  .pf-particles {
+    display: none;
+  }
 }
