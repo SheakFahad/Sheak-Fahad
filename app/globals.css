@@ -641,21 +641,23 @@ html.js-motion .nexus .dock-link {
    The stage is sized by HEIGHT (--nx-h) and gets its width from the photo's own aspect ratio (inline style),
    so the photograph is never stretched or cropped and never dominates the layout. */
 .nx-center {
-  --nx-h: min(52svh, 400px);
+  --nx-h: min(52vh, 400px);
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 @media (width >= 48rem) {
-  .nx-center { --nx-h: min(58svh, 520px); }
+  .nx-center { --nx-h: min(58vh, 520px); }
 }
 @media (width >= 80rem) {
-  .nx-center { --nx-h: clamp(420px, calc(100dvh - 300px), 620px); }
+  .nx-center { --nx-h: clamp(420px, calc(100vh - 300px), 620px); }
 }
+/* Width is explicit (height × the photo's aspect ratio) and the <img> sets the height itself,
+   so the portrait never collapses — even in browsers without svh/dvh units or aspect-ratio. */
 .nx-stage {
-  height: var(--nx-h);
-  width: auto;
-  max-width: 100%;
+  width: min(calc(var(--nx-h, 380px) * var(--ar, 0.56)), 88vw);
+  height: auto;
+  max-width: none;
   animation: nx-stage-float 7s ease-in-out infinite;
 }
 @keyframes nx-stage-float {
@@ -666,7 +668,7 @@ html.js-motion .nexus .dock-link {
   position: relative;
   display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: contain;
   user-select: none;
   /* alpha-only fade of the photo's cropped bottom edge into the platform */
@@ -1440,89 +1442,6 @@ html.js-motion .station-word {
   .ascent > li:nth-child(2) { margin-top: 70px; }
 }
 
-/* ═════════════════════════ Welcome gateway ═════════════════════════ */
-.gateway {
-  display: none;
-}
-html[data-gate] .gateway {
-  position: fixed;
-  inset: 0;
-  z-index: 95;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  color: #f5f7ff;
-}
-html[data-gate] body {
-  overflow: hidden;
-}
-html[data-gate] body > header,
-html[data-gate] header.fixed {
-  visibility: hidden;
-}
-.gateway__bg {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(60% 55% at 50% 52%, rgb(66 99 255 / 0.28), transparent 70%),
-    radial-gradient(40% 40% at 20% 20%, rgb(166 120 255 / 0.25), transparent 70%),
-    radial-gradient(40% 40% at 85% 75%, rgb(255 92 240 / 0.14), transparent 70%),
-    rgb(5 7 14 / 0.86);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-}
-.gate-rings {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: min(92vw, 86vh, 760px);
-  aspect-ratio: 1;
-  translate: -50% -50%;
-  pointer-events: none;
-}
-.gate-ring {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-}
-.gate-ring--1 {
-  background: conic-gradient(from 0deg, transparent 0 8%, rgb(81 229 255 / 0.9) 10%, transparent 12% 30%, rgb(255 92 240 / 0.9) 32%, transparent 34% 58%, rgb(166 120 255 / 0.9) 60%, transparent 62% 84%, rgb(81 229 255 / 0.9) 86%, transparent 88%);
-  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 6px), #000 calc(100% - 5px));
-  mask: radial-gradient(farthest-side, transparent calc(100% - 6px), #000 calc(100% - 5px));
-  filter: drop-shadow(0 0 12px rgb(81 229 255 / 0.8));
-  animation: gate-spin 28s linear infinite;
-}
-.gate-ring--2 {
-  inset: 5%;
-  border: 2px dashed rgb(81 229 255 / 0.35);
-  animation: gate-spin 60s linear infinite reverse;
-}
-.gate-ring--3 {
-  inset: 11%;
-  box-shadow: inset 0 0 0 1px rgb(166 120 255 / 0.45), 0 0 120px -20px rgb(66 99 255 / 0.9), inset 0 0 120px -30px rgb(166 120 255 / 0.7);
-}
-@keyframes gate-spin {
-  to { rotate: 360deg; }
-}
-.gateway__title {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(2.2rem, 7.5vw, 5.2rem);
-  line-height: 1.05;
-  text-transform: uppercase;
-  letter-spacing: -0.02em;
-  background: linear-gradient(100deg, #e8ecff 0%, #8fb2ff 22%, #51e5ff 40%, #ffffff 50%, #a678ff 66%, #ff5cf0 88%);
-  background-size: 220% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  filter: drop-shadow(0 0 26px rgb(66 99 255 / 0.6));
-  animation: nx-sheen 9s ease-in-out infinite;
-  padding-right: 0.08em;
-}
-@media (prefers-reduced-motion: reduce) {
-  .gate-ring--1, .gate-ring--2, .gateway__title { animation: none; }
-}
 
 /* Brand wordmark + header AI button */
 .brand-wordmark {
@@ -1598,9 +1517,6 @@ html[data-gate] header.fixed {
 .fahad-ai__fab:focus-visible .fahad-ai__tip {
   opacity: 1;
   translate: 0 0;
-}
-html[data-gate] .fahad-ai {
-  display: none;
 }
 .fahad-ai__orb {
   position: relative;
@@ -2397,7 +2313,7 @@ html.js-motion [data-pf-in] {
 /* ─────────────── Mobile & tablet: a dedicated composition ─────────────── */
 @media (width < 48rem) {
   .nx-center {
-    --nx-h: min(48svh, 380px);
+    --nx-h: min(48vh, 380px);
   }
   .nx-lede {
     font-size: 15.5px;

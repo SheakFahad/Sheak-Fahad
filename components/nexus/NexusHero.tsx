@@ -12,7 +12,6 @@ import { prefersReducedMotion } from '@/lib/motion/presets'
 import { nexusStore } from '@/lib/nexus/store'
 import type { FeaturedProject } from '@/lib/nexus/types'
 import { FeaturedProjects } from './FeaturedProjects'
-import { GATE_EVENT, isGated } from './Gateway'
 import { NexusCursor } from './NexusCursor'
 import { StationOrbit } from './StationOrbit'
 
@@ -80,12 +79,8 @@ export function NexusHero({ config, name, title, tagline, roles, text, portrait,
         sessionStorage.setItem(INTRO_KEY, '1')
       } catch {}
 
-      // While the Welcome gateway is open the intro waits; "Enter"/"Skip" starts it.
-      const gated = isGated()
-      const tl = gsap.timeline({ defaults: { ease: 'expo.out' }, paused: gated })
-      tl.timeScale(seen && !gated ? 2.4 : 1)
-      const onGate = () => tl.play()
-      if (gated) window.addEventListener(GATE_EVENT, onGate, { once: true })
+      const tl = gsap.timeline({ defaults: { ease: 'expo.out' } })
+      tl.timeScale(seen ? 2.4 : 1)
 
       // 1) Environment + Earth (WebGL reads this)
       nexusStore.intro = 0
@@ -208,7 +203,6 @@ export function NexusHero({ config, name, title, tagline, roles, text, portrait,
       })
 
       return () => {
-        window.removeEventListener(GATE_EVENT, onGate)
         mm.revert()
         splits.forEach(s => s.revert())
       }
@@ -314,7 +308,7 @@ export function NexusHero({ config, name, title, tagline, roles, text, portrait,
                   <i key={i} />
                 ))}
               </div>
-            <div ref={stage} data-hero-stage className="nx-stage relative" style={{ aspectRatio: `${portrait.width} / ${portrait.height}` }}>
+            <div ref={stage} data-hero-stage className="nx-stage relative" style={{ aspectRatio: `${portrait.width} / ${portrait.height}`, '--ar': portrait.width / portrait.height } as React.CSSProperties}>
               {/* soft rim light: the cutout's alpha as a mask behind the photo (the photo itself is untouched) */}
               <span data-pf-in aria-hidden="true" className="pf-rim" />
               {/* THE PHOTO — the original cutout as a native <img>: full resolution, aspect preserved, no filters */}

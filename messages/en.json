@@ -21,8 +21,7 @@
     "search": "Search",
     "searchPlaceholder": "Search sections and projects…",
     "noResults": "Nothing found. Try another word.",
-    "brandSub": "Portfolio",
-    "replayIntro": "Replay intro"
+    "brandSub": "Portfolio"
   },
   "nav": {
     "primary": "Primary navigation",
@@ -255,19 +254,6 @@
     "placeholder": "Placeholder",
     "close": "Close explore mode",
     "current": "You are here"
-  },
-  "gateway": {
-    "label": "Welcome",
-    "enter": "Explore My Portfolio",
-    "skip": "Skip Intro",
-    "quick": "Jump straight to",
-    "work": "My Work",
-    "journey": "My Journey",
-    "research": "My Research",
-    "vision": "My Story",
-    "hello": "Hello, I'm Sheak Fahad.",
-    "welcome": "Welcome to My Creative World.",
-    "roles": "UI/UX Designer • Creative Designer • Researcher"
   },
   "assistant": {
     "open": "Ask Fahad's AI Assistant",

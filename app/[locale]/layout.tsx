@@ -131,7 +131,6 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
                   connect: t('footer.connect'),
                   rights: t('footer.rights'),
                   backToTop: t('common.backToTop'),
-                  replayIntro: t('common.replayIntro'),
                 }}
               />
               {rawSettings.features.assistant && (
