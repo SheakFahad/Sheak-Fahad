@@ -104,7 +104,7 @@ export function FeaturedProjects({ projects, labels }: Props) {
           id="nx-featured-track"
           className="nx-featured__track flex min-w-0 flex-1 snap-x snap-mandatory gap-3 overflow-x-auto overscroll-x-contain"
         >
-          {projects.map((p, i) => (
+          {projects.map(p => (
             <li key={p.slug} data-nx-card className="w-[min(82vw,320px)] shrink-0 snap-start md:w-[calc((100%-1.5rem)/3)] md:min-w-[260px]">
               <TransitionLink href={p.href} className="nx-card group" draggable={false}>
                 <span className="nx-card__thumb">
@@ -124,9 +124,9 @@ export function FeaturedProjects({ projects, labels }: Props) {
                   )}
                 </span>
                 <span className="min-w-0">
-                  <span className="block font-mono text-[10px] tracking-[0.2em] text-[var(--cyan)]">{String(i + 1).padStart(2, '0')}</span>
-                  <span className="mt-0.5 line-clamp-2 font-[family-name:var(--font-display)] text-[13.5px] leading-tight">{p.title}</span>
-                  <span className="mt-1 block truncate text-xs text-[var(--text-2)]">{p.summary ?? p.type}</span>
+                  <span className="nx-card__cat">{p.type}</span>
+                  <span className="nx-card__title">{p.title}</span>
+                  {p.summary && <span className="mt-1 block truncate text-xs text-[var(--text-2)]">{p.summary}</span>}
                   <span className="mt-2 flex items-center gap-2">
                     {p.isConcept && <span className="nx-badge">{labels.concept}</span>}
                     <span className="nx-card__go" aria-hidden="true">

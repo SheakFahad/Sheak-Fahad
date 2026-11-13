@@ -18,9 +18,6 @@ export const nexusStore = {
   hoverStation: -1,
   stationCount: 0,
   env: null as HomeConfig['environment'] | null,
-  /** DOM slot the floating 3D assistant orb is locked to (homepage only). */
-  aiAnchor: null as HTMLElement | null,
-  aiHover: false,
   /** ATLAS: published destinations shown as markers on the Earth, the selected one, and their screen positions. */
   markers: [] as { id: string; lat: number; lng: number }[],
   selected: null as string | null,

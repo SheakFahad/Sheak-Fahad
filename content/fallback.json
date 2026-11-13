@@ -34,10 +34,18 @@
         "planets": true,
         "mountains": true,
         "city": true,
-        "plants": true,
+        "plants": false,
         "ground": true
       },
-      "translations": {}
+      "translations": {},
+      "orbit_station_keys": [
+        "about",
+        "career",
+        "projects",
+        "research",
+        "skills",
+        "travel"
+      ]
     },
     "nav_primary": [
       "about",

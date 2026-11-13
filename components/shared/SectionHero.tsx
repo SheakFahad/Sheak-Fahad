@@ -37,7 +37,7 @@ export async function SectionHero({ title, eyebrow, intro, hero, crumbs, heroAsp
   return (
     <section className="station-hero relative pt-32 pb-12 md:pt-40 md:pb-16" data-station={stationKey}>
       <Container className="grid items-end gap-12 lg:grid-cols-[1.3fr_1fr]">
-        <div>
+        <div className="station-head min-w-0">
           <Breadcrumbs
             label={t('breadcrumb')}
             siteUrl={process.env.NEXT_PUBLIC_SITE_URL}
@@ -62,7 +62,9 @@ export async function SectionHero({ title, eyebrow, intro, hero, crumbs, heroAsp
               {stationMode === 'index' ? (
                 <h1 className="mt-4">
                   {/* plain text (a split would break the gradient text clip); revealed with a CSS mask wipe */}
-                  <span className="station-word block">{station.station_name ?? station.nav_label}</span>
+                  <span className="station-word block" style={{ '--len': (station.station_name ?? station.nav_label).length } as React.CSSProperties}>
+                    {station.station_name ?? station.nav_label}
+                  </span>
                   <span className="sr-only">: </span>
                   <span data-reveal className="station-sub mt-3 block">
                     {title}

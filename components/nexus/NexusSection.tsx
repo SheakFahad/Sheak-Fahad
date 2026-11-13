@@ -20,9 +20,8 @@ const DOCK: [SocialPlatform, BrandKey][] = [
 
 /** NEXUS homepage hero — every string, link, image and toggle comes from the CMS content layer. */
 export async function NexusSection({ locale }: { locale: string }) {
-  const [t, ta, rawProfile, socials, projectsSection, contactSection, settings, config, shell] = await Promise.all([
+  const [t, rawProfile, socials, projectsSection, contactSection, settings, config, shell] = await Promise.all([
     getTranslations('home'),
-    getTranslations('assistant'),
     getProfile(),
     getSocialLinks(),
     getSectionByKey('projects'),
@@ -59,9 +58,8 @@ export async function NexusSection({ locale }: { locale: string }) {
         height: cutout?.height ?? 1100,
       }}
       dock={dock}
-      stations={config.show_stations ? shell.navItems : []}
+      stations={config.show_stations ? (config.orbit_station_keys ?? shell.primaryKeys.slice(0, 6)).flatMap(k => shell.navItems.filter(i => i.key === k)) : []}
       featured={featured}
-      showAssistant={settings.features.assistant}
       cta={{
         workLabel: t('exploreWork'),
         workHref: projectsSection ? `/${projectsSection.route_slug}` : null,
@@ -77,7 +75,6 @@ export async function NexusSection({ locale }: { locale: string }) {
         globe: t('globeLabel'),
         open: t('openStation'),
         featured: { title: t('featuredTitle'), prev: t('prevProject'), next: t('nextProject'), concept: t('conceptVisual'), view: t('viewCase') },
-        ai: { open: ta('open'), greeting: t('aiGreet') },
       }}
     />
   )

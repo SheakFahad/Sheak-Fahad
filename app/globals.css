@@ -852,7 +852,7 @@ li:has(> .nx-float > .nx-station:focus-visible) {
 }
 @media (width >= 80rem) {
   .nx-bottom {
-    grid-template-columns: minmax(0, 1fr) 190px;
+    grid-template-columns: minmax(0, 1fr);
     margin-top: 6px;
   }
 }
@@ -1793,57 +1793,6 @@ html[data-gate] .fahad-ai {
   50% { transform: translateY(-4px); opacity: 0.5; }
 }
 
-/* Homepage 3D orb slot */
-.ai-anchor {
-  position: relative;
-  display: none;
-  justify-self: end;
-  align-self: end;
-  width: 170px;
-  height: 150px;
-}
-@media (width >= 80rem) {
-  .ai-anchor { display: block; }
-}
-.ai-anchor__hit {
-  position: absolute;
-  inset: 10px 25px;
-  border-radius: 9999px;
-  cursor: pointer;
-}
-.ai-anchor__fallback {
-  position: absolute;
-  inset: 22%;
-  border-radius: 50%;
-  background: radial-gradient(circle at 40% 35%, #9ff6ff, #4263ff 45%, #a678ff 70%, transparent 72%);
-  box-shadow: 0 0 40px -6px rgb(81 229 255 / 0.9);
-  transition: opacity 0.6s;
-}
-html[data-ai-gl] .ai-anchor__fallback {
-  opacity: 0;
-}
-.ai-anchor__bubble {
-  position: absolute;
-  right: calc(100% - 10px);
-  top: 4px;
-  width: max-content;
-  max-width: 200px;
-  padding: 8px 12px;
-  border-radius: 14px 14px 4px 14px;
-  font-size: 12px;
-  line-height: 1.4;
-  color: var(--text);
-  background: var(--surface-strong);
-  box-shadow: inset 0 0 0 1px rgb(81 229 255 / 0.4), 0 10px 30px -10px rgb(0 0 0 / 0.7);
-  opacity: 0;
-  translate: 8px 4px;
-  pointer-events: none;
-  transition: opacity 0.4s, translate 0.5s var(--ease-out-expo);
-}
-.ai-anchor__bubble.is-on {
-  opacity: 1;
-  translate: 0 0;
-}
 @media (prefers-reduced-motion: reduce) {
   .fahad-ai__orb,
   .fahad-ai__orb i {
@@ -1978,11 +1927,6 @@ html[data-ai-gl] .ai-anchor__fallback {
   padding: 28px;
 }
 
-html[data-ai-orb] .fahad-ai__fab:not(.is-open) {
-  opacity: 0;
-  transform: scale(0.6);
-  pointer-events: none;
-}
 
 /* ═════════════ Portrait — clean holographic glass composition (CSS only) ═════════════
    Layers (back → front): ambient light · glass panel (+ occasional scan) · particles ·
@@ -2160,4 +2104,468 @@ html.js-motion [data-pf-in] {
   .pf-particles {
     display: none;
   }
+}
+
+/* ═════════════════════════ Premium refinement (2026-11-13) ═════════════════════════
+   Controlled effects, strong hierarchy, calm motion. Later rules intentionally refine earlier ones. */
+
+/* Tagline: a quiet line, not a badge */
+.nx-welcome {
+  gap: 12px;
+  padding: 0;
+  clip-path: none;
+  background: none;
+  box-shadow: none;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--cyan);
+}
+.nx-welcome > span:first-child {
+  display: none;
+}
+.nx-welcome::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyan));
+}
+.nx-name {
+  letter-spacing: -0.035em;
+}
+.nx-name__last {
+  background: linear-gradient(90deg, #6fe9ff, #5b8cff);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.nx-headline {
+  font-size: clamp(1.1rem, 1.55vw, 1.4rem);
+  line-height: 1.35;
+  color: var(--text);
+}
+.nx-roleline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 0;
+  margin-top: 14px;
+  font-size: 13.5px;
+  color: var(--text-2);
+}
+.nx-roleline li + li::before {
+  content: '•';
+  margin: 0 10px;
+  color: var(--cyan);
+  opacity: 0.7;
+}
+.nx-lede {
+  margin-top: 18px;
+  max-width: 30rem;
+  font-size: clamp(15px, 1.15vw, 17px);
+  line-height: 1.7;
+  color: var(--text-2);
+}
+
+/* Buttons: one height, one radius, calm hover */
+.nx-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 28px;
+}
+.nx-cta,
+.nx-cta--ghost {
+  min-height: 50px;
+  padding: 0 22px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 650;
+}
+.nx-cta::after {
+  opacity: 0.5;
+}
+.nx-cta--primary {
+  color: #061024;
+  background: linear-gradient(135deg, #6fe9ff, #5b8cff);
+  box-shadow: 0 14px 36px -16px rgb(81 160 255 / 0.85), inset 0 1px 0 rgb(255 255 255 / 0.35);
+}
+.nx-cta--primary:hover {
+  box-shadow: 0 18px 44px -14px rgb(81 160 255 / 0.95), inset 0 1px 0 rgb(255 255 255 / 0.45);
+}
+.nx-cta__arrow {
+  width: 24px;
+  height: 24px;
+  border-width: 1.25px;
+}
+.nx-cta--glass {
+  color: var(--text);
+  background: rgb(255 255 255 / 0.04);
+  border: 1px solid rgb(255 255 255 / 0.16);
+}
+.nx-cta--glass:hover {
+  border-color: rgb(111 233 255 / 0.6);
+  box-shadow: none;
+  background: rgb(111 233 255 / 0.06);
+}
+.nx-cta--ghost {
+  color: var(--text-2);
+  background: transparent;
+  border: 1px solid transparent;
+}
+.nx-cta--ghost:hover {
+  color: var(--text);
+  border-color: var(--line-strong);
+}
+:root[data-theme='light'] .nx-cta--glass {
+  background: rgb(255 255 255 / 0.6);
+  border-color: var(--line-strong);
+}
+
+/* Social icons: aligned, quiet until hovered */
+.nexus [data-hero-dock] ul {
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.nexus .dock-link {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+/* Station navigation: elegant floating glass cards */
+.nx-orbit__flow {
+  stroke: rgb(111 233 255 / 0.45);
+  animation-duration: 30s;
+  filter: none;
+}
+.nx-orbit__path {
+  stroke: rgb(111 233 255 / 0.12);
+}
+.nx-float {
+  animation: nx-float-soft 10s ease-in-out infinite;
+}
+@keyframes nx-float-soft {
+  0%, 100% { transform: translate3d(0, -3px, 0); }
+  50% { transform: translate3d(0, 3px, 0); }
+}
+.nx-station {
+  --cut: 0px;
+  clip-path: none;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  justify-items: start;
+  align-items: center;
+  column-gap: 10px;
+  width: auto;
+  min-width: 148px;
+  padding: 9px 16px 9px 9px;
+  text-align: left;
+  border-radius: 16px;
+  color: var(--text);
+  background: linear-gradient(160deg, rgb(255 255 255 / 0.08), rgb(255 255 255 / 0.02)), rgb(8 12 30 / 0.6);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.1), 0 18px 40px -24px rgb(0 0 0 / 0.85);
+  filter: none;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform 0.45s var(--ease-out-expo), box-shadow 0.35s;
+}
+.nx-station::before {
+  display: none;
+}
+.nx-station:hover,
+.nx-station:focus-visible {
+  transform: translateY(-3px);
+  filter: none;
+  box-shadow: inset 0 0 0 1px rgb(111 233 255 / 0.55), 0 20px 44px -22px rgb(81 160 255 / 0.6);
+}
+.nx-station__icon {
+  grid-row: span 2;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  color: var(--cyan);
+  background: rgb(111 233 255 / 0.1);
+  filter: none;
+}
+.nx-station:hover .nx-station__icon,
+.nx-station:focus-visible .nx-station__icon {
+  transform: none;
+  background: rgb(111 233 255 / 0.18);
+}
+.nx-station__label {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.nx-station__sub {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+:root[data-theme='light'] .nx-station {
+  background: rgb(255 255 255 / 0.75);
+  box-shadow: inset 0 0 0 1px var(--line-strong), 0 18px 40px -26px rgb(16 26 53 / 0.5);
+}
+/* Explore mode shows all stations — keep those compact */
+.explore-mode .nx-station {
+  min-width: 0;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  text-align: center;
+  padding: 10px 12px;
+}
+.explore-mode .nx-station__icon {
+  grid-row: auto;
+}
+
+/* Featured projects: quieter, cleaner */
+.nx-featured {
+  padding: 24px 12px 12px;
+  background: rgb(8 12 30 / 0.38);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.06);
+}
+.nx-featured__tab {
+  font-size: 13px;
+  font-weight: 650;
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+}
+.nx-card {
+  grid-template-columns: 116px minmax(0, 1fr);
+  gap: 16px;
+}
+.nx-card:hover,
+.nx-card:focus-visible {
+  background: rgb(255 255 255 / 0.04);
+  box-shadow: inset 0 0 0 1px rgb(111 233 255 / 0.3);
+}
+.nx-card__thumb {
+  aspect-ratio: 16 / 10;
+  border-radius: 10px;
+}
+.nx-card__cat {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cyan);
+}
+.nx-card__title {
+  display: -webkit-box;
+  margin-top: 3px;
+  overflow: hidden;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.nx-badge {
+  font-size: 9px;
+  color: var(--text-2);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+/* AI assistant: small, elegant, out of the way */
+.fahad-ai__fab {
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  width: 52px;
+  height: 52px;
+  background: rgb(8 12 30 / 0.75);
+  box-shadow: inset 0 0 0 1px rgb(111 233 255 / 0.35), 0 12px 30px -14px rgb(0 0 0 / 0.8);
+}
+.fahad-ai__fab .fahad-ai__orb {
+  width: 34px;
+  height: 34px;
+  gap: 5px;
+  box-shadow: 0 0 14px -4px rgb(111 233 255 / 0.7);
+  animation-duration: 14s;
+}
+.fahad-ai__fab .fahad-ai__orb i {
+  width: 4px;
+  height: 6px;
+}
+
+/* ─────────────── Mobile & tablet: a dedicated composition ─────────────── */
+@media (width < 48rem) {
+  .nx-center {
+    --nx-h: min(48svh, 380px);
+  }
+  .nx-lede {
+    font-size: 15.5px;
+  }
+  .nx-ctas {
+    margin-top: 4px;
+  }
+  .nx-ctas > * {
+    flex: 1 1 auto;
+  }
+  .nx-ctas .nx-cta {
+    justify-content: center;
+    width: 100%;
+  }
+  .nx-ctas > :first-child {
+    flex-basis: 100%;
+  }
+  .pf-glass {
+    inset: 6% -10% 3%;
+    border-radius: 22px;
+  }
+  .pf-ambient {
+    inset: -10% -20%;
+  }
+  .nx-station {
+    min-width: 0;
+  }
+  .nx-featured {
+    padding-inline: 8px;
+  }
+  .nx-card {
+    grid-template-columns: 96px minmax(0, 1fr);
+  }
+  /* chat: full-width bottom sheet above the keyboard; the button steps aside while it is open */
+  .fahad-ai__panel {
+    right: 8px;
+    left: 8px;
+    bottom: max(8px, env(safe-area-inset-bottom));
+    max-height: calc(100dvh - 88px);
+  }
+  .fahad-ai__fab.is-open {
+    display: none;
+  }
+  /* keep the floating button from covering the last links */
+  body > footer,
+  footer.relative {
+    padding-bottom: 72px;
+  }
+}
+@media (width < 22.5rem) {
+  .nx-welcome {
+    white-space: normal;
+    letter-spacing: 0.16em;
+  }
+  .nx-name {
+    font-size: 2.6rem;
+  }
+  .nexus .dock-link {
+    width: 40px;
+    height: 40px;
+  }
+}
+@media (48rem <= width < 80rem) {
+  .nx-ctas .nx-cta {
+    flex: 0 0 auto;
+  }
+}
+
+/* ── Responsive fixes (breakpoint matrix 320–1920) ── */
+/* Station word always fits its column: size from the container width and the word length */
+.station-head {
+  container-type: inline-size;
+}
+.station-word {
+  font-size: min(clamp(2.4rem, 10vw, 7.5rem), calc(100cqi / (var(--len, 8) * 0.8)));
+}
+.station-sub {
+  overflow-wrap: anywhere;
+}
+/* Station pager never overflows */
+.station-pager > * {
+  min-width: 0;
+}
+.station-pager__name {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+@media (width < 40rem) {
+  .station-pager__name {
+    font-size: 0.95rem;
+  }
+  .station-pager__link {
+    padding: 12px;
+  }
+}
+/* Grid children may shrink (carousel keeps its own scroll) */
+.nx-bottom > *,
+.nx-grid > * {
+  min-width: 0;
+}
+@media (width < 48rem) {
+  .nx-welcome {
+    white-space: normal;
+    letter-spacing: 0.16em;
+  }
+}
+.nx-station {
+  min-width: 132px;
+  padding-right: 14px;
+}
+
+@media (width >= 80rem) {
+  .nx-bottom {
+    margin-top: 36px;
+  }
+}
+/* 320px phones: compact header controls */
+@media (width < 22.5rem) {
+  .nexus-locale button {
+    min-width: 34px;
+    padding-inline: 7px;
+  }
+  .nexus-bar {
+    gap: 4px;
+    padding-inline: 8px;
+  }
+  .theme-orb {
+    width: 40px;
+    height: 40px;
+  }
+}
+@media (width < 48rem) {
+  /* roles as small chips on phones (no dangling separators when they wrap) */
+  .nx-roleline {
+    gap: 6px;
+  }
+  .nx-roleline li {
+    padding: 3px 10px;
+    border-radius: 9999px;
+    font-size: 12.5px;
+    box-shadow: inset 0 0 0 1px var(--line);
+  }
+  .nx-roleline li + li::before {
+    content: none;
+  }
+  .fahad-ai__head p:first-child {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+@media (48rem <= width < 80rem) {
+  .pf-glass,
+  .pf-particles {
+    inset: 5% -7% 3%;
+  }
+}
+/* roles as light chips at every size (clean wrapping, no dangling separators) */
+.nx-roleline {
+  gap: 6px;
+}
+.nx-roleline li {
+  padding: 3px 10px;
+  border-radius: 9999px;
+  font-size: 12.5px;
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+.nx-roleline li + li::before {
+  content: none;
 }

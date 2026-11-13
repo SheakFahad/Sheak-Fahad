@@ -25,6 +25,8 @@ export function generateStaticParams() {
 
 export const viewport: Viewport = {
   themeColor: '#08090D',
+  // the on-screen keyboard shrinks the layout viewport, so fixed panels (chat composer) stay above it
+  interactiveWidget: 'resizes-content',
   colorScheme: 'dark light',
 }
 

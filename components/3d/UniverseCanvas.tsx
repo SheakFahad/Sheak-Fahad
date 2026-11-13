@@ -6,7 +6,6 @@ import { easing } from 'maath'
 import { Suspense, useEffect, useRef, useState } from 'react'
 import { usePathname } from '@/i18n/navigation'
 import { parallax, startParallax, stepParallax } from '@/lib/motion/parallax'
-import { AiOrb } from './AiOrb'
 import { NexusEnvironment } from './NexusEnvironment'
 import { NexusGlobe } from './NexusGlobe'
 import { StationBackdrop, variantForPath } from './StationBackdrop'
@@ -88,7 +87,6 @@ export default function UniverseCanvas({ tier }: { tier: Exclude<QualityTier, 'o
           <Suspense fallback={null}>
             <NexusGlobe tier={tier} />
           </Suspense>
-          <AiOrb />
         </>
       )}
       {!isHome && <StationBackdrop variant={variantForPath(pathname)} light={light} />}

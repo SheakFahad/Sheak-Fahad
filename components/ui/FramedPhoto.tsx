@@ -25,8 +25,8 @@ export function FramedPhoto({ media, className, sizes = '(min-width: 1024px) 40v
         </div>
       </div>
       {/* corner ticks */}
-      <span aria-hidden="true" className="absolute -top-3 -left-3 size-6 border-t-2 border-l-2 border-[var(--cyan)]" />
-      <span aria-hidden="true" className="absolute -right-3 -bottom-3 size-6 border-r-2 border-b-2 border-[var(--violet)]" />
+      <span aria-hidden="true" className="absolute -top-2 -left-2 size-6 md:-top-3 md:-left-3 border-t-2 border-l-2 border-[var(--cyan)]" />
+      <span aria-hidden="true" className="absolute -right-2 -bottom-2 size-6 md:-right-3 md:-bottom-3 border-r-2 border-b-2 border-[var(--violet)]" />
     </figure>
   )
 }

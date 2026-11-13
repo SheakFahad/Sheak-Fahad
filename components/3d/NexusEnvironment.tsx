@@ -35,11 +35,11 @@ const nebulaFrag = /* glsl */ `
     float m1 = smoothstep(0.85, 0.0, distance(vUv, vec2(0.18, 0.78)));
     float m2 = smoothstep(0.8, 0.0, distance(vUv, vec2(0.86, 0.62)));
     float m3 = smoothstep(0.7, 0.0, distance(vUv, vec2(0.55, 0.95)));
-    vec3 violet = vec3(0.42, 0.2, 0.85);
-    vec3 blue = vec3(0.12, 0.25, 0.95);
-    vec3 magenta = vec3(0.85, 0.2, 0.75);
+    vec3 violet = vec3(0.24, 0.16, 0.55);
+    vec3 blue = vec3(0.08, 0.2, 0.62);
+    vec3 magenta = vec3(0.3, 0.14, 0.45);
     float d = smoothstep(0.35, 0.85, n);
-    vec3 col = violet * d * m1 * 1.1 + blue * d * m2 + magenta * pow(d, 2.0) * m2 * 0.55 + blue * d * m3 * 0.6;
+    vec3 col = (violet * d * m1 * 0.8 + blue * d * m2 + magenta * pow(d, 2.0) * m2 * 0.3 + blue * d * m3 * 0.5) * 0.7;
     float a = clamp((col.r + col.g + col.b) * 0.55, 0.0, 1.0) * uOpacity;
     gl_FragColor = vec4(col * uOpacity, a);
   }
@@ -121,7 +121,7 @@ const groundFrag = /* glsl */ `
       float head = fract(uTime * (0.12 + fi * 0.03) + fi * 0.37);
       float d = head - (1.0 - far);
       float trail = smoothstep(0.0, 0.002, d) * smoothstep(0.25, 0.0, d);
-      vec3 c = i == 1 || i == 3 ? vec3(1.0, 0.45, 0.25) : vec3(0.3, 0.9, 1.0);
+      vec3 c = vec3(0.3, 0.75, 1.0);
       col += c * w * trail * 1.4 * fade;
     }
     gl_FragColor = vec4(col * uOpacity, clamp(length(col), 0.0, 1.0) * uOpacity);
@@ -147,10 +147,10 @@ const cityFrag = /* glsl */ `
     float on = step(0.62, hash(cell + vSeed * 17.0)) * step(0.25, f.x) * step(f.x, 0.75) * step(0.3, f.y) * step(f.y, 0.7);
     float flick = 0.7 + 0.3 * sin(uTime * 1.5 + hash(cell) * 30.0);
     vec3 body = mix(vec3(0.02, 0.03, 0.09), vec3(0.08, 0.06, 0.2), vUv.y);
-    vec3 win = mix(vec3(0.35, 0.8, 1.0), vec3(0.75, 0.45, 1.0), hash(cell + 3.0));
+    vec3 win = mix(vec3(0.3, 0.6, 0.95), vec3(0.45, 0.5, 0.95), hash(cell + 3.0)) * 0.7;
     vec3 col = body + win * on * flick * 0.9;
     float edge = smoothstep(0.96, 1.0, vUv.y) * 0.8;
-    col += vec3(0.65, 0.4, 1.0) * edge;
+    col += vec3(0.3, 0.55, 1.0) * edge * 0.5;
     gl_FragColor = vec4(col * uOpacity, uOpacity);
   }
 `
@@ -243,17 +243,17 @@ export function NexusEnvironment({ tier, light }: Props) {
       {
         uLight: { value: new THREE.Vector3(-0.7, 0.3, 0.6).normalize() },
         uColorA: { value: new THREE.Color('#1d2244') },
-        uColorB: { value: new THREE.Color('#7c86c9') },
-        uRim: { value: new THREE.Color('#a678ff') },
+        uColorB: { value: new THREE.Color('#4a5a9a') },
+        uRim: { value: new THREE.Color('#5b7cff') },
         uOpacity: { value: 0 },
         uBands: { value: 8 },
       },
       planetVert,
     )
     const ridges = [
-      { seed: 3.1, freq: 0.9, height: 0.95, color: '#1a1d4d', rim: '#6a5cff' },
-      { seed: 7.7, freq: 1.4, height: 0.8, color: '#10132f', rim: '#51e5ff' },
-      { seed: 1.9, freq: 2.0, height: 0.7, color: '#070917', rim: '#a678ff' },
+      { seed: 3.1, freq: 0.9, height: 0.95, color: '#1a1d4d', rim: '#2f4fb8' },
+      { seed: 7.7, freq: 1.4, height: 0.8, color: '#10132f', rim: '#2a7fbf' },
+      { seed: 1.9, freq: 2.0, height: 0.7, color: '#070917', rim: '#3a3f9e' },
     ].map(r =>
       shader(ridgeFrag, {
         uSeed: { value: r.seed },
@@ -344,7 +344,7 @@ export function NexusEnvironment({ tier, light }: Props) {
 
   const motes = useMemo(() => {
     const rand = createRandom(99)
-    const n = tier === 'low' ? 60 : 160
+    const n = tier === 'low' ? 24 : 70
     const pos = new Float32Array(n * 3)
     const seed = new Float32Array(n)
     for (let i = 0; i < n; i++) {
@@ -379,8 +379,8 @@ export function NexusEnvironment({ tier, light }: Props) {
     u(mats.nebula, 'uOpacity', env.nebula ? p(0, 0.6) : 0)
     u(mats.nebula, 'uAspect', aspect)
     // planets read as grey discs on the light theme → only drawn in dark mode
-    u(mats.planet, 'uOpacity', env.planets && !light ? p(0.1, 0.6) : 0)
-    u(mats.moon, 'uOpacity', env.planets && !light ? p(0.2, 0.7) : 0)
+    u(mats.planet, 'uOpacity', env.planets && !light ? p(0.1, 0.6) * 0.7 : 0)
+    u(mats.moon, 'uOpacity', env.planets && !light ? p(0.2, 0.7) * 0.55 : 0)
     mats.ridges.forEach((m, i) => {
       u(m, 'uOpacity', env.mountains ? p(0.15 + i * 0.08, 0.6 + i * 0.08) * (0.4 + 0.6 * leave) : 0)
       u(m, 'uAspect', aspect)

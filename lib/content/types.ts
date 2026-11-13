@@ -146,6 +146,8 @@ export interface HomeConfig {
   /** Ordered project slugs; only published + public projects are ever shown. */
   featured_project_slugs: string[]
   show_stations: boolean
+  /** Stations shown around the homepage Earth (the rest stay in More / Quick navigation / Explore mode). */
+  orbit_station_keys?: string[]
   show_featured: boolean
   show_globe: boolean
   environment: { nebula: boolean; planets: boolean; mountains: boolean; city: boolean; plants: boolean; ground: boolean }

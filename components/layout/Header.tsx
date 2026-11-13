@@ -163,7 +163,7 @@ export function Header({ siteName, homeItem, items, primaryKeys, socials, search
                       onPointerEnter={e => movePill(e.currentTarget)}
                       onFocus={e => movePill(e.currentTarget)}
                       className={cn(
-                        'nexus-link relative z-[1] inline-flex min-h-11 items-center gap-1.5 rounded-full px-2 font-[family-name:var(--font-display)] text-[11.5px] tracking-[0.05em] uppercase transition-colors 2xl:gap-2 2xl:px-3.5 2xl:text-[12px] 2xl:tracking-[0.08em]',
+                        'nexus-link relative z-[1] inline-flex min-h-11 items-center gap-1.5 rounded-full px-3 text-[14px] font-semibold tracking-[0.01em] transition-colors 2xl:gap-2 2xl:px-3.5',
                         current ? 'text-[var(--text)]' : 'text-[var(--text-2)] hover:text-[var(--text)]',
                       )}
                     >
@@ -185,7 +185,7 @@ export function Header({ siteName, homeItem, items, primaryKeys, socials, search
                     onPointerEnter={e => movePill(e.currentTarget)}
                     onFocus={e => movePill(e.currentTarget)}
                     className={cn(
-                      'relative z-[1] inline-flex min-h-11 items-center gap-1.5 rounded-full px-2.5 font-[family-name:var(--font-display)] text-[11.5px] tracking-[0.06em] uppercase transition-colors 2xl:px-3.5 2xl:text-[12px] 2xl:tracking-[0.08em]',
+                      'relative z-[1] inline-flex min-h-11 items-center gap-1.5 rounded-full px-3 text-[14px] font-semibold tracking-[0.01em] transition-colors 2xl:px-3.5',
                       moreActive || moreOpen ? 'text-[var(--text)]' : 'text-[var(--text-2)] hover:text-[var(--text)]',
                     )}
                   >
@@ -210,7 +210,7 @@ export function Header({ siteName, homeItem, items, primaryKeys, socials, search
                                 <StationIcon name={item.icon} className="size-[18px]" />
                               </span>
                               <span className="min-w-0">
-                                <span className="block font-[family-name:var(--font-display)] text-[13px] tracking-[0.06em] uppercase">{item.label}</span>
+                                <span className="block text-[14px] font-semibold">{item.label}</span>
                                 {item.station && <span className="block truncate text-xs text-[var(--text-2)]">{item.station}</span>}
                               </span>
                             </TransitionLink>

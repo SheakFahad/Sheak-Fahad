@@ -13,7 +13,6 @@ import { nexusStore } from '@/lib/nexus/store'
 import type { FeaturedProject } from '@/lib/nexus/types'
 import { FeaturedProjects } from './FeaturedProjects'
 import { GATE_EVENT, isGated } from './Gateway'
-import { AiOrbAnchor } from './AiOrbAnchor'
 import { NexusCursor } from './NexusCursor'
 import { StationOrbit } from './StationOrbit'
 
@@ -29,7 +28,6 @@ interface Props {
   dock: DockItem[]
   stations: NavItem[]
   featured: FeaturedProject[]
-  showAssistant: boolean
   cta: { workLabel: string; workHref: string | null; cvLabel: string; cvUrl: string | null; connectLabel: string; connectHref: string | null }
   labels: {
     social: string
@@ -38,13 +36,12 @@ interface Props {
     globe: string
     open: string
     featured: { title: string; prev: string; next: string; concept: string; view: string }
-    ai: { open: string; greeting: string }
   }
 }
 
 const INTRO_KEY = 'sf-nexus-intro'
 
-export function NexusHero({ config, name, title, tagline, roles, text, portrait, dock, stations, featured, showAssistant, cta, labels }: Props) {
+export function NexusHero({ config, name, title, tagline, roles, text, portrait, dock, stations, featured, cta, labels }: Props) {
   const root = useRef<HTMLElement>(null)
   const stage = useRef<HTMLDivElement>(null)
   const glass = useRef<HTMLDivElement>(null)
@@ -248,22 +245,21 @@ export function NexusHero({ config, name, title, tagline, roles, text, portrait,
             <p data-nx-in className="nx-headline mt-4">
               {title}
             </p>
+            {roles.length > 0 && (
+              <ul data-nx-in className="nx-roleline" aria-label={title}>
+                {roles.map(r => (
+                  <li key={r}>{r}</li>
+                ))}
+              </ul>
+            )}
+            <p data-nx-in className="nx-lede">
+              {text}
+            </p>
           </div>
 
           <div data-nx-left data-depth="3" className="nx-body relative z-10">
-            {roles.length > 0 && (
-              <p data-nx-in className="nx-pill">
-                <svg aria-hidden="true" viewBox="0 0 24 24" className="size-4 shrink-0 text-[#ff5cf0]" fill="currentColor">
-                  <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm-2 6.5 6 3.5-6 3.5v-7Z" />
-                </svg>
-                {roles.join(' · ')}
-              </p>
-            )}
-            <p data-nx-in className="mt-5 max-w-[30rem] text-[15px] leading-relaxed text-[var(--text-2)] md:text-base">
-              {text}
-            </p>
 
-            <div data-nx-in className="mt-6 flex flex-wrap items-center gap-3">
+            <div data-nx-in className="nx-ctas">
               {cta.workHref && (
                 <Magnetic>
                   <TransitionLink href={cta.workHref} className="nx-cta nx-cta--primary">
@@ -350,7 +346,6 @@ export function NexusHero({ config, name, title, tagline, roles, text, portrait,
         {/* ── BOTTOM: featured projects + assistant ─ */}
         <div data-nx-bottom className="nx-bottom">
           {featured.length > 0 && <FeaturedProjects projects={featured} labels={labels.featured} />}
-          {showAssistant && <AiOrbAnchor label={labels.ai.open} greeting={labels.ai.greeting} />}
         </div>
 
         <a href="#explore" className="nx-scroll" data-nx-in>

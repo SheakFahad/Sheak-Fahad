@@ -58,7 +58,7 @@ const globeFrag = /* glsl */ `
 
     // inner fresnel rim
     float f = pow(1.0 - max(dot(vViewNormal, vec3(0.0, 0.0, 1.0)), 0.0), 2.5);
-    col += mix(vec3(0.32, 0.9, 1.0), uAccent, 0.5) * f * 0.9;
+    col += mix(vec3(0.32, 0.8, 1.0), uAccent, 0.5) * f * 0.45;
 
     // activation scan (bottom → top)
     float y = vWorldNormal.y * 0.5 + 0.5;
@@ -79,7 +79,7 @@ const atmoFrag = /* glsl */ `
   uniform vec3 uColor; uniform float uOpacity;
   varying vec3 vViewNormal;
   void main() {
-    float i = pow(max(0.0, 0.72 - dot(vViewNormal, vec3(0.0, 0.0, 1.0))), 2.6) * 3.2;
+    float i = pow(max(0.0, 0.72 - dot(vViewNormal, vec3(0.0, 0.0, 1.0))), 2.6) * 1.05;
     gl_FragColor = vec4(uColor * i * uOpacity, i * uOpacity);
   }
 `
@@ -194,15 +194,15 @@ export function NexusGlobe({ tier }: { tier: 'low' | 'medium' | 'high' }) {
   // Arcs (great-circle-ish bezier tubes) from the hub
   const arcs = useMemo(() => {
     const hub = latLon(NODES[0]![0], NODES[0]![1])
-    return NODES.slice(1).map(([lat, lon], i) => {
+    return NODES.slice(1, 5).map(([lat, lon], i) => {
       const geo = new THREE.TubeGeometry(arcCurve(hub, latLon(lat, lon)), 64, 0.0045, 6, false)
-      const mat = cometMaterial(i % 2 ? '#a678ff' : '#51e5ff', '#9ff3ff', 0.22 + (i % 3) * 0.07, 0.08)
+      const mat = cometMaterial('#51e5ff', '#bff6ff', 0.12 + (i % 3) * 0.04, 0.04)
       return { geo, mat }
     })
   }, [])
   useEffect(() => () => arcs.forEach(a => (a.geo.dispose(), a.mat.dispose())), [arcs])
 
-  const ringMats = useMemo(() => [cometMaterial('#51e5ff', '#ffffff', 0.05, 0.22, 90), cometMaterial('#a678ff', '#ff5cf0', -0.04, 0.12)], [])
+  const ringMats = useMemo(() => [cometMaterial('#51e5ff', '#d8fbff', 0.03, 0.12, 90), cometMaterial('#6b7cff', '#9fb4ff', -0.025, 0.06)], [])
   useEffect(() => () => ringMats.forEach(m => m.dispose()), [ringMats])
 
   // Node markers + data particles
@@ -371,7 +371,7 @@ export function NexusGlobe({ tier }: { tier: 'low' | 'medium' | 'high' }) {
         </group>
       </group>
       {/* atmosphere glow (back faces, slightly larger) */}
-      <mesh scale={1.22} renderOrder={-1}>
+      <mesh scale={1.14} renderOrder={-1}>
         <sphereGeometry args={[1, 48, 24]} />
         <shaderMaterial
           ref={atmoMat}

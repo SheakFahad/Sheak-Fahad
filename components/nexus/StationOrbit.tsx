@@ -14,8 +14,8 @@ interface Props {
 }
 
 // Orbit ellipse (percent of the square box)
-const RX = 41
-const RY = 42
+const RX = 37
+const RY = 41
 
 /**
  * Right side of NEXUS: the interactive Earth (drawn by the shared WebGL canvas, locked to [data-globe-core])
