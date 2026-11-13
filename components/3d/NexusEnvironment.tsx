@@ -3,6 +3,7 @@
 import { useFrame, useThree } from '@react-three/fiber'
 import { useEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
+import { parallax } from '@/lib/motion/parallax'
 import { nexusStore } from '@/lib/nexus/store'
 import { BASIC_VERT, easeOut, frustumAt, seg } from './dom-lock'
 import { createRandom } from './random'
@@ -219,6 +220,7 @@ export function NexusEnvironment({ tier, light }: Props) {
   const size = useThree(s => s.size)
   const aspect = size.width / Math.max(1, size.height)
   const group = useRef<THREE.Group>(null)
+  const sink = useRef(0)
   const oct = tier === 'low' ? 3 : tier === 'medium' ? 4 : 5
 
   const mats = useMemo(() => {
@@ -368,7 +370,9 @@ export function NexusEnvironment({ tier, light }: Props) {
     const p = (a: number, b: number) => easeOut(seg(intro, a, b)) * fade
 
     // scroll: landscape sinks, sky remains → we rise into space
-    g.position.y = THREE.MathUtils.damp(g.position.y, -nexusStore.scroll * 3.2, 6, delta)
+    // scroll lowers the landscape; the background drifts opposite to the mouse (deep layer → larger shift)
+    sink.current = THREE.MathUtils.damp(sink.current, -nexusStore.scroll * 3.2, 6, delta)
+    g.position.set(-parallax.x * 0.9, sink.current - parallax.y * 0.45, 0)
 
     const u = (m: THREE.ShaderMaterial, k: string, v: number) => (m.uniforms[k]!.value = v)
     u(mats.nebula, 'uTime', t)

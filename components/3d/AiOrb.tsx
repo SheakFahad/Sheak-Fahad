@@ -3,6 +3,7 @@
 import { useFrame } from '@react-three/fiber'
 import { useEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
+import { parallax } from '@/lib/motion/parallax'
 import { nexusStore } from '@/lib/nexus/store'
 import { cometMaterial, easeOut, lockToRect, seg } from './dom-lock'
 
@@ -93,8 +94,8 @@ export function AiOrb() {
     g.scale.setScalar(size * 0.32 * (1 + glow.current * 0.12) * (0.6 + 0.4 * appear))
 
     if (body.current) {
-      body.current.rotation.y = THREE.MathUtils.damp(body.current.rotation.y, state.pointer.x * 0.5, 4, delta)
-      body.current.rotation.x = THREE.MathUtils.damp(body.current.rotation.x, -state.pointer.y * 0.3, 4, delta)
+      body.current.rotation.y = THREE.MathUtils.damp(body.current.rotation.y, parallax.x * 0.5, 4, delta)
+      body.current.rotation.x = THREE.MathUtils.damp(body.current.rotation.x, -parallax.y * 0.3, 4, delta)
     }
     // blink every ~4 s
     if (eyes.current) eyes.current.scale.y = (t % 4.2) > 4.05 ? 0.1 : 1

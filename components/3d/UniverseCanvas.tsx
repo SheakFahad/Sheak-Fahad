@@ -5,6 +5,7 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { easing } from 'maath'
 import { Suspense, useEffect, useRef, useState } from 'react'
 import { usePathname } from '@/i18n/navigation'
+import { parallax, startParallax, stepParallax } from '@/lib/motion/parallax'
 import { AiOrb } from './AiOrb'
 import { HeroPortal } from './HeroPortal'
 import { NexusEnvironment } from './NexusEnvironment'
@@ -15,10 +16,13 @@ import { Starfield } from './Starfield'
 
 /** Camera: damped mouse parallax + scroll dolly. Reads refs only — no React state per frame. */
 function Rig({ scroll }: { scroll: React.RefObject<number> }) {
+  useEffect(() => startParallax(), [])
   // Priority -1: runs before scene objects that project DOM rectangles into the world.
   useFrame((state, delta) => {
+    stepParallax(delta)
     const s = Math.min(scroll.current ?? 0, 3)
-    easing.damp3(state.camera.position, [state.pointer.x * 0.45, state.pointer.y * 0.3, 8 + s * 0.9], 0.45, delta)
+    // gentle camera drift only — each layer adds its own depth-scaled parallax
+    easing.damp3(state.camera.position, [parallax.x * 0.22, parallax.y * 0.14, 8 + s * 0.9], 0.6, delta)
     state.camera.lookAt(0, 0, 0)
   }, -1)
   return null

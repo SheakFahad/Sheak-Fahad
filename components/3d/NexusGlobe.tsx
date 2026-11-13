@@ -5,6 +5,7 @@ import { useFrame } from '@react-three/fiber'
 import { easing } from 'maath'
 import { useEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
+import { parallax } from '@/lib/motion/parallax'
 import { nexusStore, STATION_ACCENTS } from '@/lib/nexus/store'
 import { cometMaterial, easeOut, lockToRect, seg } from './dom-lock'
 import { createRandom, randomOnSphere } from './random'
@@ -283,7 +284,7 @@ export function NexusGlobe({ tier }: { tier: 'low' | 'medium' | 'high' }) {
         earth.current.rotation.y = cur + diff * (1 - Math.exp(-delta * 3))
       } else earth.current.rotation.y += delta * ((nexusStore.markers.length ? 0.04 : 0.09) + nexusStore.spin)
     }
-    if (tilt.current) easing.dampE(tilt.current.rotation, [0.18 + state.pointer.y * 0.12, state.pointer.x * 0.25, 0.41], 0.6, delta)
+    if (tilt.current) easing.dampE(tilt.current.rotation, [0.18 - parallax.y * 0.1, parallax.x * 0.22, 0.41], 0.6, delta)
 
     const hover = nexusStore.hoverStation
     _accent.set(hover >= 0 ? STATION_ACCENTS[hover % STATION_ACCENTS.length]! : '#51e5ff')

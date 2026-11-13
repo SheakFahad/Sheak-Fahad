@@ -3,6 +3,7 @@
 import { useFrame, useThree } from '@react-three/fiber'
 import { useEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
+import { parallax } from '@/lib/motion/parallax'
 import { cometMaterial, frustumAt } from './dom-lock'
 import { createRandom, randomOnSphere } from './random'
 
@@ -299,7 +300,7 @@ export function StationBackdrop({ variant, light }: { variant: StationVariant; l
     fade.current = THREE.MathUtils.damp(fade.current, scrollFade * (light ? 0.55 : 1) * (wide ? 1 : 0.32), 2.5, delta)
     const t = state.clock.elapsedTime
     built.tick(t, delta)
-    g.rotation.x = THREE.MathUtils.damp(g.rotation.x, state.pointer.y * 0.12, 3, delta)
+    g.rotation.x = THREE.MathUtils.damp(g.rotation.x, parallax.y * 0.12, 3, delta)
     applyFade(built.materials, fade.current, t, state.viewport.dpr)
   })
 

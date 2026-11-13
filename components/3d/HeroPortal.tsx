@@ -6,6 +6,7 @@ import { easing } from 'maath'
 import { useEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
 import { heroStore } from '@/lib/hero/store'
+import { parallax } from '@/lib/motion/parallax'
 import { nexusStore, STATION_ACCENTS } from '@/lib/nexus/store'
 import { BASIC_VERT, cometMaterial, easeOut, lockToRect, seg } from './dom-lock'
 import { createRandom, randomOnSphere } from './random'
@@ -22,6 +23,9 @@ const _color = new THREE.Color()
 const setU = (m: THREE.ShaderMaterial, k: string, v: number) => {
   m.uniforms[k]!.value = v
 }
+const setMask = (m: THREE.ShaderMaterial, tex: THREE.Texture) => {
+  if (m.uniforms.uMask!.value !== tex) m.uniforms.uMask!.value = tex
+}
 
 // ─── Shaders (environment only — never applied to the photo) ────────────────
 const glowFrag = /* glsl */ `
@@ -33,6 +37,16 @@ const glowFrag = /* glsl */ `
     a = a * a * uOpacity;
     vec3 col = mix(uColorA, uColorB, smoothstep(0.0, 0.5, d));
     gl_FragColor = vec4(col * a, a);
+  }
+`
+// Soft coloured light pool (drawn BEHIND the photo plane) — "lighting around" the portrait, never on it
+const lightFrag = /* glsl */ `
+  uniform vec3 uColor; uniform float uOpacity;
+  varying vec2 vUv;
+  void main() {
+    float d = distance(vUv, vec2(0.5));
+    float a = pow(smoothstep(0.5, 0.0, d), 1.8) * uOpacity;
+    gl_FragColor = vec4(uColor * a, a);
   }
 `
 // HUD: segmented rings, tick marks and accent arcs (polar coordinates) — sits BEHIND the photo
@@ -167,6 +181,9 @@ const frontFrag = /* glsl */ `
   }
 `
 
+/** Parallax offset per glass panel (portrait units). Max 0.045 keeps every panel clear of the face. */
+const PANEL_DEPTH = [0.035, 0.022, 0.045]
+
 const BLUE = new THREE.Color('#4263ff')
 const CYAN = new THREE.Color('#51e5ff')
 const VIOLET = new THREE.Color('#a678ff')
@@ -219,6 +236,8 @@ export function HeroPortal({ tier }: { tier: 'low' | 'medium' | 'high' }) {
   const rings = useRef<THREE.Mesh[]>([])
   const cards = useRef<THREE.Group[]>([])
   const platRings = useRef<THREE.Mesh[]>([])
+  const lights = useRef<THREE.Mesh[]>([])
+  const dustPts = useRef<THREE.Points>(null)
 
   const mats = useMemo(() => {
     const logo = makeCanvasTexture(512, 512, drawSFLogo)
@@ -230,6 +249,10 @@ export function HeroPortal({ tier }: { tier: 'low' | 'medium' | 'high' }) {
         cometMaterial(CYAN, '#ff5cf0', -0.11, 0.0), // pure light trail
         cometMaterial('#ff5cf0', VIOLET, 0.07, 0.03), // wide magenta sweep
         cometMaterial(BLUE, CYAN, -0.05, 0.04), // outer blue sweep
+      ],
+      lights: [
+        additive(lightFrag, { uColor: { value: new THREE.Color('#3f6bff') }, uOpacity: { value: 0 } }),
+        additive(lightFrag, { uColor: { value: new THREE.Color('#9b5cff') }, uOpacity: { value: 0 } }),
       ],
       rimL: rimMaterial('#51e5ff'),
       rimR: rimMaterial('#ff5cf0'),
@@ -257,7 +280,7 @@ export function HeroPortal({ tier }: { tier: 'low' | 'medium' | 'high' }) {
     () => () => {
       mats.logo.dispose()
       mats.cards.forEach(m => (m.uniforms.uMap!.value as THREE.Texture).dispose())
-      ;[...mats.rings, mats.rimL, mats.rimR, mats.front, mats.hud, mats.disc, ...mats.tiers, mats.beam, ...mats.platRings, ...mats.cards].forEach(m => m.dispose())
+      ;[...mats.rings, ...mats.lights, mats.rimL, mats.rimR, mats.front, mats.hud, mats.disc, ...mats.tiers, mats.beam, ...mats.platRings, ...mats.cards].forEach(m => m.dispose())
     },
     [mats],
   )
@@ -350,14 +373,26 @@ export function HeroPortal({ tier }: { tier: 'low' | 'medium' | 'high' }) {
 
     // Orbit rings tilt slightly with the pointer (depth parallax); rim light + HUD stay locked to the DOM photo.
     const ringGroup = rings.current[0]?.parent
-    if (ringGroup) ringGroup.rotation.y = THREE.MathUtils.damp(ringGroup.rotation.y, state.pointer.x * 0.12, 3, delta)
+    if (ringGroup) ringGroup.rotation.y = parallax.x * 0.1
 
     if (glowMat.current) glowMat.current.uniforms.uOpacity!.value = pEnv * 0.9
     if (rimMat.current) rimMat.current.uniforms.uOpacity!.value = pPortrait * 0.55
-    for (const m of [mats.rimL, mats.rimR]) {
-      m.uniforms.uMask!.value = map
-      m.uniforms.uOpacity!.value = pPortrait * 0.75
-    }
+    // Rim light leans toward the side the visitor is on (cyan left / violet right)
+    setMask(mats.rimL, map)
+    setMask(mats.rimR, map)
+    setU(mats.rimL, 'uOpacity', pPortrait * (0.6 + 0.3 * Math.max(0, -parallax.x)))
+    setU(mats.rimR, 'uOpacity', pPortrait * (0.6 + 0.3 * Math.max(0, parallax.x)))
+    // Dynamic blue + purple light pools behind the portrait: slow breathing, drift with the pointer
+    const breathe = 0.85 + 0.15 * Math.sin(t * 0.6)
+    lights.current.forEach((l, i) => {
+      if (!l) return
+      const side = i === 0 ? -1 : 1
+      l.position.set(side * 0.24 + parallax.x * 0.07, (i === 0 ? 0.3 : -0.08) + parallax.y * 0.05, -0.55)
+    })
+    setU(mats.lights[0]!, 'uOpacity', pEnv * 0.55 * breathe * (1 + 0.25 * Math.max(0, -parallax.x)))
+    setU(mats.lights[1]!, 'uOpacity', pEnv * 0.5 * (1.15 - 0.15 * breathe) * (1 + 0.25 * Math.max(0, parallax.x)))
+    // Ambient dust: barely moves with the pointer (far layer)
+    if (dustPts.current) dustPts.current.position.set(-parallax.x * 0.02, -parallax.y * 0.015, 0)
     setU(mats.front, 'uTime', t)
     setU(mats.front, 'uPixelRatio', state.viewport.dpr)
     setU(mats.front, 'uScale', Math.max(0.6, worldH / 3))
@@ -389,8 +424,9 @@ export function HeroPortal({ tier }: { tier: 'low' | 'medium' | 'high' }) {
     cards.current.forEach((c, i) => {
       if (!c) return
       const cfg = HOLO_CARDS[i]!
-      c.position.set(cfg.pos[0], cfg.pos[1] + Math.sin(t * 0.9 + i * 2.1) * 0.012, cfg.pos[2])
-      c.rotation.set(cfg.rot[0] + Math.sin(t * 0.6 + i) * 0.03, cfg.rot[1] + Math.cos(t * 0.5 + i) * 0.04, cfg.rot[2])
+      const depth = PANEL_DEPTH[i % PANEL_DEPTH.length]!
+      c.position.set(cfg.pos[0] + parallax.x * depth, cfg.pos[1] + parallax.y * depth * 0.6 + Math.sin(t * 0.9 + i * 2.1) * 0.012, cfg.pos[2])
+      c.rotation.set(cfg.rot[0] + Math.sin(t * 0.6 + i) * 0.03 - parallax.y * 0.06, cfg.rot[1] + Math.cos(t * 0.5 + i) * 0.04 + parallax.x * 0.1, cfg.rot[2])
     })
     mats.cards.forEach((m, i) => {
       m.uniforms.uTime!.value = t
@@ -437,6 +473,21 @@ export function HeroPortal({ tier }: { tier: 'low' | 'medium' | 'high' }) {
     <>
       <group ref={root} visible={false}>
         <group ref={inner}>
+          {/* dynamic blue / purple light pools — behind the photo plane */}
+          {[0, 1].map(i => (
+            <mesh
+              key={i}
+              ref={el => {
+                if (el) lights.current[i] = el
+              }}
+              position={[i === 0 ? -0.24 : 0.24, i === 0 ? 0.3 : -0.08, -0.55]}
+              renderOrder={-3}
+              material={mats.lights[i]}
+            >
+              <planeGeometry args={[1.1, 1.1]} />
+            </mesh>
+          ))}
+
           {/* back glow */}
           <mesh position={[0, 0.12, -0.6]} renderOrder={-3}>
             <planeGeometry args={[1.8, 1.8]} />
@@ -533,7 +584,7 @@ export function HeroPortal({ tier }: { tier: 'low' | 'medium' | 'high' }) {
           <points geometry={front} material={mats.front} renderOrder={4} frustumCulled={false} />
 
           {/* converging particle dust (clamped behind the photo in the shader) */}
-          <points geometry={dust} renderOrder={2} frustumCulled={false}>
+          <points ref={dustPts} geometry={dust} renderOrder={2} frustumCulled={false}>
             <shaderMaterial
               ref={dustMat}
               vertexShader={dustVert}

@@ -139,22 +139,47 @@ export function NexusHero({ config, name, title, tagline, roles, text, portrait,
       const mm = gsap.matchMedia()
 
       // Pointer depth: layers drift at different depths (fine pointers only)
-      mm.add('(hover: hover) and (pointer: fine)', () => {
+      // Interactive parallax portrait (mouse/pen only — never on touch, never with reduced motion).
+      // Every layer eases toward its target (quickTo = damped), so nothing tracks the cursor directly.
+      mm.add('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)', () => {
         const layers = (q('[data-depth]') as HTMLElement[]).map(n => ({
-          x: gsap.quickTo(n, 'x', { duration: 1.2, ease: 'power3' }),
-          y: gsap.quickTo(n, 'y', { duration: 1.2, ease: 'power3' }),
+          x: gsap.quickTo(n, 'x', { duration: 1.4, ease: 'power3' }),
+          y: gsap.quickTo(n, 'y', { duration: 1.4, ease: 'power3' }),
           d: Number(n.dataset.depth) || 0,
         }))
-        const onMove = (e: PointerEvent) => {
-          const nx = (e.clientX / window.innerWidth) * 2 - 1
-          const ny = (e.clientY / window.innerHeight) * 2 - 1
+        // Portrait: small natural turn toward the visitor — max 3° yaw / 2° pitch, a few px of drift.
+        // A rigid 3D rotation of the whole photo (no warping, no per-pixel change).
+        const photo = stage.current
+        let tilt: { ry: (v: number) => void; rx: (v: number) => void; x: (v: number) => void } | null = null
+        if (photo) {
+          gsap.set(photo, { transformPerspective: 1400, transformOrigin: '50% 60%' })
+          tilt = {
+            ry: gsap.quickTo(photo, 'rotationY', { duration: 1.8, ease: 'power3' }),
+            rx: gsap.quickTo(photo, 'rotationX', { duration: 1.8, ease: 'power3' }),
+            x: gsap.quickTo(photo, 'x', { duration: 1.8, ease: 'power3' }),
+          }
+        }
+        const apply = (nx: number, ny: number) => {
           layers.forEach(l => {
             l.x(-nx * l.d)
             l.y(-ny * l.d)
           })
+          tilt?.ry(nx * 3)
+          tilt?.rx(-ny * 2)
+          tilt?.x(nx * 5)
         }
-        window.addEventListener('pointermove', onMove)
-        return () => window.removeEventListener('pointermove', onMove)
+        const onMove = (e: PointerEvent) => {
+          if (e.pointerType === 'touch') return
+          apply((e.clientX / window.innerWidth) * 2 - 1, (e.clientY / window.innerHeight) * 2 - 1)
+        }
+        const onLeave = () => apply(0, 0)
+        window.addEventListener('pointermove', onMove, { passive: true })
+        document.documentElement.addEventListener('pointerleave', onLeave)
+        return () => {
+          window.removeEventListener('pointermove', onMove)
+          document.documentElement.removeEventListener('pointerleave', onLeave)
+          if (photo) gsap.set(photo, { clearProps: 'transform' })
+        }
       })
 
       // Scroll: the hero recedes while the camera pushes into the universe
