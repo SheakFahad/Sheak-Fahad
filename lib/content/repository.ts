@@ -11,9 +11,7 @@ import type { ContentSnapshot, MediaRef, Publishable, SiteSection, SocialLink } 
  * through RLS (see docs/PROJECT_ARCHITECTURE.md §3) — callers do not change.
  */
 
-export function isSupabaseConfigured(): boolean {
-  return Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
-}
+export { isSupabaseConfigured } from '@/lib/env'
 
 const isPubliclyListed = (row: Publishable) => row.status === 'published' && row.visibility === 'public'
 const isPubliclyReachable = (row: Publishable) =>

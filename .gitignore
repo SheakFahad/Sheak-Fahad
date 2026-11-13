@@ -27,3 +27,6 @@ coverage/
 
 # owner-provided source photos (kept untouched, not committed)
 /Fahad image/
+
+# AI-drawn storyboard (planning reference only, never published)
+/kkkkk.png
